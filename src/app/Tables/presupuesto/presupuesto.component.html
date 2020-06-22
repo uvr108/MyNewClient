@@ -1,0 +1,63 @@
+<div class="jumbotron" style=" width: auto; margin-left: '5px'; margin-right: '5px'; margin-top: '5px'">
+  <span><button type="button" class="btn btn-outline-light text-dark btn-sm" (click) = "mostra()">+</button>
+    <button class="btn btn-light btn-sm" data-toggle="modal" data-target="#myModal" (click) = "marcar_nuevo()">{{table}} ({{total}})</button></span>
+  <span *ngIf="presupuesto">
+      <br>
+      <span><button type="button" class="btn btn-outline-light text-dark btn-sm">t</button></span>
+      <span *ngFor="let c of cabecera">{{c}}&nbsp;</span>
+
+      <br>
+
+      <span *ngFor="let pad of padre">
+        <span><button type="button" class="btn btn-outline-light text-dark btn-sm" (click) = "sgte(pad[0])">+</button></span>
+        <span *ngFor="let p of pad">{{p}}&nbsp;</span>
+        <span><button type="button" class="btn btn-outline-light text-dark btn-sm"
+          data-toggle="modal" data-target="#myModal" (click) = "marcar_nuevo(pad)">*</button></span>
+      <br>
+      <app-item *ngIf = "next" [ref] = "ref" [id] = "pad[0]"></app-item>
+      </span>
+
+
+</span>
+</div>
+
+<div  class="modal fade" id="myModal">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title" *ngIf="editTabla">Editar/Borrar en {{table}}</h4>
+        <h4 class="modal-title" *ngIf="!editTabla">Ingresar en {{table}}</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body">
+
+    <form [formGroup]="listForm">
+
+        <input *ngIf="editTabla" type="hidden" formControlName="id">
+
+
+          <span *ngFor="let c of compon | keyvalue">
+               <span *ngIf="c.key!='id'">
+                {{c.key}} : <input *ngIf = "c.key != 'hidden'" type="{{c.value}}" formControlName="{{c.key}}"> <br>
+               </span>
+          </span>
+
+
+    </form>
+  </div>
+
+  <!-- Modal footer -->
+  <div class="modal-footer">
+    <button *ngIf="!editTabla" class="btn btn-info btn-sm" type="button"  [disabled]="!listForm.valid" (click)="agregar()">Agregar</button>&nbsp;
+    <button *ngIf="editTabla" class="btn btn-info btn-sm" type="button"  (click)="editar()">Editar</button>&nbsp;
+    <button *ngIf="editTabla" class="btn btn-info btn-sm" type="button"  data-dismiss="modal" (click)="borrar()">Borrar</button>&nbsp;
+    <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal">Close</button>
+  </div>
+
+</div>
+</div>
+</div>

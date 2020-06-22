@@ -119,6 +119,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "MyNewClient"
+    }
+  },
+  "defaultProject": "MyNewClient",
+  "cli": {
+    "analytics": false
+  }
 }

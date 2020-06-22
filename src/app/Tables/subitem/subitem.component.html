@@ -1,0 +1,15 @@
+<div  style="margin-left: '25px'; margin-top: '10px'">
+  <p><button type="button" class="btn btn-outline-light text-dark" (click) = "mostra()">+</button>SubItem</p>
+  <span *ngIf="subitem">
+      <span *ngFor="let c of cabecera">{{c}}&nbsp;</span>
+      <br>
+      <span *ngFor="let pad of padre">
+        <span *ngFor="let p of pad">{{p}}&nbsp;</span>
+        <span><button type="button" class="btn btn-outline-light text-dark">*</button></span>
+      <br>
+      <app-solicitud [ref] = "pad[0]"></app-solicitud>
+      </span>
+
+
+</span>
+</div>

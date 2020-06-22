@@ -1,0 +1,22 @@
+<div *ngIf="ref===id" style="width: '100%'; ; margin-left: '25px'">
+  <span><button type="button" class="btn btn-outline-light text-dark btn-sm" (click) = "mostra()">+</button>
+    <button class="btn btn-light btn-sm">Item ({{total}})</button></span>
+  <span *ngIf="item">
+    <br>
+      <span><button type="button" class="btn btn-outline-light text-dark btn-sm">*</button></span>
+      <span *ngFor="let c of cabecera">{{c}}&nbsp;</span>
+
+      <br>
+
+      <span *ngFor="let pad of padre">
+        <span><button type="button" class="btn btn-outline-light text-dark btn-sm">+</button></span>
+        <span *ngFor="let p of pad">{{p}}&nbsp;</span>
+        <span><button type="button" class="btn btn-outline-light text-dark btn-sm">*</button></span>
+
+      <br>
+      <!--app-item [ref] = "pad[0]"></app-item-->
+      </span>
+
+
+</span>
+</div>
