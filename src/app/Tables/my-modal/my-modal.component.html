@@ -1,0 +1,65 @@
+<!--div><button class="btn btn-light btn-sm" data-toggle="modal" data-target="#myModal">Ingresar</button></div-->
+
+<div  class="modal fade" id="myModal">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title" *ngIf="!editTabla">Ingresar en {{table}}</h4>
+        <h4 class="modal-title" *ngIf="editTabla">Editar/Borrar en {{table}}</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body">
+
+<form [formGroup]="listForm" >
+
+    <div *ngIf="back">
+    <div *ngFor="let b of back | keyvalue">
+    <p><b>{{b['key']}}-></b>&nbsp;
+    <select formControlName="{{b['key']}}">
+      <option [ngValue]="null" disabled>&nbsp;</option>
+      <option *ngFor="let s of seleccion[b['key']]"
+      [ngValue]="s['id']">{{s['nombre']}}</option>
+    </select>
+    </p>
+    </div>
+  </div>
+
+  <!--
+    <p>padre : {{padre | json}}</p>
+    <p>hijo :  {{hijo | json}}</p>
+
+      <p>compon {{compon | json}}</p>
+      <p>lgroup {{lgroup | json}}</p>
+      <p>param {{param | json}}</p>
+  -->
+
+      <span *ngFor="let c of compon | keyvalue; index as i">
+
+       <span *ngIf="c['value'] != 'hidden'">{{c['key']}}</span>&nbsp;
+       <span *ngIf="c['value'] != 'hidden'"><input type="{{c['value']}}"  formControlName="{{c['key']}}"/></span>
+       <hr *ngIf="c['value'] != 'hidden'">
+      </span>
+
+
+</form>
+
+</div>
+
+<!-- Modal footer -->
+<div class="modal-footer">
+  <button *ngIf="!editTabla" class="btn btn-info btn-sm" type="button" (click) = "ingresar()"
+       [disabled]="!listForm.valid">Agregar</button>&nbsp;
+  <button *ngIf="editTabla" class="btn btn-info btn-sm" type="button"
+       [disabled]="!listForm.valid" (click)="editar()">Editar</button>&nbsp;
+  <button *ngIf="editTabla" class="btn btn-info btn-sm" type="button"
+       [disabled]="!listForm.valid" (click)="borrar()">Borrar</button>&nbsp;
+  <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal">Close</button>
+</div>
+
+</div>
+</div>
+</div>
