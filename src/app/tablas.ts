@@ -6,7 +6,7 @@ export const TABLAS: object = {
     next : 'Item',
     back : null,
     lgroup: { id: [''], nombre: ['', Validators.required] },
-    compon: { id: 'hidden', nombre: 'text' }
+    compon: { id: 'hidden', nombre: 'text', monto: 'hidden' }
   }
 
 , Item: {

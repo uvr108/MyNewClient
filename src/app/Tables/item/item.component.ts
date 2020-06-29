@@ -1,9 +1,7 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { MyModalComponent } from './../my-modal/my-modal.component';
+import { Component, OnInit, Input, ComponentFactoryResolver, ViewChild, ViewContainerRef } from '@angular/core';
 import { CrudService } from '../../shared/crud.service';
-import { ActivatedRoute } from '@angular/router';
-
-import { FormBuilder, Validators, FormGroup } from '@angular/forms';
-import { TABLAS } from './../../tablas';
+import { FormBuilder,  FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-item',
@@ -14,29 +12,46 @@ export class ItemComponent implements OnInit {
 
   @Input() ref: string = null;
   @Input() id: string = null;
+  @ViewChild('messagecontainer', { read: ViewContainerRef }) entry: ViewContainerRef;
+
 
   item = false;
+  table = 'Item';
   total = 0;
-  cabecera = [];
   padre = [];
+  flag = true;
+
+  componentRef: any;
+
   lgroup: Array<string>;
   compon: Array<string>;
-  flag = true;
-  Tablas = TABLAS;
 
   nuevo = false;
-  editTabla = true;
+  // editTabla: false;
   listForm: FormGroup;
 
-  constructor( private crudService: CrudService, private route: ActivatedRoute, private fb: FormBuilder) { }
-  ngOnInit(): void {
-    this.load();
+  cabecera = [];
+
+  mostra() {
+    this.item = this.item === true ? false : true;
+
   }
+
+  constructor( private crudService: CrudService, private resolver: ComponentFactoryResolver , private fb: FormBuilder) { }
+
+
+  ngOnInit(): void {
+      console.log(`onInit() item : ref -> ${this.ref} id -> ${this.id}`);
+      this.load();
+
+
+  }
+
   load(): void {
 
-    // console.log(`load() Master : table ${this.table} fk : ${this.fk}`);
+    console.log(`load() item: table ${this.table} fk -> ${this.ref} id -> ${this.id}`);
 
-    this.crudService.GetData('item', this.ref)
+    this.crudService.GetData('item', this.id)
     .subscribe(data => {
       // console.log(data);
       this.padre = [];
@@ -55,39 +70,22 @@ export class ItemComponent implements OnInit {
     });
 }
 
-mostra() {
-  this.item = this.item === true ? false : true;
-}
+// agregar
+
+activa_modal(table: string, ref: string, editTabla: boolean) {
 
 
-marcar_nuevo() {
-  this.updateTabla();
-  this.nuevo = this.nuevo === true ? false : true;
-  this.editTabla = false;
-}
+  if (table) {
+      this.entry.clear();
+      console.log(`activa_modal : table -> ${table}`);
+      const factory = this.resolver.resolveComponentFactory(MyModalComponent);
+      this.componentRef = this.entry.createComponent(factory);
+      this.componentRef.instance.table = table;
+      this.componentRef.instance.editTabla = editTabla;
+      this.componentRef.instance.fk = ref;
 
-updateTabla(msg: object = null) {
-  const js = this.lgroup;
-  let cont = 0;
-  if (msg === null) { this.limpiar(); } else {
-    for (const [key, value] of Object.entries(this.lgroup)) {
-        js[key] = msg[cont];
-        // console.log(`updateTable() master : key -> ${JSON.stringify(key)} msg[cont] -> ${msg[cont]}`);
-        cont += 1;
-    }
-    // console.log(`updateTable() master : js -> ${JSON.stringify(js)}`);
-    this.listForm.patchValue(js);
-  }
-}
+      }
 
-
-limpiar() {
-  const dict = {};
-  // tslint:disable-next-line: forin
-  for (const k in this.lgroup) {
-    dict[k] = null;
-  }
-  this.listForm.patchValue(dict);
 }
 
 }

@@ -42,14 +42,14 @@ httpOptions = {
     }
 }
 // PUT
-Update(id: string, tab: {}, table: string): Observable<{}> {
+update(id: string, tab: {}, table: string): Observable<{}> {
   // console.log(`crud Update() url -> ${this.baseurl} + '/api/' + ${table} + '/' + ${id}`);
   // console.log(`crud Update() tab -> ${JSON.stringify(tab)}`);
   return this.http.put<{}>(this.baseurl + '/api/' + table + '/' + id, tab, this.httpOptions);
 }
 
 // DELETE
-Delete(id: string, table: string) {
+delete(id: string, table: string) {
   return this.http.delete<{}>(this.baseurl + '/api/'  + table + '/' + id, this.httpOptions)
   .pipe(
     retry(1),
@@ -69,6 +69,29 @@ agregar(tabla: {}, table: string, fk: string = null): Observable<{}> {
   return this.http.post<any>(baseurl, tabla, this.httpOptions);
 }
 
+load(ref: string = null): void {
+
+  // console.log(`load() Master : table ${this.table} fk : ${this.fk}`);
+  /*
+  this.GetData(table, null)
+  .subscribe(data => {
+    // console.log(data);
+    this.padre = [];
+    data.forEach((f) => {
+      const subresult = [];
+      // console.log(f);
+      for (const [key, value] of Object.entries(f)) {
+        if (this.flag) {this.cabecera.push(key); }
+        subresult.push(value);
+    }
+      this.padre.push(subresult);
+      this.flag = false;
+});
+    this.total = this.padre.length;
+    // console.log(`load() Master padre : ${JSON.stringify(this.padre)}`);
+  });
+  */
+}
 
 // Error handling
 errorHandl(error) {

@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { MyModalComponent } from './../my-modal/my-modal.component';
+import { Component, OnInit, Input, ComponentFactoryResolver, ViewChild, ViewContainerRef } from '@angular/core';
 import { CrudService } from '../../shared/crud.service';
-import { ActivatedRoute } from '@angular/router';
-import { FormBuilder, Validators, FormGroup } from '@angular/forms';
+import { FormBuilder,  FormGroup } from '@angular/forms';
 import { TABLAS } from './../../tablas';
 
 @Component({
@@ -11,9 +11,12 @@ import { TABLAS } from './../../tablas';
 })
 export class PresupuestoComponent implements OnInit {
 
+  @ViewChild('messagecontainer', { read: ViewContainerRef }) entry: ViewContainerRef;
+
   presupuesto = false;
   next = false;
   ref: string = null;
+  id: string = null;
   total = 0;
   cabecera = [];
   padre = [];
@@ -25,20 +28,14 @@ export class PresupuestoComponent implements OnInit {
   fk: string = null;
 
   nuevo = false;
-  editTabla = true;
+
   listForm: FormGroup;
+  componentRef: any;
 
-  constructor( private crudService: CrudService, private route: ActivatedRoute, private fb: FormBuilder) { }
+  constructor( private crudService: CrudService,
+               private resolver: ComponentFactoryResolver,
+               private fb: FormBuilder) { }
   ngOnInit(): void {
-    this.load();
-    this.lgroup = this.Tablas[this.table].lgroup;
-    this.compon = this.Tablas[this.table].compon;
-    this.listForm = this.fb.group(this.lgroup);
-  }
-  load(): void {
-
-    // console.log(`load() Master : table ${this.table} fk : ${this.fk}`);
-
     this.crudService.GetData(this.table, null)
     .subscribe(data => {
       // console.log(data);
@@ -54,91 +51,40 @@ export class PresupuestoComponent implements OnInit {
         this.flag = false;
   });
       this.total = this.padre.length;
-      console.log(`load() Master padre : ${JSON.stringify(this.padre)}`);
+      // console.log(`load() Master padre : ${JSON.stringify(this.padre)}`);
     });
-}
+    // this.lgroup = this.Tablas[this.table].lgroup;
+    // this.compon = this.Tablas[this.table].compon;
+    // this.listForm = this.fb.group(this.lgroup);
+  }
+
+  sgte(ref: string) {
+    // alert(ref);
+    this.ref = ref;
+    // this.next = true;
+    this.next = this.next  === true ? false : true;
+  }
+
+
 
 mostra() {
   this.presupuesto = this.presupuesto === true ? false : true;
 }
 
-// agregar
-
-agregar() {
-
-  console.log(`onSubmit() Master : lform ${JSON.stringify(this.listForm.value)} table ${this.table} fk ${this.fk}`);
-
-  this.crudService
-  .agregar(this.listForm.value, this.table, this.fk)
-  .subscribe(() => {
-    this.load();
-    this.updateTabla();
-  } );
-
-}
-
-sgte(ref: string) {
-  // alert(ref);
-  this.ref = ref;
-  // this.next = true;
-  this.next = this.next  === true ? false : true;
-}
-
-marcar_nuevo(pad: Array<any> = null) {
-  console.log(pad);
-  this.updateTabla(pad);
-  this.nuevo = this.nuevo === true ? false : true;
-  this.editTabla = ( (pad) ? true : false);
-}
-
-updateTabla(msg: object = null) {
-  const js = this.lgroup;
-  console.log(JSON.stringify(js));
-  let cont = 0;
-  if (msg === null) { this.limpiar(); } else {
-    for (const [key, value] of Object.entries(this.lgroup)) {
-        js[key] = msg[cont];
-        console.log(`updateTable() master : key -> ${JSON.stringify(key)} msg[cont] -> ${msg[cont]}`);
-        cont += 1;
-    }
-    console.log(`updateTable() master : js -> ${JSON.stringify(js)}`);
-    this.listForm.patchValue(js);
-  }
-}
+activa_modal(table: string, param: string, editTabla: boolean) {
 
 
-limpiar() {
-  const dict = {};
-  // tslint:disable-next-line: forin
-  for (const k in this.lgroup) {
-    dict[k] = null;
-  }
-  this.listForm.patchValue(dict);
-}
+  if (table) {
+      this.entry.clear();
+      console.log(`activa_modal() presupuesto : table -> ${table} param -> ${JSON.stringify(param)} editTabla -> ${editTabla}`);
+      const factory = this.resolver.resolveComponentFactory(MyModalComponent);
+      this.componentRef = this.entry.createComponent(factory);
+      this.componentRef.instance.table = table;
+      this.componentRef.instance.editTabla = editTabla;
+      this.componentRef.instance.param = param;
 
-// editar
+      }
 
-editar() {
-  const list = this.listForm.value;
-  // tslint:disable-next-line: no-string-literal
-  const id = list['id'];
-
-  this.crudService.
-  Update(id, this.listForm.value, this.table).
-  subscribe(() => this.load());
-}
-
-
-// borrar
-
-borrar() {
-  const list = this.listForm.value;
-  // tslint:disable-next-line: no-string-literal
-  const id = list['id'];
-
-  this.crudService.Delete(id, this.table).subscribe(() => this.load());
-
-  // this.cerrar();
 }
 
 }

@@ -19,6 +19,7 @@ import { HttpClientModule } from '@angular/common/http';
 import {NgxPaginationModule} from 'ngx-pagination';
 import { SubitemComponent } from './Tables/subitem/subitem.component';
 import { SolicitudComponent } from './Tables/solicitud/solicitud.component';
+import { MyModalComponent } from './Tables/my-modal/my-modal.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { SolicitudComponent } from './Tables/solicitud/solicitud.component';
     PresupuestoComponent,
     ItemComponent,
     SubitemComponent,
-    SolicitudComponent
+    SolicitudComponent,
+    MyModalComponent
   ],
   imports: [
     BrowserModule,

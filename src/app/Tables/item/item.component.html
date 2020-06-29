@@ -1,17 +1,21 @@
 <div *ngIf="ref===id" style="width: '100%'; ; margin-left: '25px'">
-  <span><button type="button" class="btn btn-outline-light text-dark btn-sm" (click) = "mostra()">+</button>
-    <button class="btn btn-light btn-sm">Item ({{total}})</button></span>
+  <span><button type="button" class="btn btn-outline-light text-dark btn-sm"
+    (click) = "mostra()">+</button>{{table}} ({{total}})
+    <button *ngIf="item" class="btn btn-light btn-sm" data-toggle="modal" data-target="#myModal"
+    (click) = "activa_modal('Item', ref, false)">*</button></span>
   <span *ngIf="item">
     <br>
-      <span><button type="button" class="btn btn-outline-light text-dark btn-sm">*</button></span>
+      <span><template #messagecontainer></template></span>
       <span *ngFor="let c of cabecera">{{c}}&nbsp;</span>
 
       <br>
 
       <span *ngFor="let pad of padre">
-        <span><button type="button" class="btn btn-outline-light text-dark btn-sm">+</button></span>
+        <span><button type="button" class="btn btn-outline-light text-dark btn-sm">x+</button></span>
         <span *ngFor="let p of pad">{{p}}&nbsp;</span>
-        <span><button type="button" class="btn btn-outline-light text-dark btn-sm">*</button></span>
+        <span><button type="button" class="btn btn-outline-light text-dark btn-sm"
+          data-toggle="modal" data-target="#myModal" (click) = "activa_modal('Item', ref, true)"
+          >*</button></span>
 
       <br>
       <!--app-item [ref] = "pad[0]"></app-item-->
@@ -20,3 +24,5 @@
 
 </span>
 </div>
+
+
