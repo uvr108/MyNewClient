@@ -54,10 +54,9 @@ export class MyModalComponent implements OnInit {
 
 limpiar() {
   const dict = {};
-  // tslint:disable-next-line: forin
-  for (const k in this.lgroup) {
-    dict[k] = null;
-  }
+
+  for (const [key, value] of Object.entries(this.lgroup)) { dict[key] = null; }
+
   this.listForm.patchValue(dict);
 }
 
