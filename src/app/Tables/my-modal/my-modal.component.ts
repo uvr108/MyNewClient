@@ -1,7 +1,8 @@
-import { Component, OnInit, Input, ViewChild, ViewContainerRef } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { FormBuilder,  FormGroup } from '@angular/forms';
 import { CrudService } from '../../shared/crud.service';
 import { TABLAS } from './../../tablas';
+
 
 @Component({
   selector: 'app-my-modal',
@@ -13,6 +14,7 @@ export class MyModalComponent implements OnInit {
   @Input() editTabla: boolean;
   @Input() table: string;
   @Input() param: string;
+  @Output() enviar = new EventEmitter<string>();
 
   Tablas = TABLAS;
 
@@ -60,6 +62,10 @@ limpiar() {
   this.listForm.patchValue(dict);
 }
 
+message(msg: string) {
+  console.log(`message() my-modal : msg -> ${msg}`);
+  this.enviar.emit(msg);
+}
 
   editar() {
     const list = this.listForm.value;
@@ -69,7 +75,7 @@ limpiar() {
     this.crudService.
     update(id, this.listForm.value, this.table).
     subscribe();
-
+    this.message('hola');
   }
 
 

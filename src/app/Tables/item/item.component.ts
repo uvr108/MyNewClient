@@ -2,6 +2,7 @@ import { MyModalComponent } from './../my-modal/my-modal.component';
 import { Component, OnInit, Input, ComponentFactoryResolver, ViewChild, ViewContainerRef } from '@angular/core';
 import { CrudService } from '../../shared/crud.service';
 import { FormBuilder,  FormGroup } from '@angular/forms';
+import { TABLAS } from './../../tablas';
 
 @Component({
   selector: 'app-item',
@@ -9,49 +10,32 @@ import { FormBuilder,  FormGroup } from '@angular/forms';
   styleUrls: ['./item.component.css']
 })
 export class ItemComponent implements OnInit {
-
   @Input() ref: string = null;
   @Input() id: string = null;
   @ViewChild('messagecontainer', { read: ViewContainerRef }) entry: ViewContainerRef;
 
-
   item = false;
-  table = 'Item';
+  next = false;
   total = 0;
+  cabecera = [];
   padre = [];
-  flag = true;
-
-  componentRef: any;
-
   lgroup: Array<string>;
   compon: Array<string>;
+  flag = true;
+  Tablas = TABLAS;
+  table = 'Item';
+  fk: string = null;
 
   nuevo = false;
-  // editTabla: false;
+
   listForm: FormGroup;
+  componentRef: any;
 
-  cabecera = [];
-
-  mostra() {
-    this.item = this.item === true ? false : true;
-
-  }
-
-  constructor( private crudService: CrudService, private resolver: ComponentFactoryResolver , private fb: FormBuilder) { }
-
-
+  constructor( private crudService: CrudService,
+               private resolver: ComponentFactoryResolver,
+               private fb: FormBuilder) { }
   ngOnInit(): void {
-      console.log(`onInit() item : ref -> ${this.ref} id -> ${this.id}`);
-      this.load();
-
-
-  }
-
-  load(): void {
-
-    console.log(`load() item: table ${this.table} fk -> ${this.ref} id -> ${this.id}`);
-
-    this.crudService.GetData('item', this.id)
+    this.crudService.GetData(this.table, this.id)
     .subscribe(data => {
       // console.log(data);
       this.padre = [];
@@ -66,26 +50,43 @@ export class ItemComponent implements OnInit {
         this.flag = false;
   });
       this.total = this.padre.length;
-      // console.log(`load() Master padre ${JSON.stringify(this.padre)}`);
+      // console.log(`load() Master padre : ${JSON.stringify(this.padre)}`);
     });
+  }
+
+  sgte(ref: string) {
+    console.log(`sgte() item : ref -> ${ref}`);
+
+    // this.ref = ref;
+    // this.next_item = true;
+    this.next = this.next  === true ? false : true;
+  }
+
+mostra() {
+  this.item = this.item === true ? false : true;
 }
 
-// agregar
+ enviar(msg: string) {
+   console.log(`enviar() presupuesto : msg -> ${msg} `);
+ }
 
-activa_modal(table: string, ref: string, editTabla: boolean) {
+activa_modal(table: string, param: string, editTabla: boolean) {
 
 
   if (table) {
       this.entry.clear();
-      console.log(`activa_modal : table -> ${table}`);
+      console.log(`activa_modal() item : table -> ${table}
+      param -> ${JSON.stringify(param)}
+      editTabla -> ${editTabla}`);
       const factory = this.resolver.resolveComponentFactory(MyModalComponent);
       this.componentRef = this.entry.createComponent(factory);
       this.componentRef.instance.table = table;
       this.componentRef.instance.editTabla = editTabla;
-      this.componentRef.instance.fk = ref;
+      this.componentRef.instance.param = param;
 
       }
 
 }
+
 
 }

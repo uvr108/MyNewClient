@@ -25,7 +25,7 @@ export class PresupuestoComponent implements OnInit {
   flag = true;
   Tablas = TABLAS;
   table = 'Presupuesto';
-  fk: string = null;
+  // fk: string = null;
 
   nuevo = false;
 
@@ -53,30 +53,31 @@ export class PresupuestoComponent implements OnInit {
       this.total = this.padre.length;
       // console.log(`load() Master padre : ${JSON.stringify(this.padre)}`);
     });
-    // this.lgroup = this.Tablas[this.table].lgroup;
-    // this.compon = this.Tablas[this.table].compon;
-    // this.listForm = this.fb.group(this.lgroup);
   }
 
   sgte(ref: string) {
     // alert(ref);
     this.ref = ref;
-    // this.next = true;
+    // this.next_presupuesto = true;
     this.next = this.next  === true ? false : true;
   }
-
-
 
 mostra() {
   this.presupuesto = this.presupuesto === true ? false : true;
 }
+
+ enviar(msg: string) {
+   console.log(`enviar() presupuesto : msg -> ${msg} `);
+ }
 
 activa_modal(table: string, param: string, editTabla: boolean) {
 
 
   if (table) {
       this.entry.clear();
-      console.log(`activa_modal() presupuesto : table -> ${table} param -> ${JSON.stringify(param)} editTabla -> ${editTabla}`);
+      console.log(`activa_modal() presupuesto : table -> ${table}
+      param -> ${JSON.stringify(param)}
+      editTabla -> ${editTabla}`);
       const factory = this.resolver.resolveComponentFactory(MyModalComponent);
       this.componentRef = this.entry.createComponent(factory);
       this.componentRef.instance.table = table;

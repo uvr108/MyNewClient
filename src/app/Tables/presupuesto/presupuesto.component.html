@@ -1,8 +1,8 @@
-<div style="width: '100%'; ; margin-left: '25px'">
+<div style="width: '100%';  margin-left: '25px'">
   <span><button type="button" class="btn btn-outline-light text-dark btn-sm"
     (click) = "mostra()">+</button>Presupuesto ({{total}})
     <button *ngIf="presupuesto" class="btn btn-light btn-sm" data-toggle="modal" data-target="#myModal"
-    (click) = "activa_modal(table, null, false)">d*</button></span>
+    (click) = "activa_modal(table, null, false)">*</button></span>
   <span *ngIf="presupuesto">
     <br>
       <span><template #messagecontainer></template></span>
@@ -16,7 +16,7 @@
         <span *ngFor="let p of pad">{{p}}&nbsp;</span>
         <span><button type="button" class="btn btn-outline-light text-dark btn-sm"
           data-toggle="modal" data-target="#myModal" (click) = "activa_modal(table, pad, true)"
-          >s*</button></span>
+          >*</button></span>
 
       <br>
 
