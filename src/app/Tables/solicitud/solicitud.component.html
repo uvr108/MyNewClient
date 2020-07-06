@@ -1,8 +1,8 @@
-<div  style="width: '100%'; ; margin-left: '25px'">
+<div  style="width: '100%'; margin-left: '25px'">
   <!--p>({{ref}} === {{id}})</!--p-->
   <span><button type="button" class="btn btn-outline-light text-dark btn-sm"
-    (click) = "mostra()">+</button>SubItem ({{total}})
-    <button *ngIf="solicitud" class="btn btn-light btn-sm" data-toggle="modal" data-target="#myModal"
+    (click) = "mostra()">+</button>Solicitud ({{total}})
+    <button *ngIf="solicitud" class="btn btn-light btn-sm" data-toggle="modal" data-target="#Solicitud"
     (click) = "activa_modal(table, null, false)">*</button></span>
   <span *ngIf="solicitud">
     <br>
@@ -15,7 +15,7 @@
         <span>=>&nbsp;</span>
         <span *ngFor="let p of pad">{{p}}&nbsp;</span>
         <span><button type="button" class="btn btn-outline-light text-dark btn-sm"
-          data-toggle="modal" data-target="#myModal" (click) = "activa_modal(table, pad, true)"
+          data-toggle="modal" data-target="#Solicitud" (click) = "activa_modal(table, pad, true)"
           >*</button></span>
 
       <br>

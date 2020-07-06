@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { FormBuilder,  FormGroup } from '@angular/forms';
 import { CrudService } from '../../shared/crud.service';
 import { TABLAS } from './../../tablas';
@@ -14,7 +14,8 @@ export class MyModalComponent implements OnInit {
   @Input() editTabla: boolean;
   @Input() table: string;
   @Input() param: string;
-  @Output() enviar = new EventEmitter<string>();
+  @Input() back: string;
+  @Input() seleccion: object = {};
 
   Tablas = TABLAS;
 
@@ -27,8 +28,6 @@ export class MyModalComponent implements OnInit {
   total = 0;
   mostra: false;
   componentRef: any;
-  seleccion: object = {};
-  back: Array<string> = null;
 
   constructor( private crudService: CrudService, private fb: FormBuilder ) { }
 
@@ -42,8 +41,8 @@ export class MyModalComponent implements OnInit {
        this.param = this.param + '/' + this.listForm.value[k].toString();
      });
      }
-    console.log(`onSubmit() : my-modal -> ref : ${this.param} table -> ${this.table}`);
-    console.log(`onSubmit() : my-modal -> listForm -> ${JSON.stringify(this.listForm.value)}`);
+    // console.log(`onSubmit() : my-modal -> ref : ${this.param} table -> ${this.table}`);
+    // console.log(`onSubmit() : my-modal -> listForm -> ${JSON.stringify(this.listForm.value)}`);
 
 
     this.crudService.agregar(this.listForm.value, this.table,  this.param).
@@ -62,20 +61,14 @@ limpiar() {
   this.listForm.patchValue(dict);
 }
 
-message(msg: string) {
-  console.log(`message() my-modal : msg -> ${msg}`);
-  this.enviar.emit(msg);
-}
-
   editar() {
     const list = this.listForm.value;
     const id = list.id;
-    console.log(`editar() my-modal list -> ${JSON.stringify(list)} id -> ${id}`);
+    // console.log(`editar() my-modal list -> ${JSON.stringify(list)} id -> ${id}`);
 
     this.crudService.
     update(id, this.listForm.value, this.table).
     subscribe();
-    this.message('hola');
   }
 
 
@@ -91,8 +84,6 @@ message(msg: string) {
     // this.cerrar();
   }
 
-
-
   ngOnInit(): void {
 
     console.log(`ngOnInit() my-modal : table -> ${this.table}
@@ -102,7 +93,7 @@ message(msg: string) {
     this.lgroup = this.Tablas[this.table].lgroup;
     this.compon = this.Tablas[this.table].compon;
 
-    console.log(`ngOnInit() presupuesto compon -> ${JSON.stringify(this.compon)}`);
+    // console.log(`ngOnInit() presupuesto compon -> ${JSON.stringify(this.compon)}`);
     this.listForm = this.fb.group(this.lgroup);
 
     if (this.param) {
@@ -114,6 +105,7 @@ message(msg: string) {
         // console.log(key, this.param[i], js);
         i += 1;
       }
+      console.log(`ngOnInit() my-modal.ts : js -> ${JSON.stringify(js)}`);
       this.listForm.patchValue(js);
     }
 

@@ -2,8 +2,8 @@
   <!--p>({{ref}} === {{id}})</p-->
   <span><button type="button" class="btn btn-outline-light text-dark btn-sm"
     (click) = "mostra()">+</button>Item ({{total}})
-    <button *ngIf="item" class="btn btn-light btn-sm" data-toggle="modal" data-target="#myModal"
-    (click) = "activa_modal(table, null, false)">*</button></span>
+    <button *ngIf="item" class="btn btn-light btn-sm" data-toggle="modal" data-target="#Item"
+    (click) = "activa_modal('Item', null, false)">*</button></span>
   <span *ngIf="item">
     <br>
       <span><template #messagecontainer></template></span>
@@ -16,7 +16,7 @@
           (click) = "sgte(pad[0])">+</button></span>
         <span *ngFor="let p of pad">{{p}}&nbsp;</span>
         <span><button type="button" class="btn btn-outline-light text-dark btn-sm"
-          data-toggle="modal" data-target="#myModal" (click) = "activa_modal(table, pad, true)"
+          data-toggle="modal" data-target="#Item" (click) = "activa_modal(table, pad, true)"
           >*</button></span>
 
       <br>

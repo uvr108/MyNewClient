@@ -36,6 +36,19 @@ export class PresupuestoComponent implements OnInit {
                private resolver: ComponentFactoryResolver,
                private fb: FormBuilder) { }
   ngOnInit(): void {
+
+  }
+
+  sgte(ref: string) {
+    // alert(ref);
+    this.ref = ref;
+    // this.next_presupuesto = true;
+    this.next = this.next  === true ? false : true;
+  }
+
+mostra() {
+  this.presupuesto = this.presupuesto === true ? false : true;
+  if (this.presupuesto) {
     this.crudService.GetData(this.table, null)
     .subscribe(data => {
       // console.log(data);
@@ -51,39 +64,26 @@ export class PresupuestoComponent implements OnInit {
         this.flag = false;
   });
       this.total = this.padre.length;
-      // console.log(`load() Master padre : ${JSON.stringify(this.padre)}`);
     });
   }
-
-  sgte(ref: string) {
-    // alert(ref);
-    this.ref = ref;
-    // this.next_presupuesto = true;
-    this.next = this.next  === true ? false : true;
-  }
-
-mostra() {
-  this.presupuesto = this.presupuesto === true ? false : true;
 }
-
- enviar(msg: string) {
-   console.log(`enviar() presupuesto : msg -> ${msg} `);
- }
 
 activa_modal(table: string, param: string, editTabla: boolean) {
 
-
   if (table) {
+
       this.entry.clear();
       console.log(`activa_modal() presupuesto : table -> ${table}
       param -> ${JSON.stringify(param)}
       editTabla -> ${editTabla}`);
+
+      if (this.componentRef) { console.log('Destroy componentRef'); this.componentRef.destroy(); }
+
       const factory = this.resolver.resolveComponentFactory(MyModalComponent);
       this.componentRef = this.entry.createComponent(factory);
       this.componentRef.instance.table = table;
       this.componentRef.instance.editTabla = editTabla;
       this.componentRef.instance.param = param;
-
       }
 
 }

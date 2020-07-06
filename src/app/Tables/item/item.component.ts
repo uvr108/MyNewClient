@@ -1,5 +1,6 @@
 import { MyModalComponent } from './../my-modal/my-modal.component';
-import { Component, OnInit, Input, ComponentFactoryResolver, ViewChild, ViewContainerRef } from '@angular/core';
+import { Component, OnInit, Input, ComponentFactoryResolver, ViewChild,
+   ViewContainerRef } from '@angular/core';
 import { CrudService } from '../../shared/crud.service';
 import { FormBuilder,  FormGroup } from '@angular/forms';
 import { TABLAS } from './../../tablas';
@@ -35,6 +36,20 @@ export class ItemComponent implements OnInit {
                private resolver: ComponentFactoryResolver,
                private fb: FormBuilder) { }
   ngOnInit(): void {
+
+  }
+
+  sgte(ref: string) {
+    console.log(`sgte() item : ref -> ${ref}`);
+
+    // this.ref = ref;
+    // this.next_item = true;
+    this.next = this.next  === true ? false : true;
+  }
+
+mostra() {
+  this.item = this.item === true ? false : true;
+  if (this.item) {
     this.crudService.GetData(this.table, this.id)
     .subscribe(data => {
       // console.log(data);
@@ -53,22 +68,7 @@ export class ItemComponent implements OnInit {
       // console.log(`load() Master padre : ${JSON.stringify(this.padre)}`);
     });
   }
-
-  sgte(ref: string) {
-    console.log(`sgte() item : ref -> ${ref}`);
-
-    // this.ref = ref;
-    // this.next_item = true;
-    this.next = this.next  === true ? false : true;
-  }
-
-mostra() {
-  this.item = this.item === true ? false : true;
 }
-
- enviar(msg: string) {
-   console.log(`enviar() presupuesto : msg -> ${msg} `);
- }
 
 activa_modal(table: string, param: string, editTabla: boolean) {
 
@@ -78,6 +78,9 @@ activa_modal(table: string, param: string, editTabla: boolean) {
       console.log(`activa_modal() item : table -> ${table}
       param -> ${JSON.stringify(param)}
       editTabla -> ${editTabla}`);
+
+      if (this.componentRef) { console.log('Destroy componentRef'); this.componentRef.destroy(); }
+
       const factory = this.resolver.resolveComponentFactory(MyModalComponent);
       this.componentRef = this.entry.createComponent(factory);
       this.componentRef.instance.table = table;
