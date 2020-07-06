@@ -35,23 +35,7 @@ export class SubitemComponent implements OnInit {
                private resolver: ComponentFactoryResolver,
                private fb: FormBuilder) { }
   ngOnInit(): void {
-    this.crudService.GetData(this.table, this.id)
-    .subscribe(data => {
-      // console.log(data);
-      this.padre = [];
-      data.forEach((f) => {
-        const subresult = [];
-        // console.log(f);
-        for (const [key, value] of Object.entries(f)) {
-          if (this.flag) {this.cabecera.push(key); }
-          subresult.push(value);
-      }
-        this.padre.push(subresult);
-        this.flag = false;
-  });
-      this.total = this.padre.length;
-      console.log(`load() subitem padre : ${JSON.stringify(this.padre)}`);
-    });
+    this.load();
   }
 
   sgte(ref: string) {
@@ -60,8 +44,31 @@ export class SubitemComponent implements OnInit {
     this.next = this.next  === true ? false : true;
   }
 
+load() {
+  this.crudService.GetData(this.table, this.id)
+  .subscribe(data => {
+    // console.log(data);
+    this.padre = [];
+    data.forEach((f) => {
+      const subresult = [];
+      // console.log(f);
+      for (const [key, value] of Object.entries(f)) {
+        if (this.flag) {this.cabecera.push(key); }
+        subresult.push(value);
+    }
+      this.padre.push(subresult);
+      this.flag = false;
+});
+    this.total = this.padre.length;
+    console.log(`load() subitem padre : ${JSON.stringify(this.padre)}`);
+  });
+}
+
 mostra() {
   this.subitem = this.subitem === true ? false : true;
+  if (this.subitem) {
+    this.load();
+  }
 }
 
  enviar(msg: string) {

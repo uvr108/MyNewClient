@@ -36,7 +36,7 @@ export class PresupuestoComponent implements OnInit {
                private resolver: ComponentFactoryResolver,
                private fb: FormBuilder) { }
   ngOnInit(): void {
-
+    this.load();
   }
 
   sgte(ref: string) {
@@ -46,9 +46,8 @@ export class PresupuestoComponent implements OnInit {
     this.next = this.next  === true ? false : true;
   }
 
-mostra() {
-  this.presupuesto = this.presupuesto === true ? false : true;
-  if (this.presupuesto) {
+load() {
+
     this.crudService.GetData(this.table, null)
     .subscribe(data => {
       // console.log(data);
@@ -65,6 +64,13 @@ mostra() {
   });
       this.total = this.padre.length;
     });
+
+}
+
+mostra() {
+  this.presupuesto = this.presupuesto === true ? false : true;
+  if (this.presupuesto) {
+     this.load();
   }
 }
 

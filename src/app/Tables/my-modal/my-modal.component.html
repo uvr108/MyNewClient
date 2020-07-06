@@ -18,16 +18,18 @@
     <p>back : [{{back | json}}]</p>
     <p>seleccion : [{{seleccion | json}}]</p>
     -->
+
+    ref : {{ param }}
     <span *ngIf="back">
-    <span *ngFor="let b of back | keyvalue">
-    <p>&nbsp;{{b['key']}}->{{seleccion[b['key']] | json }}&nbsp;
-    <select formControlName="{{b['key']}}">
-      <option [ngValue]="null" disabled>&nbsp;</option>
-      <option *ngFor="let s of seleccion[b['key']]" [ngValue]="s['id']">{{s['nombre']}}</option>
-    </select>
-    </p>
+        <span *ngFor="let b of back | keyvalue">
+            <p>&nbsp;{{b['key']}}->{{seleccion[b['key']] | json }}&nbsp;
+                <select formControlName="{{b['key']}}">
+                    <option [ngValue]="null" disabled>&nbsp;</option>
+                    <option *ngFor="let s of seleccion[b['key']]" [ngValue]="s['id']">{{s['nombre']}}</option>
+                </select>
+            </p>
+        </span>
     </span>
-  </span>
 
       <span *ngFor="let c of compon | keyvalue; index as i">
 

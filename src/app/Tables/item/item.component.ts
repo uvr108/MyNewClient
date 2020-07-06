@@ -36,7 +36,7 @@ export class ItemComponent implements OnInit {
                private resolver: ComponentFactoryResolver,
                private fb: FormBuilder) { }
   ngOnInit(): void {
-
+     this.load();
   }
 
   sgte(ref: string) {
@@ -48,8 +48,14 @@ export class ItemComponent implements OnInit {
   }
 
 mostra() {
-  this.item = this.item === true ? false : true;
-  if (this.item) {
+    this.item = this.item === true ? false : true;
+    if (this.item) {
+    this.load();
+    }
+}
+
+load() {
+
     this.crudService.GetData(this.table, this.id)
     .subscribe(data => {
       // console.log(data);
@@ -67,7 +73,7 @@ mostra() {
       this.total = this.padre.length;
       // console.log(`load() Master padre : ${JSON.stringify(this.padre)}`);
     });
-  }
+
 }
 
 activa_modal(table: string, param: string, editTabla: boolean) {

@@ -41,8 +41,8 @@ export class MyModalComponent implements OnInit {
        this.param = this.param + '/' + this.listForm.value[k].toString();
      });
      }
-    // console.log(`onSubmit() : my-modal -> ref : ${this.param} table -> ${this.table}`);
-    // console.log(`onSubmit() : my-modal -> listForm -> ${JSON.stringify(this.listForm.value)}`);
+    console.log(`onSubmit() : my-modal -> param : ${this.param} table -> ${this.table}`);
+    console.log(`onSubmit() : my-modal -> listForm -> ${JSON.stringify(this.listForm.value)}`);
 
 
     this.crudService.agregar(this.listForm.value, this.table,  this.param).

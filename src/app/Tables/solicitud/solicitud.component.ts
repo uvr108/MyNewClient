@@ -35,6 +35,10 @@ export class SolicitudComponent implements OnInit {
                private resolver: ComponentFactoryResolver,
                private fb: FormBuilder) { }
   ngOnInit(): void {
+     this.load();
+  }
+
+  load() {
     this.crudService.GetData(this.table, this.id)
     .subscribe(data => {
       // console.log(data);
@@ -62,7 +66,9 @@ export class SolicitudComponent implements OnInit {
 
 mostra() {
   this.solicitud = this.solicitud === true ? false : true;
-
+  if (this.solicitud) {
+    this.load();
+  }
   Object.entries(this.back).forEach(([k, v]) => {
      this.crudService.GetData(k, null).subscribe((d) => {
       this.seleccion[k] = d;
@@ -71,9 +77,6 @@ mostra() {
       } );
 }
 
- enviar(msg: string) {
-   // console.log(`enviar() subitem : msg -> ${msg} `);
- }
 
 activa_modal(table: string, param: string, editTabla: boolean) {
 

@@ -3,7 +3,7 @@
   <span><button type="button" class="btn btn-outline-light text-dark btn-sm"
     (click) = "mostra()">+</button>Item ({{total}})
     <button *ngIf="item" class="btn btn-light btn-sm" data-toggle="modal" data-target="#Item"
-    (click) = "activa_modal('Item', null, false)">*</button></span>
+    (click) = "activa_modal('Item', ref, false)">*</button></span>
   <span *ngIf="item">
     <br>
       <span><template #messagecontainer></template></span>
