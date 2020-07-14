@@ -1,29 +1,39 @@
 <div *ngIf="ref === id" style="width: '100%'; ; margin-left: '25px'">
+
   <!--p>({{ref}} === {{id}})</p-->
   <span><button type="button" class="btn btn-outline-light text-dark btn-sm"
     (click) = "mostra()">+</button>Item ({{total}})
     <button *ngIf="item" class="btn btn-light btn-sm" data-toggle="modal" data-target="#Item"
-    (click) = "activa_modal('Item', ref, false)">*</button></span>
-  <span *ngIf="item">
-    <br>
-      <span><template #messagecontainer></template></span>
-      <span *ngFor="let c of cabecera">{{c}}&nbsp;</span>
+    (click) = "activa_modal(table, ref, false)">#</button></span>
 
+    <span *ngIf="item">
       <br>
+        <span><template #messagecontainer></template></span>
+        <span *ngFor="let c of cabecera; index as i"
+        style="margin-left: '18px';"
+        ><span *ngIf="i>0">{{c}}</span></span>
 
-      <span *ngFor="let pad of padre">
-        <span><button type="button" class="btn btn-outline-light text-dark btn-sm"
-          (click) = "sgte(pad[0])">+</button></span>
-        <span *ngFor="let p of pad">{{p}}&nbsp;</span>
-        <span><button type="button" class="btn btn-outline-light text-dark btn-sm"
-          data-toggle="modal" data-target="#Item" (click) = "activa_modal(table, pad, true)"
-          >*</button></span>
+        <br>
 
-      <br>
+        <span *ngFor="let pad of padre">
+          <span><button type="button" class="btn btn-outline-light text-dark btn-sm"
+            (click) = "sgte(pad[0])">+</button></span>
 
-      <app-subitem  *ngIf = "next" [ref] = "ref" [id] = "pad[0]"></app-subitem>
-      </span>
+          <span *ngFor="let p of pad; index as i"><span *ngIf="i>0"><span *ngIf="i==1; else otro">
+           <button type="button" class="btn btn-outline-light text-dark btn-sm" style="width: auto;"
+           data-toggle="modal" data-target="#Item" (click) = "activa_modal(table, pad, true)">{{p}}</button></span></span>
+           <ng-template #otro>{{p}}</ng-template></span>
+          <!--
+          <span><button type="button" class="btn btn-outline-light text-dark btn-sm"
+            data-toggle="modal" data-target="#Item" (click) = "activa_modal(table, pad, true)"
+            >*</button></span>
+          -->
+        <br>
+
+        <app-subitem  *ngIf = "next" [ref] = "ref" [id] = "pad[0]"></app-subitem>
+        </span>
 
 
-</span>
-</div>
+  </span>
+
+  </div>

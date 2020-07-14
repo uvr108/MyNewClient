@@ -18,8 +18,6 @@
     <p>back : [{{back | json}}]</p>
     <p>seleccion : [{{seleccion | json}}]</p>
     -->
-
-    ref : {{ param }}
     <span *ngIf="back">
         <span *ngFor="let b of back | keyvalue">
             <p>&nbsp;{{b['key']}}->{{seleccion[b['key']] | json }}&nbsp;
