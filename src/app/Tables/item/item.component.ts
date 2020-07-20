@@ -40,7 +40,7 @@ export class ItemComponent implements OnInit {
   }
 
   sgte(ref: string) {
-    console.log(`sgte() item : ref -> ${ref}`);
+    // console.log(`sgte() item : ref -> ${ref}`);
 
     // this.ref = ref;
     // this.next_item = true;

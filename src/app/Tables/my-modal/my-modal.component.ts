@@ -13,9 +13,10 @@ export class MyModalComponent implements OnInit {
 
   @Input() editTabla: boolean;
   @Input() table: string;
-  @Input() param: string;
+  @Input() ref: string;
   @Input() back: string;
   @Input() seleccion: object = {};
+  @Input() pad: any = null;
 
   Tablas = TABLAS;
 
@@ -28,28 +29,35 @@ export class MyModalComponent implements OnInit {
   total = 0;
   mostra: false;
   componentRef: any;
+  param = '';
 
   constructor( private crudService: CrudService, private fb: FormBuilder ) { }
 
-
+  get_param() {
+    Object.entries(this.back).forEach(([k, v]) => {
+      // console.log(`ingresar() mymodal : listForm.value : ${JSON.stringify(this.listForm.value)} k -> ${k}`);
+      this.param = this.param + '/' + this.listForm.value[k];
+    });
+  }
 
   ingresar() {
-    // alert('Hola');
+
+    // console.log(`ingresar() my-modal : back ${JSON.stringify(this.back)}`);
+    this.param = this.ref;
     if (this.back) {
-     Object.entries(this.back).forEach(([k, v]) => {
-       // console.log(`onSubmit() : Details -> listForm.value : ${this.listForm.value} k -> ${k}`);
-       this.param = this.param + '/' + this.listForm.value[k].toString();
-     });
+        this.get_param();
      }
-    console.log(`onSubmit() : my-modal -> param : ${this.param} table -> ${this.table}`);
-    console.log(`onSubmit() : my-modal -> listForm -> ${JSON.stringify(this.listForm.value)}`);
 
+    console.log(`ingresar() my-modal : param -> ${this.param} table -> ${this.table}`);
+    console.log(`ingresar() my-modal : listForm -> ${JSON.stringify(this.listForm.value)}`);
 
+    /*
     this.crudService.agregar(this.listForm.value, this.table,  this.param).
      subscribe(() => {
                        // this.load();
                       this.limpiar();
                           } );
+    */
 
    }
 
@@ -62,9 +70,13 @@ limpiar() {
 }
 
   editar() {
+
     const list = this.listForm.value;
     const id = list.id;
+
     // console.log(`editar() my-modal list -> ${JSON.stringify(list)} id -> ${id}`);
+
+    // if (this.back) { this.agrega_back(h); }
 
     this.crudService.
     update(id, this.listForm.value, this.table).
@@ -84,32 +96,74 @@ limpiar() {
     // this.cerrar();
   }
 
+  agrega_back(pad: any = null) {
+    Object.entries(this.back).forEach(([k, v]) => {
+      console.log(`ngOnInit() agrega_back : [k, v] -> ${k} ${v}`);
+      if (pad == null) {
+          this.lgroup[k] = [''];
+          }
+          else {
+            this.lgroup[k] = [pad[v]];
+          }
+    } );
+    console.log(`ngOnInit() agrega_back : lgroup -> ${JSON.stringify(this.lgroup)}`);
+
+  }
+
+
   ngOnInit(): void {
 
+    /*
     console.log(`ngOnInit() my-modal : table -> ${this.table}
     param -> ${JSON.stringify(this.param)}
     editTabla -> ${this.editTabla}`);
+    */
+
+    // console.log(`pad : ${JSON.stringify(this.pad)}`);
 
     this.lgroup = this.Tablas[this.table].lgroup;
     this.compon = this.Tablas[this.table].compon;
-
-    // console.log(`ngOnInit() presupuesto compon -> ${JSON.stringify(this.compon)}`);
     this.listForm = this.fb.group(this.lgroup);
 
-    if (this.param) {
+    console.log(`ngOnInit() my-modal : ngOnInit() lgroup -> ${JSON.stringify(this.lgroup)}`);
+    console.log(`ngOnInit() my-modal : ngOnInit() compon -> ${JSON.stringify(this.compon)}`);
 
-      let i = 0;
-      const js = {};
-      for (const [key, value] of Object.entries(this.compon)) {
+    // if (this.back) { this.agrega_back(['1', '1']); }
+    // const xx  = {'id':[''],'solicitante':[''],'fecha':[''],'numero_registro':[''],'CentroCosto':[1],'EstadoSolicitud':[1]};
+
+    // if (this.back) {
+    //    this.agrega_back();
+    // }
+
+    // if (this.param) {
+    //     this.get_param();
+    // }
+
+    // this.total = this.padre.length;
+
+    // console.log(`onInit my-modal : padre -> ${JSON.stringify(this.padre)}`);
+
+
+  }
+
+  get_xxx() {
+    /*
+    let i = 0;
+    const js = {};
+    for (const [key, value] of Object.entries(this.compon)) {
+      if (this.compon[key] === 'date') {
+        js[key] = this.param[i].substring(0, 10);
+      } else
+      {
         js[key] = this.param[i];
-        // console.log(key, this.param[i], js);
-        i += 1;
       }
-      console.log(`ngOnInit() my-modal.ts : js -> ${JSON.stringify(js)}`);
-      this.listForm.patchValue(js);
+      console.log(`key -> ${key} param -> ${this.param[i]} js -> ${JSON.stringify(js)}`);
+      i += 1;
     }
-
-    this.total = this.padre.length;
+    // console.log(`ngOnInit() my-modal.ts : js -> ${JSON.stringify(js)}`);
+    this.agrega_back([1, 1]);
+    this.listForm.patchValue(js);
+    */
   }
 
 }

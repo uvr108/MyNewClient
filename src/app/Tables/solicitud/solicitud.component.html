@@ -21,7 +21,7 @@
 
           <span *ngFor="let p of pad; index as i"><span *ngIf="i>0"><span *ngIf="i==1; else otro">
            <button type="button" class="btn btn-outline-light text-dark btn-sm" style="width: auto;"
-           data-toggle="modal" data-target="#Solicitud" (click) = "activa_modal(table, pad, true)">{{p}}</button></span></span>
+           data-toggle="modal" data-target="#Solicitud" (click) = "activa_modal(table, pad, true, pad)">{{p}}</button></span></span>
            <ng-template #otro>{{p}}</ng-template></span>
           <!--
           <span><button type="button" class="btn btn-outline-light text-dark btn-sm"

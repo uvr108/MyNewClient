@@ -13,6 +13,7 @@
 
       <!-- Modal body -->
       <div class="modal-body">
+        [{{pad | json}}]
 <form [formGroup]="listForm" >
     <!--
     <p>back : [{{back | json}}]</p>
@@ -20,10 +21,10 @@
     -->
     <span *ngIf="back">
         <span *ngFor="let b of back | keyvalue">
-            <p>&nbsp;{{b['key']}}->{{seleccion[b['key']] | json }}&nbsp;
-                <select formControlName="{{b['key']}}">
-                    <option [ngValue]="null" disabled>&nbsp;</option>
-                    <option *ngFor="let s of seleccion[b['key']]" [ngValue]="s['id']">{{s['nombre']}}</option>
+            <p>&nbsp;{{b.key}}&nbsp;
+                <select formControlName="{{b.key}}">
+                    <option [ngValue]="null" disabled>Elija su opción</option>
+                    <option *ngFor="let s of seleccion[b.key]" [ngValue]="s.id">{{s.id | json}} | {{s.nombre}}</option>
                 </select>
             </p>
         </span>
@@ -46,7 +47,7 @@
 <!-- Modal footer -->
 <div class="modal-footer">
   <button *ngIf="!editTabla" class="btn btn-info btn-sm" type="button" (click) = "ingresar()"
-       [disabled]="!listForm.valid">Agregar</button>&nbsp;
+       [disabled]="!listForm.valid">Ingresar</button>&nbsp;
   <button *ngIf="editTabla" class="btn btn-info btn-sm" type="button"
        [disabled]="!listForm.valid" (click)="editar()"  data-dismiss="modal">Editar</button>&nbsp;
   <button *ngIf="editTabla" class="btn btn-info btn-sm" type="button"
