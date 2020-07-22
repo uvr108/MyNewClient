@@ -28,7 +28,7 @@ export const TABLAS: object = {
     back: {CentroCosto: 'centrocostoId', EstadoSolicitud: 'estadosolicitudId'},
     lgroup: { id: [''], solicitante: ['', Validators.required],
     fecha: [''], numero_registro: ['', Validators.required],
-    CentroCosto: ['1'], EstadoSolicitud: ['1'] },
+    CentroCosto: [''], EstadoSolicitud: [''] },
 
     compon: { id: 'hidden', solicitante: 'text', fecha: 'date', numero_registro: 'text'}
   }
