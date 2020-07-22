@@ -51,16 +51,12 @@ export class MyModalComponent implements OnInit {
     console.log(`ingresar() my-modal : param -> ${this.param} table -> ${this.table}`);
     console.log(`ingresar() my-modal : listForm -> ${JSON.stringify(this.listForm.value)}`);
 
-    /*
     this.crudService.agregar(this.listForm.value, this.table,  this.param).
      subscribe(() => {
                        // this.load();
                       this.limpiar();
                           } );
-    */
-
     this.limpiar();
-
    }
 
 limpiar() {
