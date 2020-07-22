@@ -59,14 +59,21 @@ export class MyModalComponent implements OnInit {
                           } );
     */
 
+    this.limpiar();
+
    }
 
 limpiar() {
   const dict = {};
 
-  for (const [key, value] of Object.entries(this.lgroup)) { dict[key] = null; }
-
+  for (const [key, value] of Object.entries(this.lgroup)) {
+    if (this.compon[key] === 'text') {
+    dict[key] = null;
+    }
+  }
+  // console.log(`limpiar() my-modal : dict -> ${JSON.stringify(dict)}`);
   this.listForm.patchValue(dict);
+
 }
 
   editar() {
