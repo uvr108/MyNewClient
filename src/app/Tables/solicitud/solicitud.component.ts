@@ -79,7 +79,9 @@ mostra() {
   if (this.solicitud) {
     this.load();
   }
-  this.get_select();
+  if (this.back) {
+    this.get_select();
+   }
 }
 
 
