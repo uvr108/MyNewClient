@@ -1,7 +1,8 @@
-<div style="width: '100%'; ; margin-left: '25px'">
+<div style="width: '100%'; margin-left: '0px'">
 
   <!--p>({{ref}} === {{id}})</p-->
-  <span><button type="button" class="btn btn-outline-light text-dark btn-sm"
+
+  <span><button type="button" class="btn btn-outline-light text-dark"
     (click) = "mostra()">+</button>Presupuesto ({{total}})
     <button *ngIf="presupuesto" class="btn btn-light btn-sm" data-toggle="modal" data-target="#Presupuesto"
     (click) = "activa_modal(table, ref, false)">#</button></span>
@@ -16,11 +17,11 @@
         <br>
 
         <span *ngFor="let pad of padre">
-          <span><button type="button" class="btn btn-outline-light text-dark btn-sm"
+          <span><button type="button" class="btn btn-outline-light text-dark"
             (click) = "sgte(pad[0])">+</button></span>
 
           <span *ngFor="let p of pad; index as i"><span *ngIf="i>0"><span *ngIf="i==1; else otro">
-           <button type="button" class="btn btn-outline-light text-dark btn-sm" style="width: auto;"
+           <button type="button" class="btn btn-outline-light text-dark" style="width: auto;"
            data-toggle="modal" data-target="#Presupuesto" (click) = "activa_modal(table, pad, true)">{{p}}</button></span></span>
            <ng-template #otro>{{p}}</ng-template></span>
           <!--

@@ -20,9 +20,9 @@
             (click) = "sgte(pad[0])">+</button></span>
 
           <span *ngFor="let p of pad; index as i"><span *ngIf="i>0"><span *ngIf="i==1; else otro">
-           <button type="button" class="btn btn-outline-light text-dark btn-sm" style="width: auto;"
-           data-toggle="modal" data-target="#Item" (click) = "activa_modal(table, pad, true)">{{p}}</button></span></span>
-           <ng-template #otro>{{p}}</ng-template></span>
+           <button type="button" class="btn btn-outline-light text-dark btn-sm" style="width: 12em; text-align: left;"
+           data-toggle="modal" data-target="#Item" (click) = "activa_modal(table, pad, true)"><td class="a">{{p}}</td></button></span></span>
+           <ng-template #otro><td class="a">{{p}}</td></ng-template></span>
           <!--
           <span><button type="button" class="btn btn-outline-light text-dark btn-sm"
             data-toggle="modal" data-target="#Item" (click) = "activa_modal(table, pad, true)"

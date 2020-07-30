@@ -13,8 +13,10 @@
 
       <!-- Modal body -->
       <div class="modal-body">
+        <!--
         pad : [{{pad | json}}]<br>
         compon : [{{compon | json}}]
+        -->
 <form [formGroup]="listForm" >
     <!--
     <p>back : [{{back | json}}]</p>
@@ -25,7 +27,7 @@
             <p>&nbsp;{{b.key}}&nbsp;
                 <select formControlName="{{b.key}}">
                     <option [ngValue]="null" disabled>Elija su opción</option>
-                    <option *ngFor="let s of seleccion[b.key]" [ngValue]="s.id">{{s.id | json}} | {{s.nombre}}</option>
+                    <option *ngFor="let s of seleccion[b.key]" [ngValue]="s.id">{{s.nombre}}</option>
                 </select>
             </p>
         </span>

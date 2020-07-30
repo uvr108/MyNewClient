@@ -47,16 +47,22 @@ export class SolicitudComponent implements OnInit {
       data.forEach((f) => {
         const subresult = [];
         // console.log(f);
-        for (const [key, value] of Object.entries(f)) {
+        for ( let [key, value] of Object.entries(f)) {
           if (this.flag) {this.cabecera.push(key); }
+          // console.log(f);
+          if (typeof value === 'string') { value = value.substr(0, 10); }
+          // subresult.push('x');
           subresult.push(value);
       }
+        // console.log(this.cabecera);
         this.padre.push(subresult);
         this.flag = false;
   });
       this.total = this.padre.length;
-      // console.log(`load() solicitud padre : ${JSON.stringify(this.padre)}`);
+      this.padre.unshift(this.cabecera);
+
     });
+    console.log(`load() solicitud padre : ${JSON.stringify(this.padre)}`);
   }
 
   sgte(ref: string) {

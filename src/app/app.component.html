@@ -1,2 +1,21 @@
-<app-presupuesto></app-presupuesto>
+<div style="margin-left: 4em; margin-top: 1em;">
+  <h2>Centro Sismológico Nacional</h2>
+
+  <div class="btn-group" style="margin: 1em;">
+    <button type="button" class="btn btn-outline-primary btn-sm">Projectos</button>
+    <button type="button" class="btn btn-outline-primary btn-sm" style="margin-left: 1em;">Indicadores</button>
+    <div class="btn-group">
+      <button type="button" class="btn btn-outline-primary btn-sm dropdown-toggle"  style="margin-left: 1em;" data-toggle="dropdown">
+         Presupuestos
+      </button>
+      <div class="dropdown-menu">
+        <a class="dropdown-item" href="#">ppto 2020</a>
+        <a class="dropdown-item" href="#">ppto 2019</a>
+      </div>
+    </div>
+
+  </div>
+
+  <app-presupuesto></app-presupuesto>
+
 <router-outlet></router-outlet>

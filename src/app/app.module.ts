@@ -28,7 +28,7 @@ import { MyModalComponent } from './Tables/my-modal/my-modal.component';
     ItemComponent,
     SubitemComponent,
     SolicitudComponent,
-    MyModalComponent
+    MyModalComponent,
   ],
   imports: [
     BrowserModule,

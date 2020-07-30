@@ -1,1 +1,7 @@
 
+hr.a {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  border: 1;
+  border-top: 1px linen rgba(62, 39, 39, 0.1);
+}
