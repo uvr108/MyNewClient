@@ -25,12 +25,13 @@ export const TABLAS: object = {
 
 , Solicitud: {
     next: 'OrdenCompra',
-    back: {CentroCosto: 'centrocostoId', EstadoSolicitud: 'estadosolicitudId'},
+    back: {CentroCosto: 'centrocostoId', EstadoSolicitud: 'estadosolicitudId', SubItem: 'subitemId'},
     lgroup: { id: [''], solicitante: ['', Validators.required],
     fecha: [''], numero_registro: ['', Validators.required],
-    CentroCosto: [''], EstadoSolicitud: [''] },
+    CentroCosto: [''], EstadoSolicitud: [''], SubItem: [''] },
 
-    compon: { id: 'hidden', solicitante: 'text', fecha: 'date', numero_registro: 'text'}
+    compon: { id: 'hidden', solicitante: 'text', fecha: 'date', numero_registro: 'text',
+    centrocostoId: 'fk', estadosolicitudId: 'fk', subitemId: 'id'}
   }
 
 , CentroCosto: {

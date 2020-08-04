@@ -24,25 +24,44 @@
     -->
     <span *ngIf="back">
         <span *ngFor="let b of back | keyvalue">
-            <p>&nbsp;{{b.key}}&nbsp;
+
+            <p *ngIf="compon[back[b.key]] === 'fk'">&nbsp;{{b.key}}&nbsp;
+
                 <select formControlName="{{b.key}}">
-                    <option [ngValue]="null" disabled>Elija su opción</option>
+
+                    <option [ngValue]="null" disabled>Elija su opción | {{b.key}} </option>
+
                     <option *ngFor="let s of seleccion[b.key]" [ngValue]="s.id">{{s.nombre}}</option>
+
                 </select>
+
             </p>
         </span>
     </span>
+      <span *ngIf="compon">
+
 
       <span *ngFor="let c of compon | keyvalue; index as i">
 
-       <span *ngIf="c['value'] != 'hidden'">{{c['key']}}</span>&nbsp;
-       <span *ngIf="c['value'] != 'hidden'"><input type="{{c['value']}}"  formControlName="{{c['key']}}"/></span>
+       <span *ngIf="c['value'] != 'hidden'">
+         <span  *ngIf="c['value'] != 'fk'"><span *ngIf="c['value'] != 'id'">{{c['key']}}</span></span>
+       </span>&nbsp;
+
+       <span *ngIf="c['value'] != 'hidden'">
+         <span *ngIf="c['value'] != 'fk'">
+           <span  *ngIf="c['value'] != 'id'">
+            <input type="{{c['value']}}"  formControlName="{{c['key']}}"/>
+           </span>
+
+         </span>
+       </span>
+
        <br>
        <br>
-       <!--hr *ngIf="c['value'] != 'hidden'"-->
+
       </span>
 
-
+  </span>
 </form>
 
 </div>

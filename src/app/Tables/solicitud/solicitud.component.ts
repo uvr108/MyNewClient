@@ -19,6 +19,7 @@ export class SolicitudComponent implements OnInit {
   total = 0;
   cabecera = [];
   padre = [];
+  data = [];
   lgroup: Array<string>;
   compon: Array<string>;
   flag = true;
@@ -26,6 +27,7 @@ export class SolicitudComponent implements OnInit {
   table = 'Solicitud';
   // fk: string = null;
   seleccion: object = {};
+  inverse: object = {};
   nuevo = false;
   back = this.Tablas[this.table].back;
   // listForm: FormGroup;
@@ -36,25 +38,47 @@ export class SolicitudComponent implements OnInit {
                // private fb: FormBuilder
                ) { }
   ngOnInit(): void {
-     this.load();
+    this.compon = this.Tablas[this.table].compon;
+
+    if (this.back) {
+      this.get_select();
+      this.obtiene_back();
+
+      // console.log(`mostra() selection -> ${JSON.stringify(this.seleccion)}`);
+     }
+    this.load();
   }
 
+  obtiene_nombre(valor: number, table: string)
+  {
+    // console.log(`seleccion -> ${valor} | ${table} | ${JSON.stringify(this.seleccion)}`);
+    let out = 'xxx';
+    Object.entries(this.seleccion[table]).forEach(([k, v]) => { if (valor === v['id']) { out =  v['nombre']; }});
+    return out;
+    }
+
+
   load() {
+
     this.crudService.GetData(this.table, this.id)
     .subscribe(data => {
-      // console.log(data);
+
       this.padre = [];
+      this.data = data;
       data.forEach((f) => {
         const subresult = [];
-        // console.log(f);
-        for ( let [key, value] of Object.entries(f)) {
+
+        for ( let [key, value]  of Object.entries(f)) {
           if (this.flag) {this.cabecera.push(key); }
-          // console.log(f);
-          if (typeof value === 'string') { value = value.substr(0, 10); }
-          // subresult.push('x');
+
+          if (this.compon[key] === 'date') { value =  value.toString().substring(0, 10); }
+          else if ( this.compon[key] === 'fk'
+           || this.compon[key] === 'id')
+           { value =  this.obtiene_nombre(+value, this.inverse[key]); }
+
           subresult.push(value);
       }
-        // console.log(this.cabecera);
+
         this.padre.push(subresult);
         this.flag = false;
   });
@@ -62,11 +86,11 @@ export class SolicitudComponent implements OnInit {
       this.padre.unshift(this.cabecera);
 
     });
-    console.log(`load() solicitud padre : ${JSON.stringify(this.padre)}`);
+
   }
 
   sgte(ref: string) {
-    // alert(ref);
+
     this.ref = ref;
     this.next = this.next  === true ? false : true;
   }
@@ -85,25 +109,47 @@ mostra() {
   if (this.solicitud) {
     this.load();
   }
-  if (this.back) {
-    this.get_select();
-   }
+
 }
 
+obtiene_back() {
+  // console.log(`obtiene_back back -> ${JSON.stringify(this.back)}`);
+  // console.log(`obtiene_back seleccion -> ${JSON.stringify(this.seleccion)}`);
 
-activa_modal(table: string, ref: string, editTabla: boolean, pad: any = null) {
+  Object.entries(this.back).forEach(([k, v]) => {
+    const   tmp: object = {};
+    tmp[k] = v;
+    this.inverse[tmp[k]] = k;
+    } );
 
+  // console.log(`obtiene_back inverse -> ${JSON.stringify(this.inverse)}`);
+}
+
+activa_modal(table: string, ref: string, editTabla: boolean) {
+  console.log('ref  ', ref[0] );
+  console.log('DATA : ', JSON.stringify(this.data) );
+
+  let pad = [];
 
   if (table) {
       this.entry.clear();
-      /*
-      console.log(`activa_modal() solicitud : table -> ${table}
-      param -> ${JSON.stringify(param)}
-      editTabla -> ${editTabla}`);
-      */
 
-      console.log(`pad : ${JSON.stringify(pad)}`);
-      // console.log(`padre : ${JSON.stringify(this.padre)}`);
+      if (editTabla) {
+
+         Object.entries(this.data).forEach(([k, v]) => {
+             if (ref[0] === v.id) {
+               Object.entries(v).forEach(([u, w]) =>
+              {
+               console.log('u w : ', u, w);
+               pad.push(w);
+              });
+            }
+         } );
+      }
+      else { pad = null; }
+
+      console.log(`activa_modal() solicitud : pad -> ${JSON.stringify(pad)}`);
+      console.log(`activa_modal() solicitud : editTable -> ${editTabla}`);
 
       const factory = this.resolver.resolveComponentFactory(MyModalComponent);
       this.componentRef = this.entry.createComponent(factory);

@@ -102,14 +102,21 @@ limpiar() {
 
   agrega_back(pad: any = null) {
 
+    console.log(`agrega_back() my-modal : pad -> ${JSON.stringify(pad)}`);
+
     let i = 0;
     const dict = {};
 
-    Object.entries(this.lgroup).forEach(([u, w]) => {
-      dict[u] = pad[i];
-      i++;
-    });
-    // console.log(dict);
+    if (pad) {
+      Object.entries(this.lgroup).forEach(([u, w]) => {
+        dict[u] = pad[i];
+        i++;
+      });
+    }
+
+    // console.log('DICT : lgroup', this.lgroup);
+    // console.log('DICT : dict', dict);
+
     Object.entries(this.back).forEach(([k, v]) => {
       // console.log(`ngOnInit() xxx agrega_back : [k, v] -> ${k} ${v}`);
       if (pad == null) {
@@ -120,7 +127,7 @@ limpiar() {
             this.lgroup[k] = [dict[k]];
           }
     } );
-    // console.log(`ngOnInit() agrega_back : lgroup -> ${JSON.stringify(this.lgroup)} pad -> ${pad}`);
+    console.log(`ngOnInit() agrega_back : lgroup -> ${JSON.stringify(this.lgroup)} pad -> ${pad}`);
 
   }
 
@@ -130,18 +137,20 @@ limpiar() {
     const js = {};
     let i = 0;
 
-    /*
-    console.log(`ngOnInit() my-modal : table -> ${this.table}
-    ref -> ${JSON.stringify(this.ref)} back -> ${JSON.stringify(this.back)} seleccion -> ${JSON.stringify(this.seleccion)}
-    editTabla -> ${this.editTabla}`);
-    */
+    // console.log(`ngOnInit() my-modal : table -> ${this.table}`);
+    // console.log(`ref -> ${JSON.stringify(this.ref)}`);
+    // console.log(`back -> ${JSON.stringify(this.back)}`);
+    // console.log(`seleccion -> ${JSON.stringify(this.seleccion)}`);
+    // console.log(`editTabla -> ${this.editTabla}`);
 
     this.lgroup = this.Tablas[this.table].lgroup;
     this.compon = this.Tablas[this.table].compon;
 
-    console.log(`ngOnInit() my-modal : pad : ${JSON.stringify(this.pad)}`);
-    console.log(`ngOnInit() my-modal : ngOnInit() lgroup -> ${JSON.stringify(this.lgroup)}`);
-    console.log(`ngOnInit() my-modal : ngOnInit() compon -> ${JSON.stringify(this.compon)}`);
+    // console.log(`ngOnInit() my-modal : pad : ${JSON.stringify(this.pad)}`);
+    // console.log(`ngOnInit() my-modal : ngOnInit() lgroup -> ${JSON.stringify(this.lgroup)}`);
+    // console.log(`ngOnInit() my-modal : ngOnInit() compon -> ${JSON.stringify(this.compon)}`);
+
+    console.log(`ngOnInit() my-modal pad -> ${JSON.stringify(this.pad)}`);
 
     if (this.pad) {
 
@@ -161,39 +170,19 @@ limpiar() {
     // console.log(`ngOnInit() my-modal : lgroup -> ${JSON.stringify(this.lgroup)}`);
     // console.log(`ngOnInt() my-modal : js - > ${JSON.stringify(js)}`);
 
-    if (this.back && this.editTabla) { this.agrega_back(this.pad); }
+    // if (this.back && this.editTabla) {
+    this.agrega_back(this.pad);
+    // }
+
+    console.log(`ngOnInit() my-modal lgroup -> ${JSON.stringify(this.lgroup)}`);
+    console.log(`ngOnInit() my-modal js -> ${JSON.stringify(js)}`);
+
     this.listForm = this.fb.group(this.lgroup);
-    /*
-    if (this.param) {
-         this.get_param();
-     }
 
-    this.total = this.padre.length;
-
-    console.log(`onInit my-modal : padre -> ${JSON.stringify(this.padre)}`);
-    */
     this.listForm.patchValue(js);
+
 
   }
 
-  get_xxx() {
-    /*
-    let i = 0;
-    const js = {};
-    for (const [key, value] of Object.entries(this.compon)) {
-      if (this.compon[key] === 'date') {
-        js[key] = this.param[i].substring(0, 10);
-      } else
-      {
-        js[key] = this.param[i];
-      }
-      console.log(`key -> ${key} param -> ${this.param[i]} js -> ${JSON.stringify(js)}`);
-      i += 1;
-    }
-    // console.log(`ngOnInit() my-modal.ts : js -> ${JSON.stringify(js)}`);
-    this.agrega_back([1, 1]);
-    this.listForm.patchValue(js);
-    */
-  }
 
 }
