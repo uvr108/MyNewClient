@@ -2,9 +2,11 @@
 
   <!--p>({{ref}} === {{id}})</p-->
   <span><button type="button" class="btn btn-outline-light text-dark btn-sm"
+
     (click) = "mostra()">+</button>Solicitud({{total}})
+
     <button *ngIf="solicitud" class="btn btn-light btn-sm" data-toggle="modal" data-target="#Solicitud"
-    (click) = "activa_modal(table, ref, false)">#</button></span>
+     (click) = "activa_modal(table, ref, false)">#</button></span>
 
     <span *ngIf="solicitud">
       <br>
@@ -25,11 +27,9 @@
         <app-solicitud  *ngIf = "next" [ref] = "ref" [id] = "pad[0]"></app-solicitud>
         -->
         </span>
-
-
   </span>
 
-  </div>
+</div>
 
 
 

@@ -102,7 +102,7 @@ limpiar() {
 
   agrega_back(pad: any = null) {
 
-    console.log(`agrega_back() my-modal : pad -> ${JSON.stringify(pad)}`);
+    // console.log(`agrega_back() my-modal : pad -> ${JSON.stringify(pad)}`);
 
     let i = 0;
     const dict = {};
@@ -127,7 +127,7 @@ limpiar() {
             this.lgroup[k] = [dict[k]];
           }
     } );
-    console.log(`ngOnInit() agrega_back : lgroup -> ${JSON.stringify(this.lgroup)} pad -> ${pad}`);
+    // console.log(`ngOnInit() agrega_back : lgroup -> ${JSON.stringify(this.lgroup)} pad -> ${pad}`);
 
   }
 
@@ -174,8 +174,8 @@ limpiar() {
     this.agrega_back(this.pad);
     // }
 
-    console.log(`ngOnInit() my-modal lgroup -> ${JSON.stringify(this.lgroup)}`);
-    console.log(`ngOnInit() my-modal js -> ${JSON.stringify(js)}`);
+    // console.log(`ngOnInit() my-modal lgroup -> ${JSON.stringify(this.lgroup)}`);
+    // console.log(`ngOnInit() my-modal js -> ${JSON.stringify(js)}`);
 
     this.listForm = this.fb.group(this.lgroup);
 

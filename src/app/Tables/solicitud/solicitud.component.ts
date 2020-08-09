@@ -1,7 +1,6 @@
 import { MyModalComponent } from './../my-modal/my-modal.component';
 import { Component, OnInit, Input, ComponentFactoryResolver, ViewChild, ViewContainerRef } from '@angular/core';
 import { CrudService } from '../../shared/crud.service';
-// import { FormBuilder,  FormGroup } from '@angular/forms';
 import { TABLAS } from './../../tablas';
 
 @Component({
@@ -25,33 +24,26 @@ export class SolicitudComponent implements OnInit {
   flag = true;
   Tablas = TABLAS;
   table = 'Solicitud';
-  // fk: string = null;
   seleccion: object = {};
   inverse: object = {};
   nuevo = false;
   back = this.Tablas[this.table].back;
-  // listForm: FormGroup;
   componentRef: any;
 
-  constructor( private crudService: CrudService,
-               private resolver: ComponentFactoryResolver,
-               // private fb: FormBuilder
-               ) { }
+  constructor( private crudService: CrudService, private resolver: ComponentFactoryResolver) { }
+
   ngOnInit(): void {
     this.compon = this.Tablas[this.table].compon;
 
     if (this.back) {
       this.get_select();
       this.obtiene_back();
-
-      // console.log(`mostra() selection -> ${JSON.stringify(this.seleccion)}`);
      }
     this.load();
   }
 
   obtiene_nombre(valor: number, table: string)
   {
-    // console.log(`seleccion -> ${valor} | ${table} | ${JSON.stringify(this.seleccion)}`);
     let out = 'xxx';
     Object.entries(this.seleccion[table]).forEach(([k, v]) => { if (valor === v['id']) { out =  v['nombre']; }});
     return out;
@@ -99,7 +91,6 @@ get_select() {
   Object.entries(this.back).forEach(([k, v]) => {
     this.crudService.GetData(k, null).subscribe((d) => {
      this.seleccion[k] = d;
-     // console.log(`mostra() solicitud : [k,v] -> ${k} : ${v} seleccion -> ${JSON.stringify(this.seleccion[k])}`);
      });
      } );
 }
@@ -113,21 +104,14 @@ mostra() {
 }
 
 obtiene_back() {
-  // console.log(`obtiene_back back -> ${JSON.stringify(this.back)}`);
-  // console.log(`obtiene_back seleccion -> ${JSON.stringify(this.seleccion)}`);
-
   Object.entries(this.back).forEach(([k, v]) => {
     const   tmp: object = {};
     tmp[k] = v;
     this.inverse[tmp[k]] = k;
     } );
-
-  // console.log(`obtiene_back inverse -> ${JSON.stringify(this.inverse)}`);
 }
 
 activa_modal(table: string, ref: string, editTabla: boolean) {
-  console.log('ref  ', ref[0] );
-  console.log('DATA : ', JSON.stringify(this.data) );
 
   let pad = [];
 
@@ -138,18 +122,11 @@ activa_modal(table: string, ref: string, editTabla: boolean) {
 
          Object.entries(this.data).forEach(([k, v]) => {
              if (ref[0] === v.id) {
-               Object.entries(v).forEach(([u, w]) =>
-              {
-               console.log('u w : ', u, w);
-               pad.push(w);
-              });
+               Object.entries(v).forEach(([u, w]) => { pad.push(w); });
             }
          } );
       }
       else { pad = null; }
-
-      console.log(`activa_modal() solicitud : pad -> ${JSON.stringify(pad)}`);
-      console.log(`activa_modal() solicitud : editTable -> ${editTabla}`);
 
       const factory = this.resolver.resolveComponentFactory(MyModalComponent);
       this.componentRef = this.entry.createComponent(factory);
