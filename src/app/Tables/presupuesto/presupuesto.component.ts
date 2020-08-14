@@ -40,9 +40,7 @@ export class PresupuestoComponent implements OnInit {
   }
 
   sgte(ref: string) {
-    // alert(ref);
     this.ref = ref;
-    // this.next_presupuesto = true;
     this.next = this.next  === true ? false : true;
   }
 
@@ -63,6 +61,7 @@ load() {
         this.flag = false;
   });
       this.total = this.padre.length;
+      this.padre.unshift(this.cabecera);
     });
 
 }
@@ -74,13 +73,13 @@ mostra() {
   }
 }
 
-activa_modal(table: string, param: string, editTabla: boolean) {
+activa_modal(table: string, ref: string, back: string, seleccion: object, editTabla: boolean, pad: object) {
 
   if (table) {
 
       this.entry.clear();
       console.log(`activa_modal() presupuesto : table -> ${table}
-      param -> ${JSON.stringify(param)}
+      param -> ${JSON.stringify(ref)}
       editTabla -> ${editTabla}`);
 
       if (this.componentRef) { console.log('Destroy componentRef'); this.componentRef.destroy(); }
@@ -89,9 +88,11 @@ activa_modal(table: string, param: string, editTabla: boolean) {
       this.componentRef = this.entry.createComponent(factory);
       this.componentRef.instance.table = table;
       this.componentRef.instance.editTabla = editTabla;
-      this.componentRef.instance.param = param;
+      this.componentRef.instance.ref = ref;
+      this.componentRef.instance.back =  back;
+      this.componentRef.instance.seleccion =  seleccion;
+      this.componentRef.instance.pad = pad;
       }
-
 }
 
 }

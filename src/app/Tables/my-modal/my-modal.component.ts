@@ -16,7 +16,7 @@ export class MyModalComponent implements OnInit {
   @Input() ref: string;
   @Input() back: string;
   @Input() seleccion: object = {};
-  @Input() pad: any = null;
+  @Input() pad: object = null;
 
   Tablas = TABLAS;
 
@@ -80,7 +80,7 @@ limpiar() {
     // console.log(`editar() my-modal list -> ${JSON.stringify(list)} id -> ${JSON.stringify(this.pad[0])}`);
 
     // if (this.back) { this.agrega_back(h); }
-
+    console.log('xxxxxx', this.pad[0].toString(), this.listForm.value, this.table);
     this.crudService.
     update(this.pad[0].toString(), this.listForm.value, this.table).
     subscribe();
@@ -170,9 +170,9 @@ limpiar() {
     // console.log(`ngOnInit() my-modal : lgroup -> ${JSON.stringify(this.lgroup)}`);
     // console.log(`ngOnInt() my-modal : js - > ${JSON.stringify(js)}`);
 
-    // if (this.back && this.editTabla) {
-    this.agrega_back(this.pad);
-    // }
+    if (this.back && this.editTabla) {
+        this.agrega_back(this.pad);
+    }
 
     console.log(`ngOnInit() my-modal lgroup -> ${JSON.stringify(this.lgroup)}`);
     console.log(`ngOnInit() my-modal js -> ${JSON.stringify(js)}`);

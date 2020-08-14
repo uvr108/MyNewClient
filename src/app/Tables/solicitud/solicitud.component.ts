@@ -10,12 +10,12 @@ import { TABLAS } from './../../tablas';
   styleUrls: ['./solicitud.component.css']
 })
 export class SolicitudComponent implements OnInit {
-  @Input() ref: string = null;
-  @Input() id: string = null;
+  @Input() backref: string = null;
   @ViewChild('messagecontainer', { read: ViewContainerRef }) entry: ViewContainerRef;
 
   solicitud = false;
   next = false;
+  ref: string = null;
   total = 0;
   cabecera = [];
   padre = [];
@@ -60,7 +60,7 @@ export class SolicitudComponent implements OnInit {
 
   load() {
 
-    this.crudService.GetData(this.table, this.id)
+    this.crudService.GetData(this.table, this.backref)
     .subscribe(data => {
 
       this.padre = [];
@@ -125,11 +125,12 @@ obtiene_back() {
   // console.log(`obtiene_back inverse -> ${JSON.stringify(this.inverse)}`);
 }
 
-activa_modal(table: string, ref: string, editTabla: boolean) {
+activa_modal(table: string, ref: string, back: string, seleccion: object, editTabla: boolean, pad: Array<any> = [])  {
+// activa_modal(table: string, ref: string, editTabla: boolean) {
+
   console.log('ref  ', ref[0] );
   console.log('DATA : ', JSON.stringify(this.data) );
 
-  let pad = [];
 
   if (table) {
       this.entry.clear();

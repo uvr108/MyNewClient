@@ -13,7 +13,7 @@ export const TABLAS: object = {
     next: 'SubItem',
     back: null,
     lgroup: { id: [''], nombre: ['', Validators.required] },
-    compon: { id: 'hidden', nombre: 'text' }
+    compon: { id: 'hidden', nombre: 'text'}
   }
 
 , SubItem: {

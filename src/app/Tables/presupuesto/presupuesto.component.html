@@ -1,11 +1,10 @@
+<!--
 <div style="width: '100%'; margin-left: '0px'">
 
-  <!--p>({{ref}} === {{id}})</p-->
-
   <span><button type="button" class="btn btn-outline-light text-dark"
-    (click) = "mostra()">+</button>Presupuesto ({{total}})
+    (click) = "mostra()">1+</button>Presupuesto ({{total}})
     <button *ngIf="presupuesto" class="btn btn-light btn-sm" data-toggle="modal" data-target="#Presupuesto"
-    (click) = "activa_modal(table, ref, false)">#</button></span>
+    (click) = "activa_modal(table, null, false)">#</button></span>
 
     <span *ngIf="presupuesto">
       <br>
@@ -18,21 +17,16 @@
 
         <span *ngFor="let pad of padre">
           <span><button type="button" class="btn btn-outline-light text-dark"
-            (click) = "sgte(pad[0])">+</button></span>
+            (click) = "sgte(pad[0])">2+</button></span>
 
           <span *ngFor="let p of pad; index as i"><span *ngIf="i>0"><span *ngIf="i==1; else otro">
            <button type="button" class="btn btn-outline-light text-dark" style="width: auto;"
            data-toggle="modal" data-target="#Presupuesto" (click) = "activa_modal(table, pad, true)">{{p}}</button></span></span>
            <ng-template #otro>{{p}}</ng-template></span>
-          <!--
-          <span><button type="button" class="btn btn-outline-light text-dark btn-sm"
-            data-toggle="modal" data-target="#Item" (click) = "activa_modal(table, pad, true)"
-            >*</button></span>
-          -->
         <br>
-
-        <app-item  *ngIf = "next" [ref] = "ref" [id] = "pad[0]"></app-item>
-
+        <div *ngIf="ref === pad[0]">
+           <app-item  *ngIf = "next"  [backref] = "pad[0]"></app-item>
+        </div>
         </span>
 
 
@@ -40,3 +34,37 @@
 
   </div>
 
+-->
+
+<div  style="width: '100%'; ; margin-left: '25px'">
+
+  <!--p>({{ref}} === {{id}})</p-->
+  <span><button type="button" class="btn btn-outline-light text-dark btn-sm"
+    (click) = "mostra()">+</button>Presupuesto({{total}})
+    <button *ngIf="presupuesto" class="btn btn-light btn-sm" data-toggle="modal" data-target="#Presupuesto"
+    (click) = "activa_modal(table, null,null, null, false, null)">#</button></span>
+
+    <span *ngIf="presupuesto">
+      <br>
+        <span><template #messagecontainer></template></span>
+
+        <span *ngFor="let pad of padre; index as c">
+          <span *ngIf="c>0; else otro0"><button type="button" class="btn btn-outline-light text-dark btn-sm"
+            (click) = "sgte(pad[0])">&nbsp;&nbsp;+&nbsp;</button></span>
+          <ng-template #otro0><button type="button" class="btn btn-outline-light text-dark btn-sm" disabled
+            (click) = "sgte(pad[0])">&nbsp;</button></ng-template>
+          <span *ngFor="let p of pad; index as i"><span *ngIf="i>0"><span *ngIf="i==1 && c>0; else otro">
+           <button type="button" class="btn btn-link btn-sm"  style="width: 9em; text-align: left;"
+           data-toggle="modal" data-target="#Presupuesto" (click) = "activa_modal(table, ref, null, null,true, pad)"><td>{{p}}</td></button></span></span>
+           <ng-template #otro><td class="a">{{p}}</td></ng-template></span>
+
+        <br>
+        <div *ngIf="ref === pad[0]">
+          <app-item  *ngIf = "next"  [backref] = "pad[0]"></app-item>
+        </div>
+        </span>
+
+
+  </span>
+
+  </div>
