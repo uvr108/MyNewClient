@@ -25,23 +25,25 @@ export class SolicitudComponent implements OnInit {
   flag = true;
   Tablas = TABLAS;
   table = 'Solicitud';
-  // fk: string = null;
+  type = [];
+
   seleccion: object = {};
   inverse: object = {};
   nuevo = false;
   back = this.Tablas[this.table].back;
-  // listForm: FormGroup;
+
   componentRef: any;
 
   constructor( private crudService: CrudService,
                private resolver: ComponentFactoryResolver,
-               // private fb: FormBuilder
+
                ) { }
   ngOnInit(): void {
     this.compon = this.Tablas[this.table].compon;
 
     if (this.back) {
       this.get_select();
+      // console.log(`seleccion -> ${JSON.stringify(this.seleccion)}`);
       this.obtiene_back();
 
       // console.log(`mostra() selection -> ${JSON.stringify(this.seleccion)}`);
@@ -51,14 +53,20 @@ export class SolicitudComponent implements OnInit {
 
   obtiene_nombre(valor: number, table: string)
   {
-    // console.log(`seleccion -> ${valor} | ${table} | ${JSON.stringify(this.seleccion)}`);
-    let out = 'xxx';
+    console.log(`xcxccxc seleccion -> ${valor} | ${table} | ${JSON.stringify(this.seleccion)}`);
+    let out = valor;
     Object.entries(this.seleccion[table]).forEach(([k, v]) => { if (valor === v['id']) { out =  v['nombre']; }});
     return out;
     }
 
 
   load() {
+
+    for ( const [key , value]  of Object.entries(this.compon)) {
+
+         this.type.push(value);
+      }
+    console.log(`type -> ${JSON.stringify(this.type)}`);
 
     this.crudService.GetData(this.table, this.backref)
     .subscribe(data => {
@@ -73,8 +81,11 @@ export class SolicitudComponent implements OnInit {
 
           if (this.compon[key] === 'date') { value =  value.toString().substring(0, 10); }
           else if ( this.compon[key] === 'fk'
-           || this.compon[key] === 'id')
-           { value =  this.obtiene_nombre(+value, this.inverse[key]); }
+          || this.compon[key] === 'id')
+          {
+            // value =  this.obtiene_nombre(+value, this.inverse[key]);
+            console.log('xxxx : value, key ', +value, key,  this.inverse[key]);
+          }
 
           subresult.push(value);
       }
@@ -126,11 +137,11 @@ obtiene_back() {
 }
 
 activa_modal(table: string, ref: string, back: string, seleccion: object, editTabla: boolean, pad: Array<any> = [])  {
-// activa_modal(table: string, ref: string, editTabla: boolean) {
-
-  console.log('ref  ', ref[0] );
-  console.log('DATA : ', JSON.stringify(this.data) );
-
+  // activa_modal(table: string, ref: string, editTabla: boolean) {
+  // pad = [29, 'xxxs', '2020-08-14', '1000', 1, 2, 32];
+  // console.log('ref  ', ref[0] );
+  // console.log('DATA : ', JSON.stringify(this.data) );
+  console.log(`activa_modal : pad -> ${pad}`);
 
   if (table) {
       this.entry.clear();
@@ -141,7 +152,7 @@ activa_modal(table: string, ref: string, back: string, seleccion: object, editTa
              if (ref[0] === v.id) {
                Object.entries(v).forEach(([u, w]) =>
               {
-               console.log('u w : ', u, w);
+               // console.log('u w : ', u, w);
                pad.push(w);
               });
             }
@@ -149,8 +160,8 @@ activa_modal(table: string, ref: string, back: string, seleccion: object, editTa
       }
       else { pad = null; }
 
-      console.log(`activa_modal() solicitud : pad -> ${JSON.stringify(pad)}`);
-      console.log(`activa_modal() solicitud : editTable -> ${editTabla}`);
+      // console.log(`activa_modal() solicitud : pad -> ${JSON.stringify(pad)}`);
+      // console.log(`activa_modal() solicitud : editTable -> ${editTabla}`);
 
       const factory = this.resolver.resolveComponentFactory(MyModalComponent);
       this.componentRef = this.entry.createComponent(factory);

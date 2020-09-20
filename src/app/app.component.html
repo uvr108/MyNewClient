@@ -9,8 +9,8 @@
          Presupuestos
       </button>
       <div class="dropdown-menu">
-        <a class="dropdown-item" href="#">ppto 2020</a>
-        <a class="dropdown-item" href="#">ppto 2019</a>
+        <a *ngFor="let p of padre" class="dropdown-item" href="#">{{ p[1] }}</a>
+
       </div>
     </div>
 
