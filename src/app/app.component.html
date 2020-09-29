@@ -9,13 +9,15 @@
          Presupuestos
       </button>
       <div class="dropdown-menu">
-        <a *ngFor="let p of padre" class="dropdown-item" href="#">{{ p[1] }}</a>
+        <a class="dropdown-item" [routerLink]="['/ppto', 0]" routerLinkActive="active">Todos </a>
+        <a *ngFor="let p of padre" class="dropdown-item" [routerLink]="['/ppto', p[0]]"
+        routerLinkActive="active">{{ p[1] }}</a>
 
       </div>
     </div>
 
   </div>
 
-  <app-presupuesto></app-presupuesto>
+  <!--app-presupuesto></app-presupuesto-->
 
 <router-outlet></router-outlet>

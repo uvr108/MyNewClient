@@ -1,8 +1,12 @@
 import { MyModalComponent } from './../my-modal/my-modal.component';
-import { Component, OnInit, Input, ComponentFactoryResolver, ViewChild, ViewContainerRef } from '@angular/core';
+import { Component, OnInit, ComponentFactoryResolver, ViewChild, ViewContainerRef } from '@angular/core';
 import { CrudService } from '../../shared/crud.service';
 import { FormBuilder,  FormGroup } from '@angular/forms';
 import { TABLAS } from './../../tablas';
+import { ActivatedRoute } from '@angular/router';
+import { Observable } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
+
 
 @Component({
   selector: 'app-presupuesto',
@@ -32,12 +36,23 @@ export class PresupuestoComponent implements OnInit {
   listForm: FormGroup;
   componentRef: any;
 
+  presuId: any;
+  selectedId: number;
+
+
   constructor( private crudService: CrudService,
                private resolver: ComponentFactoryResolver,
-               private fb: FormBuilder) { }
-  ngOnInit(): void {
-    this.load();
-  }
+               private route: ActivatedRoute,
+               ) { }
+
+    ngOnInit() {
+        this.route.paramMap.subscribe(params => {
+        this.presuId = params.get('Id');
+        console.log(`presuId : ${this.presuId}`);
+        this.load();
+      });
+
+    }
 
   sgte(ref: string) {
     this.ref = ref;
@@ -46,9 +61,29 @@ export class PresupuestoComponent implements OnInit {
 
 load() {
 
+  if (this.presuId > 0) {
+  this.crudService.GetByPk(this.table, this.presuId)
+  .subscribe( data => {
+    this.padre = [];
+    const subresult = [];
+    for (const [key, value] of Object.entries(data)) {
+      subresult.push(value);
+    }
+    console.log(subresult);
+    this.padre.push(['id', 'nombre', 'monto']);
+    this.padre.push(subresult);
+    this.total = 1;
+
+  }
+  );
+  this.padre.unshift(this.cabecera);
+  console.log(this.padre);
+}
+else {
+
     this.crudService.GetData(this.table, null)
     .subscribe(data => {
-      // console.log(data);
+      console.log(data);
       this.padre = [];
       data.forEach((f) => {
         const subresult = [];
@@ -63,7 +98,7 @@ load() {
       this.total = this.padre.length;
       this.padre.unshift(this.cabecera);
     });
-
+  }
 }
 
 mostra() {

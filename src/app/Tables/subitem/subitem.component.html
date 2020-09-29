@@ -11,8 +11,7 @@
         <span><template #messagecontainer></template></span>
 
         <span *ngFor="let pad of padre; index as c">
-          <span *ngIf="c>0; else otro0"><button type="button" class="btn btn-outline-light text-dark btn-sm"
-            (click) = "sgte(pad[0])">&nbsp;&nbsp;+&nbsp;</button></span>
+          <span *ngIf="c>0; else otro0">&nbsp;&nbsp;&nbsp;</span>
           <ng-template #otro0><button type="button" class="btn btn-outline-light text-dark btn-sm" disabled
             (click) = "sgte(pad[0])">&nbsp;</button></ng-template>
           <span *ngFor="let p of pad; index as i"><span *ngIf="i>0"><span *ngIf="i==1 && c>0; else otro">

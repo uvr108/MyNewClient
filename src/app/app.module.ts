@@ -20,6 +20,7 @@ import {NgxPaginationModule} from 'ngx-pagination';
 import { SubitemComponent } from './Tables/subitem/subitem.component';
 import { SolicitudComponent } from './Tables/solicitud/solicitud.component';
 import { MyModalComponent } from './Tables/my-modal/my-modal.component';
+import { PageNotFoundComponent } from './Tables/page-not-found/page-not-found.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { MyModalComponent } from './Tables/my-modal/my-modal.component';
     SubitemComponent,
     SolicitudComponent,
     MyModalComponent,
+    PageNotFoundComponent,
   ],
   imports: [
     BrowserModule,

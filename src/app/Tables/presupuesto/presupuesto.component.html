@@ -38,8 +38,10 @@
 
 <div  style="width: '100%'; ; margin-left: '25px'">
 
+
   <!--p>({{ref}} === {{id}})</p-->
-  <span><button type="button" class="btn btn-outline-light text-dark btn-sm"
+
+  <span *ngIf="total"><button type="button" class="btn btn-outline-light text-dark btn-sm"
     (click) = "mostra()">+</button>Presupuesto({{total}})
     <button *ngIf="presupuesto" class="btn btn-light btn-sm" data-toggle="modal" data-target="#Presupuesto"
     (click) = "activa_modal(table, null,null, null, false, null)">#</button></span>

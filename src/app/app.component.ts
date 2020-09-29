@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CrudService } from './shared/crud.service';
+import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -9,12 +10,17 @@ import { CrudService } from './shared/crud.service';
 export class AppComponent implements OnInit{
 
   padre = [];
+  name: string = null;
 
-  constructor(private crudService: CrudService) {
+  constructor(private crudService: CrudService , private route: ActivatedRoute, ) {
 
   }
 
   ngOnInit() {
+
+    this.route.queryParams.subscribe(params => {
+      this.name = params.name;
+    });
 
     this.crudService.GetData('presupuesto', null)
     .subscribe(data => {

@@ -21,6 +21,15 @@ httpOptions = {
 
   constructor(private http: HttpClient) { }
 
+  GetByPk(table: string, pk: string = null): Observable<[{}]>  {
+
+    return this.http.get<[{}]>(this.baseurl + '/api/' + table + '/pk/' + pk)
+    .pipe(
+      retry(1),
+      catchError(this.errorHandl)
+    );
+  }
+
   GetData(table: string, fk: string = null): Observable<[{}]> {
 
     if (fk) {
