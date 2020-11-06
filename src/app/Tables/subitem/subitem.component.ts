@@ -2,7 +2,7 @@ import { MyModalComponent } from './../my-modal/my-modal.component';
 import { Component, OnInit, Input, ComponentFactoryResolver, ViewChild,
    ViewContainerRef } from '@angular/core';
 import { CrudService } from '../../shared/crud.service';
-import { FormBuilder,  FormGroup } from '@angular/forms';
+// import { FormBuilder,  FormGroup } from '@angular/forms';
 import { TABLAS } from './../../tablas';
 
 @Component({
@@ -135,9 +135,9 @@ activa_modal(table: string, ref: string, back: string, seleccion: object, editTa
   if (table) {
 
       this.entry.clear();
-      console.log(`activa_modal() presupuesto : table -> ${table}
-      param -> ${JSON.stringify(ref)}
-      editTabla -> ${editTabla}`);
+      // console.log(`activa_modal() presupuesto : table -> ${table}
+      // param -> ${JSON.stringify(ref)}
+      // editTabla -> ${editTabla}`);
 
       if (this.componentRef) { console.log('Destroy componentRef'); this.componentRef.destroy(); }
 

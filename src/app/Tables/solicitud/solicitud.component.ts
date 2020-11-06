@@ -40,10 +40,10 @@ export class SolicitudComponent implements OnInit {
                ) { }
   ngOnInit(): void {
     this.compon = this.Tablas[this.table].compon;
-
+    console.log(`backRef -> ${this.backref}`);
     if (this.back) {
       this.get_select();
-      // console.log(`seleccion -> ${JSON.stringify(this.seleccion)}`);
+      console.log(`seleccion -> ${JSON.stringify(this.seleccion)}`);
       this.obtiene_back();
 
       // console.log(`mostra() selection -> ${JSON.stringify(this.seleccion)}`);
@@ -53,7 +53,7 @@ export class SolicitudComponent implements OnInit {
 
   obtiene_nombre(valor: number, table: string)
   {
-    console.log(`xcxccxc seleccion -> ${valor} | ${table} | ${JSON.stringify(this.seleccion)}`);
+    // console.log(`xcxccxc seleccion -> ${valor} | ${table} | ${JSON.stringify(this.seleccion)}`);
     let out = valor;
     Object.entries(this.seleccion[table]).forEach(([k, v]) => { if (valor === v['id']) { out =  v['nombre']; }});
     return out;
@@ -66,7 +66,7 @@ export class SolicitudComponent implements OnInit {
 
          this.type.push(value);
       }
-    console.log(`type -> ${JSON.stringify(this.type)}`);
+    // console.log(`type -> ${JSON.stringify(this.type)}`);
 
     this.crudService.GetData(this.table, this.backref)
     .subscribe(data => {
@@ -84,7 +84,7 @@ export class SolicitudComponent implements OnInit {
           || this.compon[key] === 'id')
           {
             // value =  this.obtiene_nombre(+value, this.inverse[key]);
-            console.log('xxxx : value, key ', +value, key,  this.inverse[key]);
+            // console.log('xxxx : value, key ', +value, key,  this.inverse[key]);
           }
 
           subresult.push(value);
@@ -107,10 +107,12 @@ export class SolicitudComponent implements OnInit {
   }
 
 get_select() {
+  console.log(`get_select() back -> ${JSON.stringify(this.back)}`);
   Object.entries(this.back).forEach(([k, v]) => {
-    this.crudService.GetData(k, null).subscribe((d) => {
+    console.log(`k -> ${k}`);
+    this.crudService.GetData(k).subscribe((d) => {
      this.seleccion[k] = d;
-     // console.log(`mostra() solicitud : [k,v] -> ${k} : ${v} seleccion -> ${JSON.stringify(this.seleccion[k])}`);
+     // console.log(`get_select() solicitud : [k,v] -> ${k} : ${v} seleccion -> ${JSON.stringify(this.seleccion[k])}`);
      });
      } );
 }
@@ -141,7 +143,8 @@ activa_modal(table: string, ref: string, back: string, seleccion: object, editTa
   // pad = [29, 'xxxs', '2020-08-14', '1000', 1, 2, 32];
   // console.log('ref  ', ref[0] );
   // console.log('DATA : ', JSON.stringify(this.data) );
-  console.log(`activa_modal : pad -> ${pad}`);
+  // console.log(`activa_modal : pad -> ${pad}`);
+
 
   if (table) {
       this.entry.clear();
@@ -160,8 +163,8 @@ activa_modal(table: string, ref: string, back: string, seleccion: object, editTa
       }
       else { pad = null; }
 
-      // console.log(`activa_modal() solicitud : pad -> ${JSON.stringify(pad)}`);
-      // console.log(`activa_modal() solicitud : editTable -> ${editTabla}`);
+      console.log(`activa_modal() solicitud : pad -> ${JSON.stringify(pad)}`);
+      console.log(`activa_modal() solicitud : editTable -> ${editTabla}`);
 
       const factory = this.resolver.resolveComponentFactory(MyModalComponent);
       this.componentRef = this.entry.createComponent(factory);

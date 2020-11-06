@@ -42,6 +42,7 @@ httpOptions = {
 
     }
     else {
+      // console.log(`xxx -> ${this.baseurl}/api/${table}`);
       return this.http.get<any>(this.baseurl + '/api/' + table)
       .pipe(
         retry(1),

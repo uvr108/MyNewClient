@@ -4,7 +4,7 @@
   <span><button type="button" class="btn btn-outline-light text-dark btn-sm"
     (click) = "mostra()">+</button>Solicitud({{total}})
     <button *ngIf="solicitud" class="btn btn-light btn-sm" data-toggle="modal" data-target="#Solicitud"
-    (click) = "activa_modal(table, backref, null, null, false, null)">#</button></span>
+    (click) = "activa_modal(table, backref, back, seleccion, false, null)">z#</button></span>
 
     <span *ngIf="solicitud">
       <br>
@@ -31,7 +31,7 @@
 
 
   </span>
-
+  <br>
   </div>
 
 

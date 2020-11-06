@@ -43,6 +43,7 @@ export class ItemComponent implements OnInit {
                ) { }
   ngOnInit(): void {
     this.compon = this.Tablas[this.table].compon;
+    console.log(`this.compon -> ${JSON.stringify(this.compon)}`);
 
     if (this.back) {
       this.get_select();

@@ -31,6 +31,7 @@ import { PageNotFoundComponent } from './Tables/page-not-found/page-not-found.co
     SolicitudComponent,
     MyModalComponent,
     PageNotFoundComponent,
+
   ],
   imports: [
     BrowserModule,

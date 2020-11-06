@@ -2,21 +2,30 @@
   <h2>Centro Sismológico Nacional</h2>
 
   <div class="btn-group" style="margin: 1em;">
-    <button type="button" class="btn btn-outline-primary btn-sm">Projectos</button>
-    <button type="button" class="btn btn-outline-primary btn-sm" style="margin-left: 1em;">Indicadores</button>
+
     <div class="btn-group">
-      <button type="button" class="btn btn-outline-primary btn-sm dropdown-toggle"  style="margin-left: 1em;" data-toggle="dropdown">
-         Presupuestos
-      </button>
-      <div class="dropdown-menu">
+    <button type="button" class="btn btn-outline-primary btn-sm dropdown-toggle"  style="margin-left: 1em;" data-toggle="dropdown">
+        Presupuestos
+    </button>
+    <div class="dropdown-menu">
         <a class="dropdown-item" [routerLink]="['/ppto', 0]" routerLinkActive="active">Todos </a>
         <a *ngFor="let p of padre" class="dropdown-item" [routerLink]="['/ppto', p[0]]"
         routerLinkActive="active">{{ p[1] }}</a>
-
-      </div>
     </div>
-
   </div>
+  <!--
+  <div class="btn-group">
+    <button type="button" class="btn btn-outline-primary btn-sm dropdown-toggle"  style="margin-left: 1em;" data-toggle="dropdown">
+        Control Pres.
+    </button>
+    <div class="dropdown-menu">
+        <a *ngFor="let p of padre" class="dropdown-item" [routerLink]="['/tabla', p[0]]"
+        routerLinkActive="active">{{ p[1] }}</a>
+    </div>
+  </div>
+-->
+
+</div>
 
   <!--app-presupuesto></app-presupuesto-->
 

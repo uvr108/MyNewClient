@@ -55,6 +55,7 @@ export class PresupuestoComponent implements OnInit {
     }
 
   sgte(ref: string) {
+    console.log(`presupuesto : sgte() ref -> ${ref} next -> ${this.next}`);
     this.ref = ref;
     this.next = this.next  === true ? false : true;
   }
