@@ -35,21 +35,21 @@ export class MyModalComponent implements OnInit {
 
   get_param() {
     Object.entries(this.back).forEach(([k, v]) => {
-      // console.log(`ingresar() mymodal : listForm.value : ${JSON.stringify(this.listForm.value)} k -> ${k}`);
+      console.log(`get_param mymodal : k -> ${k}`);
       this.param = this.param + '/' + this.listForm.value[k];
     });
   }
 
   ingresar() {
 
-    // console.log(`ingresar() my-modal : back ${JSON.stringify(this.back)}`);
+    console.log(`my-modal : back ${JSON.stringify(this.back)}`);
     this.param = this.ref;
     if (this.back) {
         this.get_param();
      }
 
-    // console.log(`ingresar() my-modal : param -> ${this.param} table -> ${this.table}`);
-    // console.log(`ingresar() my-modal : listForm -> ${JSON.stringify(this.listForm.value)}`);
+    console.log(`ingresar() my-modal : param -> ${this.param} table -> ${this.table}`);
+    console.log(`ingresar() my-modal : listForm -> ${JSON.stringify(this.listForm.value)}`);
 
     this.crudService.agregar(this.listForm.value, this.table,  this.param).
      subscribe(() => {
@@ -140,21 +140,21 @@ limpiar() {
     const js = {};
     let i = 0;
 
-    /*
+
     console.log(`ngOnInit() my-modal : table -> ${this.table}`);
     console.log(`ngOnInit() my-modal : ref -> ${JSON.stringify(this.ref)}`);
     console.log(`ngOnInit() my-modal : back -> ${JSON.stringify(this.back)}`);
     console.log(`ngOnInit() my-modal : seleccion -> ${JSON.stringify(this.seleccion)}`);
     console.log(`ngOnInit() my-modal : editTabla -> ${this.editTabla}`);
-    */
+
 
     this.lgroup = this.Tablas[this.table].lgroup;
     this.compon = this.Tablas[this.table].compon;
 
 
-    // console.log(`ngOnInit() my-modal : pad : ${JSON.stringify(this.pad)}`);
-    // console.log(`ngOnInit() my-modal : lgroup -> ${JSON.stringify(this.lgroup)}`);
-    // console.log(`ngOnInit() my-modal : compon -> ${JSON.stringify(this.compon)}`);
+    console.log(`ngOnInit() my-modal : pad : ${JSON.stringify(this.pad)}`);
+    console.log(`ngOnInit() my-modal : lgroup -> ${JSON.stringify(this.lgroup)}`);
+    console.log(`ngOnInit() my-modal : compon -> ${JSON.stringify(this.compon)}`);
 
 
     if (this.pad) {

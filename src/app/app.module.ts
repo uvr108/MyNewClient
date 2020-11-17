@@ -21,6 +21,8 @@ import { SubitemComponent } from './Tables/subitem/subitem.component';
 import { SolicitudComponent } from './Tables/solicitud/solicitud.component';
 import { MyModalComponent } from './Tables/my-modal/my-modal.component';
 import { PageNotFoundComponent } from './Tables/page-not-found/page-not-found.component';
+import { OrdencompraComponent } from './Tables/ordencompra/ordencompra.component';
+import { FacturaComponent } from './Tables/factura/factura.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +33,8 @@ import { PageNotFoundComponent } from './Tables/page-not-found/page-not-found.co
     SolicitudComponent,
     MyModalComponent,
     PageNotFoundComponent,
+    OrdencompraComponent,
+    FacturaComponent,
 
   ],
   imports: [

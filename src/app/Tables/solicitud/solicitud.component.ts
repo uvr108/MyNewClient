@@ -40,13 +40,13 @@ export class SolicitudComponent implements OnInit {
                ) { }
   ngOnInit(): void {
     this.compon = this.Tablas[this.table].compon;
-    console.log(`backRef -> ${this.backref}`);
+    // console.log(`backRef -> ${this.backref}`);
     if (this.back) {
       this.get_select();
-      console.log(`seleccion -> ${JSON.stringify(this.seleccion)}`);
+      // console.log(`seleccion -> ${JSON.stringify(this.seleccion)}`);
       this.obtiene_back();
 
-      // console.log(`mostra() selection -> ${JSON.stringify(this.seleccion)}`);
+      // console.log(`Solicitud init back -> ${JSON.stringify(this.back)}`);
      }
     this.load();
   }
@@ -107,14 +107,15 @@ export class SolicitudComponent implements OnInit {
   }
 
 get_select() {
-  console.log(`get_select() back -> ${JSON.stringify(this.back)}`);
+  // console.log(`get_select() back -> ${JSON.stringify(this.back)}`);
   Object.entries(this.back).forEach(([k, v]) => {
-    console.log(`k -> ${k}`);
+    // console.log(`k -> ${k}`);
     this.crudService.GetData(k).subscribe((d) => {
      this.seleccion[k] = d;
      // console.log(`get_select() solicitud : [k,v] -> ${k} : ${v} seleccion -> ${JSON.stringify(this.seleccion[k])}`);
      });
      } );
+  console.log(`Solicitud seleccion -> ${JSON.stringify(this.seleccion)}`);
 }
 
 mostra() {
@@ -163,8 +164,8 @@ activa_modal(table: string, ref: string, back: string, seleccion: object, editTa
       }
       else { pad = null; }
 
-      console.log(`activa_modal() solicitud : pad -> ${JSON.stringify(pad)}`);
-      console.log(`activa_modal() solicitud : editTable -> ${editTabla}`);
+      // console.log(`activa_modal() solicitud : pad -> ${JSON.stringify(pad)}`);
+      // console.log(`activa_modal() solicitud : editTable -> ${editTabla}`);
 
       const factory = this.resolver.resolveComponentFactory(MyModalComponent);
       this.componentRef = this.entry.createComponent(factory);

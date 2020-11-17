@@ -13,17 +13,18 @@
 
       <!-- Modal body -->
       <div class="modal-body">
-
+        <!--
         pad : [{{pad | json}}]<br>
         compon : [{{compon | json}}]
-
+        -->
 <form [formGroup]="listForm" >
-
+    <!--
     <p>back : [{{back | json}}]</p>
     <p>seleccion : [{{seleccion | json}}]</p>
-
+    -->
     <span *ngIf="back">
         <span *ngFor="let b of back | keyvalue">
+            <!--p>[{{compon[back[b.key]] | json}}]</p-->
 
             <p *ngIf="compon[back[b.key]] === 'fk'">&nbsp;{{b.key}}&nbsp;
 
@@ -36,8 +37,10 @@
                 </select>
 
             </p>
+
         </span>
     </span>
+
       <span *ngIf="compon">
 
 

@@ -48,14 +48,14 @@ export class PresupuestoComponent implements OnInit {
     ngOnInit() {
         this.route.paramMap.subscribe(params => {
         this.presuId = params.get('Id');
-        console.log(`presuId : ${this.presuId}`);
+        // console.log(`presuId : ${this.presuId}`);
         this.load();
       });
 
     }
 
   sgte(ref: string) {
-    console.log(`presupuesto : sgte() ref -> ${ref} next -> ${this.next}`);
+    // console.log(`presupuesto : sgte() ref -> ${ref} next -> ${this.next}`);
     this.ref = ref;
     this.next = this.next  === true ? false : true;
   }
@@ -84,7 +84,7 @@ else {
 
     this.crudService.GetData(this.table, null)
     .subscribe(data => {
-      console.log(data);
+      // console.log(data);
       this.padre = [];
       data.forEach((f) => {
         const subresult = [];
@@ -114,10 +114,10 @@ activa_modal(table: string, ref: string, back: string, seleccion: object, editTa
   if (table) {
 
       this.entry.clear();
-      console.log(`activa_modal() presupuesto : table -> ${table}
+      /* console.log(`activa_modal() presupuesto : table -> ${table}
       param -> ${JSON.stringify(ref)}
       editTabla -> ${editTabla}`);
-
+      */
       if (this.componentRef) { console.log('Destroy componentRef'); this.componentRef.destroy(); }
 
       const factory = this.resolver.resolveComponentFactory(MyModalComponent);
