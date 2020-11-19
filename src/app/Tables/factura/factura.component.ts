@@ -54,12 +54,33 @@ export class FacturaComponent implements OnInit {
 
   obtiene_nombre(valor: number, table: string)
   {
-    // console.log(`xcxccxc seleccion -> ${valor} | ${table} | ${JSON.stringify(this.seleccion)}`);
-    let out = valor;
-    Object.entries(this.seleccion[table]).forEach(([k, v]) => { if (valor === v['id']) { out =  v['nombre']; }});
-    return out;
-    }
+    // console.log(`obtiene nombre -> ${valor} | ${table} | ${JSON.stringify(this.seleccion)}`);
+    let out: any;
 
+    if (isNaN(valor)) { out = table; } else { out = valor; }
+
+    Object.entries(this.seleccion[table]).forEach(([k, v]) => {
+      if (v.hasOwnProperty('nombre')) {
+        if (v['id'] === valor) {
+
+          out = v['nombre'];
+
+        }
+
+      }
+      else {
+        if (v['id'] === valor) {
+
+          out = v['numero_oc'];
+
+        }
+
+      }
+
+
+    });
+    return out;
+ }
 
   load() {
 
@@ -116,7 +137,7 @@ get_select() {
      // console.log(`get_select() solicitud : [k,v] -> ${k} : ${v} seleccion -> ${JSON.stringify(this.seleccion[k])}`);
      });
      } );
-  console.log(`Solicitud seleccion -> ${JSON.stringify(this.seleccion)}`);
+  // console.log(`Solicitud seleccion -> ${JSON.stringify(this.seleccion)}`);
 }
 
 mostra() {

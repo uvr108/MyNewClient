@@ -52,11 +52,33 @@ export class OrdencompraComponent implements OnInit {
 
   obtiene_nombre(valor: number, table: string)
   {
-    // console.log(`xcxccxc seleccion -> ${valor} | ${table} | ${JSON.stringify(this.seleccion)}`);
-    let out = valor;
-    Object.entries(this.seleccion[table]).forEach(([k, v]) => { if (valor === v['id']) { out =  v['nombre']; }});
+    // console.log(`obtiene nombre -> ${valor} | ${table} | ${JSON.stringify(this.seleccion)}`);
+    let out: any;
+
+    if (isNaN(valor)) { out = table; } else { out = valor; }
+
+    Object.entries(this.seleccion[table]).forEach(([k, v]) => {
+      if (v.hasOwnProperty('nombre')) {
+        if (v['id'] === valor) {
+
+          out = v['nombre'];
+
+        }
+
+      }
+      else {
+        if (v['id'] === valor) {
+
+          out = v['solicitante'];
+
+        }
+
+      }
+
+
+    });
     return out;
-    }
+ }
 
 
   load() {
@@ -65,7 +87,7 @@ export class OrdencompraComponent implements OnInit {
 
          this.type.push(value);
       }
-    // console.log(`type -> ${JSON.stringify(this.type)}`);
+    // console.log(`seleccion -> ${JSON.stringify(this.seleccion)}`);
 
     this.crudService.GetData(this.table, this.backref)
     .subscribe(data => {

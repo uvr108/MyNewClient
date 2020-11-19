@@ -74,8 +74,18 @@ export const TABLAS: object = {
 
   }
 
+  , CuentaContable: {
+    next: 'ComprobanteContable',
+    back: null,
+    lgroup: { id: [''], nombre: ['', Validators.required] },
+    compon: { id: 'hidden', nombre: 'text' }
+  }
+
 , ComprobanteContable: {
   next: null,
-  back: { Factura: 'facturaId', CuentaContable : 'cuentacontableId'}
+  back: { CuentaContable : 'cuentacontableId', Factura: 'facturaId', },
+  lgroup: { id: [''],  numero_registro: [''], fecha_ingreso: [''], CuentaContable: [''], Factura: [''] },
+  compon: { id: 'hidden', numero_registro: 'text', fecha_ingreso: 'date', cuentacontableId: 'fk', facturaId: 'id' }
+
   }
 };

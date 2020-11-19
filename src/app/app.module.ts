@@ -23,6 +23,7 @@ import { MyModalComponent } from './Tables/my-modal/my-modal.component';
 import { PageNotFoundComponent } from './Tables/page-not-found/page-not-found.component';
 import { OrdencompraComponent } from './Tables/ordencompra/ordencompra.component';
 import { FacturaComponent } from './Tables/factura/factura.component';
+import { ComprobanteContableComponent } from './Tables/comprobante-contable/comprobante-contable.component';
 
 @NgModule({
   declarations: [
@@ -35,6 +36,7 @@ import { FacturaComponent } from './Tables/factura/factura.component';
     PageNotFoundComponent,
     OrdencompraComponent,
     FacturaComponent,
+    ComprobanteContableComponent,
 
   ],
   imports: [

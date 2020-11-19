@@ -1,4 +1,4 @@
-<div  style="width: '100%'; margin-left: '25px'">
+<!--div  style="width: '100%'; margin-left: '25px'">
 
   <span><button type="button" class="btn btn-outline-light text-dark btn-sm"
     (click) = "mostra()">+</button>OrdenCompra({{total}})
@@ -30,5 +30,43 @@
 
   </span>
   <br>
-  </div>
+  </!--div-->
+
+  <div  style="width: '100%'; ; margin-left: '25px'">
+
+    <span><button type="button" class="btn btn-outline-light text-dark btn-sm"
+      (click) = "mostra()">+</button>Orden Compra({{total}})
+      <button *ngIf="ordencompra" class="btn btn-light btn-sm" data-toggle="modal" data-target="#OrdenCompra"
+      (click) = "activa_modal(table, backref, back, seleccion, false, null)">#</button></span>
+
+      <span *ngIf="ordencompra">
+        <br>
+          <span><template #messagecontainer></template></span>
+
+          <span *ngFor="let pad of padre; index as c">
+            <span *ngIf="c>0; else otro0"><button type="button" class="btn btn-outline-light text-dark btn-sm"
+              (click) = "sgte(pad[0])">&nbsp;&nbsp;+&nbsp;</button></span>
+            <ng-template #otro0><button type="button" class="btn btn-outline-light text-dark btn-sm" disabled
+              (click) = "sgte(pad[0])">&nbsp;</button></ng-template>
+            <span *ngFor="let p of pad; index as i"><span *ngIf="i>0"><span *ngIf="i==1 && c>0; else otro">
+             <button type="button" class="btn btn-link btn-sm"  style="width: 9em; text-align: left;"
+             data-toggle="modal" data-target="#OrdenCompra" (click) = "activa_modal(table, backref, null, null, true, pad)"><td>{{p}}</td></button></span></span>
+             <ng-template #otro><td class="a"><span *ngIf="type[i]==='fk' || type[i]==='id'; else otra">
+              {{obtiene_nombre(p, inverse[cabecera[i]])}}
+              </span>
+              <ng-template #otra>{{p}}</ng-template></td></ng-template></span>
+
+          <br>
+
+          <div *ngIf="ref === pad[0]">
+            <app-factura  *ngIf = "next"  [backref] = "pad[0]"></app-factura>
+          </div>
+
+          </span>
+
+
+    </span>
+    <br>
+    </div>
+
 

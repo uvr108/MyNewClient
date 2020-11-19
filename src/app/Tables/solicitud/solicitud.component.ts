@@ -53,7 +53,7 @@ export class SolicitudComponent implements OnInit {
 
   obtiene_nombre(valor: number, table: string)
   {
-    // console.log(`xcxccxc seleccion -> ${valor} | ${table} | ${JSON.stringify(this.seleccion)}`);
+    // console.log(`obtiene nombre -> ${valor} | ${table} | ${JSON.stringify(this.seleccion)}`);
     let out = valor;
     Object.entries(this.seleccion[table]).forEach(([k, v]) => { if (valor === v['id']) { out =  v['nombre']; }});
     return out;
