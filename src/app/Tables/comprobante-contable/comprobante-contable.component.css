@@ -1,0 +1,25 @@
+td.a {
+  background-color: #ad95ab;
+  line-height: 1.9em;
+  column-width:9em;
+  border: 0.1mm;
+  border-radius: 5%;
+  border-color: rgb(38, 113, 156);
+  border-style: solid;
+  padding: -0.1ch;
+  border-right: 0ch;
+}
+
+
+td.b {
+  background-color: #fdfdfd;
+  line-height: 1.9em;
+  column-width:9em;
+  border: 0.0mm;
+
+  align-content: center;
+  align-items: center;
+  text-align: center;
+  padding: -0.1ch;
+  border-right: 0ch;
+}
