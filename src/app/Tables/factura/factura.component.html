@@ -1,37 +1,10 @@
+<div *ngIf="factura">
 
-  <div  style="width: '100%'; ; margin-left: '25px'">
-
-    <span><button type="button" class="btn btn-outline-light text-dark btn-sm"
-      (click) = "mostra()">+</button>Factura({{total}})
-      <button *ngIf="factura" class="btn btn-light btn-sm" data-toggle="modal" data-target="#Factura"
-      (click) = "activa_modal(table, backref, back, seleccion, false, null)">#</button></span>
-
-      <span *ngIf="factura">
-        <br>
-          <span><template #messagecontainer></template></span>
-
-          <span *ngFor="let pad of padre; index as c">
-            <span *ngIf="c>0; else otro0"><button type="button" class="btn btn-outline-light text-dark btn-sm"
-              (click) = "sgte(pad[0])">&nbsp;&nbsp;+&nbsp;</button></span>
-            <ng-template #otro0><button type="button" class="btn btn-outline-light text-dark btn-sm" disabled
-              (click) = "sgte(pad[0])">&nbsp;</button></ng-template>
-            <span *ngFor="let p of pad; index as i"><span *ngIf="i>0"><span *ngIf="i==1 && c>0; else otro">
-             <button type="button" class="btn btn-link btn-sm"  style="width: 9em; text-align: left;"
-             data-toggle="modal" data-target="#Factura" (click) = "activa_modal(table, backref, null, null, true, pad)"><td>{{p}}</td></button></span></span>
-             <ng-template #otro><td class="a"><span *ngIf="type[i]==='fk' || type[i]==='id'; else otra">
-              {{obtiene_nombre(p, inverse[cabecera[i]])}}
-              </span>
-              <ng-template #otra>{{p}}</ng-template></td></ng-template></span>
-
-          <br>
-
-          <div *ngIf="ref === pad[0]">
-            <app-comprobante-contable  *ngIf = "next"  [backref] = "pad[0]"></app-comprobante-contable>
-          </div>
-
-          </span>
-
-
-    </span>
-    <br>
-    </div>
+  <table *ngIf = "total > 0" class="c">
+  <tr *ngFor="let pad of padre; index as j">
+  <td class="factura" *ngIf="j>0">{{pad[1]}}</td>
+  <td><app-comprobante-contable [backref]="padre[j][0]"></app-comprobante-contable></td>
+  <tr><td  class="factura"><button *ngIf="factura" class="btn btn-link btn-sm" data-toggle="modal" data-target="#Factura"
+    (click) = "activa_modal(table, backref, back, seleccion, false, null)">+</button></td></tr>
+  </table>
+</div>

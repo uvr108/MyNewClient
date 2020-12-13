@@ -13,7 +13,7 @@ export class SolicitudComponent implements OnInit {
   @Input() backref: string = null;
   @ViewChild('messagecontainer', { read: ViewContainerRef }) entry: ViewContainerRef;
 
-  solicitud = false;
+  solicitud = true;
   next = false;
   ref: string = null;
   total = 0;

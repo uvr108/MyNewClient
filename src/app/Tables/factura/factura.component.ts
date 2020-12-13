@@ -14,7 +14,7 @@ export class FacturaComponent implements OnInit {
   @Input() backref: string = null;
   @ViewChild('messagecontainer', { read: ViewContainerRef }) entry: ViewContainerRef;
 
-  factura = false;
+  factura = true;
   next = false;
   ref: string = null;
   total = 0;

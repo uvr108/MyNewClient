@@ -6,5 +6,95 @@ h2, h3 {
   font-family: Arial, Helvetica, sans-serif;
   font-weight: lighter;
 }
+td.subitem {
+
+  background-color: #e7d8e6;
+  vertical-align: top;
+  line-height: 1.9em;
+  column-width:9em;
+  border: 0.1mm;
+  border-radius: 5%;
+  border-color: rgb(38, 113, 156);
+  border-style: solid;
+  padding: 0.1ch;
+  border-right: 0.1ch;
+}
+
+td.solicitud {
+
+  background-color: #f0ccbc;
+  vertical-align: top;
+  line-height: 1.9em;
+  column-width:9em;
+  border: 0.1mm;
+  border-radius: 5%;
+  border-color: rgb(38, 113, 156);
+  border-style: solid;
+  padding: 0.1ch;
+  border-right: 0.1ch;
+}
+td.ordencompra {
+  background-color: #b8ddb7;
+  vertical-align: top;
+  line-height: 1.9em;
+  column-width:9em;
+  border: 0.1mm;
+  border-radius: 5%;
+  border-color: rgb(38, 113, 156);
+  border-style: solid;
+  padding: 0.1ch;
+  border-right: 0.1ch;
+}
+
+td.factura {
+  background-color: #ced9ec;
+  line-height: 1.9em;
+  column-width:9em;
+  border: 0.1mm;
+  border-radius: 5%;
+  border-color: rgb(38, 113, 156);
+  border-style: solid;
+  padding: 0.1ch;
+  border-right: 0.1ch;
+}
+
+td.amarillo {
+  background-color: #ece9ce;
+  line-height: 1.9em;
+  column-width:9em;
+  border: 0.1mm;
+  border-radius: 5%;
+  border-color: rgb(38, 113, 156);
+  border-style: solid;
+  padding: 0.1ch;
+  border-right: 0.1ch;
+}
+
+td.comprobantecontable {
+  background-color: #ada2ac;
+  vertical-align: top;
+  line-height: 1.9em;
+  column-width:9em;
+  border: 0.1mm;
+  border-radius: 5%;
+  border-color: rgb(38, 113, 156);
+  border-style: solid;
+  padding: 0.1ch;
+  border-right: 0.1ch;
+}
+
+td.presupuesto {
+  background-color: #ada2ac;
+  vertical-align: top;
+  line-height: 1.9em;
+  column-width:9em;
+  border: 0.1mm;
+  border-radius: 5%;
+  border-color: rgb(38, 113, 156);
+  border-style: solid;
+  padding: 0.1ch;
+  border-right: 0.1ch;
+}
+
 
 

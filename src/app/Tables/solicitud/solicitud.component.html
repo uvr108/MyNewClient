@@ -1,36 +1,42 @@
-<div  style="width: '100%'; ; margin-left: '25px'">
-
-  <span><button type="button" class="btn btn-outline-light text-dark btn-sm"
-    (click) = "mostra()">+</button>Solicitud({{total}})
-    <button *ngIf="solicitud" class="btn btn-light btn-sm" data-toggle="modal" data-target="#Solicitud"
-    (click) = "activa_modal(table, backref, back, seleccion, false, null)">z#</button></span>
-
-    <span *ngIf="solicitud">
-      <br>
-        <span><template #messagecontainer></template></span>
-
-        <span *ngFor="let pad of padre; index as c">
-          <span *ngIf="c>0; else otro0"><button type="button" class="btn btn-outline-light text-dark btn-sm"
-            (click) = "sgte(pad[0])">&nbsp;&nbsp;+&nbsp;</button></span>
-          <ng-template #otro0><button type="button" class="btn btn-outline-light text-dark btn-sm" disabled
-            (click) = "sgte(pad[0])">&nbsp;</button></ng-template>
-          <span *ngFor="let p of pad; index as i"><span *ngIf="i>0"><span *ngIf="i==1 && c>0; else otro">
-           <button type="button" class="btn btn-link btn-sm"  style="width: 9em; text-align: left;"
-           data-toggle="modal" data-target="#Solicitud" (click) = "activa_modal(table, backref, null, null, true, pad)"><td>{{p}}</td></button></span></span>
-           <ng-template #otro><td class="a"><span *ngIf="type[i]==='fk' || type[i]==='id'; else otra">{{obtiene_nombre(p, inverse[cabecera[i]])}}</span>
-            <ng-template #otra>{{p}}</ng-template></td></ng-template></span>
-
-        <br>
-
-        <div *ngIf="ref === pad[0]">
-          <app-ordencompra  *ngIf = "next"  [backref] = "pad[0]"></app-ordencompra>
-        </div>
-
-        </span>
-
-
-  </span>
+<div *ngIf="solicitud" style="margin-left: '75px'">
   <br>
-  </div>
 
+  <table>
+    <tr>
 
+      <td class="solicitud">Solicitud</td>
+      <td class="ordencompra">Orden Compra</td>
+      <td class="factura">Factura</td>
+      <td class="comprobantecontable">Comp. Contable</td>
+      <td class="amarillo">Monto</td>
+    </tr>
+  </table>
+
+<table *ngIf = "total > 0" class="c">
+  <tr *ngFor="let pad of padre; index as j">
+<td class="solicitud" *ngIf="j>0">{{pad[1]}}</td>
+<td><app-ordencompra [backref]="padre[j][0]"></app-ordencompra></td>
+<tr><td class="solicitud"><button *ngIf="solicitud" class="btn btn-link" data-toggle="modal" data-target="#Solicitud"
+  (click) = "activa_modal(table, backref, back, seleccion, false, null)">+</button></td></tr>
+</table>
+
+<table>
+  <tr>
+    <td class="amarillo">Total</td>
+    <td class="amarillo">Comprometido</td>
+    <td class="amarillo">Contabilizado</td>
+    <td class="amarillo">Ejecutado</td>
+    <td class="amarillo">Presupuestado</td>
+  </tr>
+  <tr>
+    <td class="amarillo">100</td>
+    <td class="amarillo">101</td>
+    <td class="amarillo">10</td>
+    <td class="amarillo">10000</td>
+    <td class="amarillo">1024</td>
+  </tr>
+
+</table>
+
+<br>
+</div>

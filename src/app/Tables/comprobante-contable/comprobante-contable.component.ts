@@ -13,7 +13,7 @@ export class ComprobanteContableComponent implements OnInit {
   @Input() backref: string = null;
   @ViewChild('messagecontainer', { read: ViewContainerRef }) entry: ViewContainerRef;
 
-  comprobantecontable = false;
+  comprobantecontable = true;
   next = false;
   ref: string = null;
   total = 0;
