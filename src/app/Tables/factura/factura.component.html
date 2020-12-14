@@ -2,9 +2,11 @@
 
   <table *ngIf = "total > 0" class="c">
   <tr *ngFor="let pad of padre; index as j">
-  <td class="factura" *ngIf="j>0">{{pad[1]}}</td>
+  <td class="factura" *ngIf="j>0"><button type="button" class="btn btn-link"  style="width: 9em; text-align: left;"
+    data-toggle="modal" data-target="#Factura" (click) = "activa_modal('Factura', backref, null, null, true, pad)">{{pad[1]}}</button></td>
   <td><app-comprobante-contable [backref]="padre[j][0]"></app-comprobante-contable></td>
   <tr><td  class="factura"><button *ngIf="factura" class="btn btn-link btn-sm" data-toggle="modal" data-target="#Factura"
     (click) = "activa_modal(table, backref, back, seleccion, false, null)">+</button></td></tr>
   </table>
+  <span><template #messagecontainer></template></span>
 </div>

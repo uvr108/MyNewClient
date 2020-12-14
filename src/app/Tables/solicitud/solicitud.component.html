@@ -1,7 +1,7 @@
 <div *ngIf="solicitud" style="margin-left: '75px'">
   <br>
 
-  <table>
+  <table class="solicita">
     <tr>
 
       <td class="solicitud">Solicitud</td>
@@ -14,12 +14,13 @@
 
 <table *ngIf = "total > 0" class="c">
   <tr *ngFor="let pad of padre; index as j">
-<td class="solicitud" *ngIf="j>0">{{pad[1]}}</td>
+<td class="solicitud" *ngIf="j>0"><button type="button" class="btn btn-link"  style="width: 9em; text-align: left;"
+  data-toggle="modal" data-target="#Solicitud" (click) = "activa_modal('Solicitud', backref, null, null, true, pad)">{{pad[1]}}</button></td>
 <td><app-ordencompra [backref]="padre[j][0]"></app-ordencompra></td>
 <tr><td class="solicitud"><button *ngIf="solicitud" class="btn btn-link" data-toggle="modal" data-target="#Solicitud"
   (click) = "activa_modal(table, backref, back, seleccion, false, null)">+</button></td></tr>
 </table>
-
+<span><template #messagecontainer></template></span>
 <table>
   <tr>
     <td class="amarillo">Total</td>

@@ -6,6 +6,13 @@ h2, h3 {
   font-family: Arial, Helvetica, sans-serif;
   font-weight: lighter;
 }
+
+table.solicita {
+  background-color: #ada2ac;
+  background: #ece9ce;
+  enable-background: accumulate;
+}
+
 td.subitem {
 
   background-color: #e7d8e6;
@@ -67,7 +74,7 @@ td.amarillo {
   border-color: rgb(38, 113, 156);
   border-style: solid;
   padding: 0.1ch;
-  border-right: 0.1ch;
+
 }
 
 td.comprobantecontable {

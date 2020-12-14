@@ -89,7 +89,7 @@ export class FacturaComponent implements OnInit {
          this.type.push(value);
       }
     // console.log(`type -> ${JSON.stringify(this.type)}`);
-    console.log(`xxxx : ${this.table} ${this.backref}`);
+    // console.log(`xxxx : ${this.table} ${this.backref}`);
     this.crudService.GetData(this.table, this.backref)
     .subscribe(data => {
 

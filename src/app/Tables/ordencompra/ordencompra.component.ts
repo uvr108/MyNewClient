@@ -87,7 +87,7 @@ export class OrdencompraComponent implements OnInit {
 
          this.type.push(value);
       }
-    // console.log(`seleccion -> ${JSON.stringify(this.seleccion)}`);
+    console.log(`backref -> ${this.backref}`);
 
     this.crudService.GetData(this.table, this.backref)
     .subscribe(data => {
@@ -163,9 +163,11 @@ obtiene_back() {
 activa_modal(table: string, ref: string, back: string, seleccion: object, editTabla: boolean, pad: Array<any> = [])  {
   // activa_modal(table: string, ref: string, editTabla: boolean) {
   // pad = [29, 'xxxs', '2020-08-14', '1000', 1, 2, 32];
-  // console.log('ref  ', ref[0] );
-  // console.log('DATA : ', JSON.stringify(this.data) );
-  // console.log(`activa_modal : pad -> ${pad}`);
+  console.log(`back  -> ${back}`);
+  console.log(`SEL  -> ${seleccion}`);
+  console.log(`REF  -> ${ref}`);
+  // console.log(`DATA -> JSON.stringify(${this.data})`);
+  console.log(`PAD -> ${JSON.stringify(pad)}`);
 
 
   if (table) {

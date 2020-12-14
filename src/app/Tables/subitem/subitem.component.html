@@ -1,8 +1,8 @@
 <div  style="width: '100%'; margin-left: '25px'">
 
-  <span><button type="button" class="btn btn-outline-light text-dark btn-sm"
+  <span><button type="button" class="btn btn-outline-light text-dark"
     (click) = "mostra()">+</button>SubItem({{total}})
-    <button *ngIf="subitem" class="btn btn-light btn-sm" data-toggle="modal" data-target="#SubItem"
+    <button *ngIf="subitem" class="btn btn-light" data-toggle="modal" data-target="#SubItem"
     (click) = "activa_modal(table, backref, null, null, false, null)">#</button></span>
 
     <span *ngIf="subitem">
@@ -12,12 +12,12 @@
         <span *ngFor="let pad of padre; index as c">
 
           <span *ngIf="c>0">
-            <button type="button" class="btn btn-outline-light text-dark btn-sm"
+            <button type="button" class="btn btn-outline-light text-dark"
             (click) = "sgte(pad[0])">&nbsp;&nbsp;+&nbsp;</button>
           </span>
 
           <span *ngFor="let p of pad; index as i"><span *ngIf="i>0"><span *ngIf="i==1 && c>0; else otro">
-           <button type="button" class="btn btn-link btn-sm"  style="width: 9em; text-align: left;"
+           <button type="button" class="btn btn-link"  style="width: 9em; text-align: left;"
            data-toggle="modal" data-target="#SubItem" (click) = "activa_modal(table, backref, null, null, true, pad)"><td>{{p}}</td></button></span></span>
            <ng-template #otro><span *ngIf="c==0; else otra"><td  class="b">{{p}}</td></span><ng-template #otra><td class="a">{{p}}</td></ng-template></ng-template></span>
 
