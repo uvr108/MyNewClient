@@ -7,18 +7,13 @@ h2, h3 {
   font-weight: lighter;
 }
 
-table.solicita {
-  background-color: #ada2ac;
-  background: #ece9ce;
-  enable-background: accumulate;
-}
 
 td.subitem {
 
   background-color: #e7d8e6;
   vertical-align: top;
   line-height: 1.9em;
-  column-width:9em;
+  column-width:12em;
   border: 0.1mm;
   border-radius: 5%;
   border-color: rgb(38, 113, 156);
@@ -32,7 +27,7 @@ td.solicitud {
   background-color: #f0ccbc;
   vertical-align: top;
   line-height: 1.9em;
-  column-width:9em;
+  column-width:12em;
   border: 0.1mm;
   border-radius: 5%;
   border-color: rgb(38, 113, 156);
@@ -44,7 +39,7 @@ td.ordencompra {
   background-color: #b8ddb7;
   vertical-align: top;
   line-height: 1.9em;
-  column-width:9em;
+  column-width:12em;
   border: 0.1mm;
   border-radius: 5%;
   border-color: rgb(38, 113, 156);
@@ -55,8 +50,9 @@ td.ordencompra {
 
 td.factura {
   background-color: #ced9ec;
+  vertical-align: top;
   line-height: 1.9em;
-  column-width:9em;
+  column-width:12em;
   border: 0.1mm;
   border-radius: 5%;
   border-color: rgb(38, 113, 156);
@@ -68,7 +64,7 @@ td.factura {
 td.amarillo {
   background-color: #ece9ce;
   line-height: 1.9em;
-  column-width:9em;
+  column-width:12em;
   border: 0.1mm;
   border-radius: 5%;
   border-color: rgb(38, 113, 156);
@@ -81,7 +77,7 @@ td.comprobantecontable {
   background-color: #ada2ac;
   vertical-align: top;
   line-height: 1.9em;
-  column-width:9em;
+  column-width:12em;
   border: 0.1mm;
   border-radius: 5%;
   border-color: rgb(38, 113, 156);
@@ -94,7 +90,7 @@ td.presupuesto {
   background-color: #ada2ac;
   vertical-align: top;
   line-height: 1.9em;
-  column-width:9em;
+  column-width:12em;
   border: 0.1mm;
   border-radius: 5%;
   border-color: rgb(38, 113, 156);

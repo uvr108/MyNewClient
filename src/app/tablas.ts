@@ -37,9 +37,9 @@ export const TABLAS: object = {
   , OrdenCompra: {
     next: 'factura',
     back: {EstadoOrden: 'estadoordenId', CentroCosto: 'centrocostoId', Solicitud: 'solicitudId'},
-    lgroup: { id: [''], fecha_emision: [''], numero_oc: [''], observaciones: [''],
+    lgroup: { id: [''], numero_oc: [''], fecha_emision: [''], observaciones: [''],
     CentroCosto: [''], EstadoOrden: [''], Solicitud: [''] },
-    compon: { id: 'hidden', fecha_emision: 'date', numero_oc: 'text', observaciones: 'text',
+    compon: { id: 'hidden', numero_oc: 'text', fecha_emision: 'date', observaciones: 'text',
     centrocostoId: 'fk', estadoordenId: 'fk', solicitudId: 'id' }
 }
 
