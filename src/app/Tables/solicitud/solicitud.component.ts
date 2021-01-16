@@ -61,25 +61,33 @@ export class SolicitudComponent implements OnInit {
 
 
   load() {
-
+    console.log(`solicitud load() table -> ${this.table} backref -> ${this.backref}`);
     for ( const [key , value]  of Object.entries(this.compon)) {
 
          this.type.push(value);
       }
-    // console.log(`type -> ${JSON.stringify(this.type)}`);
+    // console.log(`solicitud type -> ${JSON.stringify(this.type)}`);
 
     this.crudService.GetData(this.table, this.backref)
     .subscribe(data => {
 
       this.padre = [];
       this.data = data;
+      // console.log(`data xxx : ${JSON.stringify(data)}`);
       data.forEach((f) => {
         const subresult = [];
 
         for ( let [key, value]  of Object.entries(f)) {
           if (this.flag) {this.cabecera.push(key); }
 
-          if (this.compon[key] === 'date') { value =  value.toString().substring(0, 10); }
+          if (this.compon[key] === 'date' ) {
+
+            if (value === null) {
+              // console.log(`key : ${this.compon[key]} value : ${value}`);
+            } else {
+              value =  value.toString().substring(0, 10);
+            }
+          }
           else if ( this.compon[key] === 'fk'
           || this.compon[key] === 'id')
           {
@@ -115,13 +123,13 @@ get_select() {
      // console.log(`get_select() solicitud : [k,v] -> ${k} : ${v} seleccion -> ${JSON.stringify(this.seleccion[k])}`);
      });
      } );
-  console.log(`Solicitud seleccion -> ${JSON.stringify(this.seleccion)}`);
+  // console.log(`Solicitud seleccion -> ${JSON.stringify(this.seleccion)}`);
 }
 
 mostra() {
   this.solicitud = this.solicitud === true ? false : true;
   if (this.solicitud) {
-    this.load();
+    // this.load();
   }
 
 }

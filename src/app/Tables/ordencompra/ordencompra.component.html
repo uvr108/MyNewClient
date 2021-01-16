@@ -1,9 +1,31 @@
 <div *ngIf="ordencompra">
   <!--p *ngIf = "total > 0">{{padre | json}}</p-->
+
+
+
+  <table  *ngIf = "total > 0" class="c">
+    <tr  *ngFor="let pad of padre; index as j">
+      <td class="ordencompra" *ngIf="j>0">
+        <button type="button" class="btn btn-link"
+            style="width: 12em; text-align: left;"
+            data-toggle="modal" data-target="#OrdenCompra"
+            (click) = "activa_modal('OrdenCompra', backref, null, null, true, pad)">{{pad[1]}}
+        </button>
+      </td>
+      <td><app-factura [backref]="padre[j][0]"></app-factura></td>
+    </tr>
+    <tr><td class="solicitud"><button *ngIf="ordencompra"
+      class="btn btn-link" data-toggle="modal" data-target="#OrdenCompra"
+      (click) = "activa_modal(table, backref, back, seleccion, false, null)">+</button></td></tr>
+  </table>
+
+
+  <!--
+
   <table *ngIf = "total > 0" class="c"><tr *ngFor="let pad of padre; index as j">
   <td class="ordencompra" *ngIf="j>0"><button type="button" class="btn btn-link"  style="width: 12em; text-align: left;"
     data-toggle="modal" data-target="#OrdenCompra" (click) = "activa_modal('OrdenCompra',pad[0], null, null, true, pad)">
-    {{pad[0]}}|{{pad[1]}}</button></td>
+    {{pad[1]}}</button></td>
   <td><app-factura [backref]="padre[j][0]"></app-factura></td>
   <tr><td class="ordencompra">
     <button *ngIf="ordencompra" class="btn btn-link btn-sm" data-toggle="modal"
@@ -12,5 +34,8 @@
   </td>
   </tr>
   </table>
+
+  -->
+
   <span><template #messagecontainer></template></span>
 </div>

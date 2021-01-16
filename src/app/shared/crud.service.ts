@@ -32,6 +32,8 @@ httpOptions = {
 
   GetData(table: string, fk: string = null): Observable<[{}]> {
 
+    // console.log(`crud.service ${table} ${fk}`);
+
     if (fk) {
       // console.log('GeByFk crud : ', this.baseurl + '/api/' + table);
       return this.http.get<[{}]>(this.baseurl + '/api/' + table + '/fk/' + fk)
@@ -74,33 +76,9 @@ agregar(tabla: {}, table: string, fk: string = null): Observable<{}> {
 
   if (fk) { baseurl += '/' + fk; }
 
-  console.log('agregar crud : ', baseurl, tabla);
+  // console.log('agregar crud : ', baseurl, tabla);
 
   return this.http.post<any>(baseurl, tabla, this.httpOptions);
-}
-
-load(ref: string = null): void {
-
-  // console.log(`load() Master : table ${this.table} fk : ${this.fk}`);
-  /*
-  this.GetData(table, null)
-  .subscribe(data => {
-    // console.log(data);
-    this.padre = [];
-    data.forEach((f) => {
-      const subresult = [];
-      // console.log(f);
-      for (const [key, value] of Object.entries(f)) {
-        if (this.flag) {this.cabecera.push(key); }
-        subresult.push(value);
-    }
-      this.padre.push(subresult);
-      this.flag = false;
-});
-    this.total = this.padre.length;
-    // console.log(`load() Master padre : ${JSON.stringify(this.padre)}`);
-  });
-  */
 }
 
 // Error handling

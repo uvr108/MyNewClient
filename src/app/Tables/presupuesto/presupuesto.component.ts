@@ -4,8 +4,8 @@ import { CrudService } from '../../shared/crud.service';
 import { FormBuilder,  FormGroup } from '@angular/forms';
 import { TABLAS } from './../../tablas';
 import { ActivatedRoute } from '@angular/router';
-import { Observable } from 'rxjs';
-import { switchMap } from 'rxjs/operators';
+// import { Observable } from 'rxjs';
+// import { switchMap } from 'rxjs/operators';
 
 
 @Component({
@@ -55,13 +55,14 @@ export class PresupuestoComponent implements OnInit {
     }
 
   sgte(ref: string) {
-    // console.log(`presupuesto : sgte() ref -> ${ref} next -> ${this.next}`);
+
     this.ref = ref;
     this.next = this.next  === true ? false : true;
+    // console.log(`presupuesto : sgte() ref -> ${ref} next -> ${this.next}`);
   }
 
 load() {
-
+  // console.log(`presupuesto : load() presuId -> ${this.presuId} next -> ${this.next}`);
   if (this.presuId > 0) {
   this.crudService.GetByPk(this.table, this.presuId)
   .subscribe( data => {
@@ -70,7 +71,7 @@ load() {
     for (const [key, value] of Object.entries(data)) {
       subresult.push(value);
     }
-    console.log(subresult);
+    // console.log(subresult);
     this.padre.push(['id', 'nombre', 'monto']);
     this.padre.push(subresult);
     this.total = 1;
@@ -78,7 +79,7 @@ load() {
   }
   );
   this.padre.unshift(this.cabecera);
-  console.log(this.padre);
+  // console.log(this.padre);
 }
 else {
 
@@ -118,7 +119,10 @@ activa_modal(table: string, ref: string, back: string, seleccion: object, editTa
       param -> ${JSON.stringify(ref)}
       editTabla -> ${editTabla}`);
       */
-      if (this.componentRef) { console.log('Destroy componentRef'); this.componentRef.destroy(); }
+      if (this.componentRef) {
+        // console.log('Destroy componentRef');
+        this.componentRef.destroy();
+      }
 
       const factory = this.resolver.resolveComponentFactory(MyModalComponent);
       this.componentRef = this.entry.createComponent(factory);

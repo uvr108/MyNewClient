@@ -87,7 +87,7 @@ export class OrdencompraComponent implements OnInit {
 
          this.type.push(value);
       }
-    console.log(`backref -> ${this.backref}`);
+    // console.log(`backref -> ${this.backref}`);
 
     this.crudService.GetData(this.table, this.backref)
     .subscribe(data => {
@@ -100,7 +100,15 @@ export class OrdencompraComponent implements OnInit {
         for ( let [key, value]  of Object.entries(f)) {
           if (this.flag) {this.cabecera.push(key); }
 
-          if (this.compon[key] === 'date') { value =  value.toString().substring(0, 10); }
+          if (this.compon[key] === 'date') {
+
+
+            if (value === null) {
+              // console.log(`key : ${this.compon[key]} value : ${value}`);
+              } else {
+                value =  value.toString().substring(0, 10);
+              }
+          }
           else if ( this.compon[key] === 'fk'
           || this.compon[key] === 'id')
           {
@@ -163,11 +171,11 @@ obtiene_back() {
 activa_modal(table: string, ref: string, back: string, seleccion: object, editTabla: boolean, pad: Array<any> = [])  {
   // activa_modal(table: string, ref: string, editTabla: boolean) {
   // pad = [29, 'xxxs', '2020-08-14', '1000', 1, 2, 32];
-  console.log(`back  -> ${back}`);
-  console.log(`SEL  -> ${seleccion}`);
-  console.log(`REF  -> ${ref}`);
+  // console.log(`back  -> ${back}`);
+  // console.log(`SEL  -> ${seleccion}`);
+  // console.log(`REF  -> ${ref}`);
   // console.log(`DATA -> JSON.stringify(${this.data})`);
-  console.log(`PAD -> ${JSON.stringify(pad)}`);
+  // console.log(`PAD -> ${JSON.stringify(pad)}`);
 
 
   if (table) {

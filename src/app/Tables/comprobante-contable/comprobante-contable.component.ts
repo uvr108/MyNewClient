@@ -101,7 +101,15 @@ export class ComprobanteContableComponent implements OnInit {
         for ( let [key, value]  of Object.entries(f)) {
           if (this.flag) {this.cabecera.push(key); }
 
-          if (this.compon[key] === 'date') { value =  value.toString().substring(0, 10); }
+          if (this.compon[key] === 'date') {
+
+            if (value === null) {
+              // console.log(`key : ${this.compon[key]} value : ${value}`);
+              } else {
+                value =  value.toString().substring(0, 10);
+              }
+
+          }
           else if ( this.compon[key] === 'fk'
           || this.compon[key] === 'id')
           {
@@ -170,7 +178,7 @@ activa_modal(table: string, ref: string, back: string, seleccion: object, editTa
   // console.log('DATA : ', JSON.stringify(this.data) );
   // console.log(`activa_modal : pad -> ${pad}`);
 
-  console.log(`table: ${table}, ref: ${ref}, back: ${JSON.stringify(back)}, seleccion: ${JSON.stringify(seleccion)}, editTabla: ${editTabla}, pad: ${pad}`);
+  // console.log(`table: ${table}, ref: ${ref}, back: ${JSON.stringify(back)}, seleccion: ${JSON.stringify(seleccion)}, editTabla: ${editTabla}, pad: ${pad}`);
 
   if (table) {
       this.entry.clear();

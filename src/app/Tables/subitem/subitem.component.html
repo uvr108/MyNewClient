@@ -1,7 +1,7 @@
-<div  style="width: '100%'; margin-left: '25px'">
+<div class="conteiner" style="width: '100%'; margin-left: '25px'">
 
   <span><button type="button" class="btn btn-outline-light text-dark"
-    (click) = "mostra()">+</button>SubItem({{total}})
+    (click) = "mostra()">[+]</button>SubItem({{total}})
     <button *ngIf="subitem" class="btn btn-light" data-toggle="modal" data-target="#SubItem"
     (click) = "activa_modal(table, backref, null, null, false, null)">#</button></span>
 
@@ -23,6 +23,7 @@
 
         <br>
         <div *ngIf="ref === pad[0]">
+          <!--p *ngIf="next" >{{next}} | {{pad[0]}}</p-->
           <app-solicitud  *ngIf = "next"  [backref] = "pad[0]"></app-solicitud>
         </div>
         </span>

@@ -48,8 +48,8 @@ export class MyModalComponent implements OnInit {
         this.get_param();
      }
 
-    // console.log(`ingresar() my-modal : param -> ${this.param} table -> ${this.table}`);
-    // console.log(`ingresar() my-modal : listForm -> ${JSON.stringify(this.listForm.value)}`);
+    console.log(`ingresar() my-modal : param -> ${this.param} table -> ${this.table}`);
+    console.log(`ingresar() my-modal : listForm -> ${JSON.stringify(this.listForm.value)}`);
 
     this.crudService.agregar(this.listForm.value, this.table,  this.param).
      subscribe(() => {
@@ -81,8 +81,34 @@ limpiar() {
 
     // if (this.back) { this.agrega_back(h); }
     // console.log('xxxxxx', this.pad[0].toString(), this.listForm.value, this.table);
+    // console.log(`listForm.value -> ${JSON.stringify(this.listForm.value)}`);
+    let valores = {};
+    for (const [key, value] of Object.entries(this.listForm.value)) {
+      // if (this.compon[key] === 'text') {
+      // dict[key] = null;
+          // console.log(`[back] -> ${this.back}`);
+
+          // if (1) {
+
+            if (this.back !== null && this.back.hasOwnProperty(key)) {
+              if (this.compon[this.back[key]] === 'fk') {
+                valores[this.back[key]] = value;
+                // console.log(this.back[key], value);
+              }
+
+          }
+          else {
+            valores[key]= value;
+            // console.log(key,value)
+          }
+
+        //  }
+
+      }
+      // console.log(`valores -> ${JSON.stringify(valores)}`);
+
     this.crudService.
-    update(this.pad[0].toString(), this.listForm.value, this.table).
+    update(this.pad[0].toString(), valores, this.table).
     subscribe();
 
   }
@@ -166,7 +192,11 @@ limpiar() {
             // console.log(`ngOnInt() my-modal : key - > ${key}`);
             }
             else if (value === 'date') {
-              js[key] = this.pad[i].substring(0, 10);
+              if ( this.pad[i] === null) {
+                // Fconsole.log(`key : ${this.compon[key]} value : ${value}`);
+                } else {
+                  js[key] = this.pad[i].substring(0, 10);
+                }
             }
           i++;
           }

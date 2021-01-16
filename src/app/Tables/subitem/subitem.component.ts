@@ -64,6 +64,8 @@ export class SubitemComponent implements OnInit {
 
   load() {
 
+    // console.log(`subitem load() table -> ${this.table} backref -> ${this.backref}`);
+
     this.crudService.GetData(this.table, this.backref)
     .subscribe(data => {
 
@@ -112,7 +114,7 @@ get_select() {
 mostra() {
   this.subitem = this.subitem === true ? false : true;
   if (this.subitem) {
-    this.load();
+    // this.load();
   }
 
 }
@@ -139,7 +141,10 @@ activa_modal(table: string, ref: string, back: string, seleccion: object, editTa
       // param -> ${JSON.stringify(ref)}
       // editTabla -> ${editTabla}`);
 
-      if (this.componentRef) { console.log('Destroy componentRef'); this.componentRef.destroy(); }
+      if (this.componentRef) {
+        // console.log('Destroy componentRef');
+        this.componentRef.destroy();
+      }
 
       const factory = this.resolver.resolveComponentFactory(MyModalComponent);
       this.componentRef = this.entry.createComponent(factory);

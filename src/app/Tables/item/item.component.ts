@@ -64,7 +64,7 @@ export class ItemComponent implements OnInit {
 
 
   load() {
-
+    // console.log(`item : load() table -> ${this.table} next -> ${this.next}`);
     this.crudService.GetData(this.table, this.backref)
     .subscribe(data => {
 
@@ -96,6 +96,7 @@ export class ItemComponent implements OnInit {
 
   sgte(ref: string) {
     // alert(ref);
+    // console.log(`item : sgte() ref -> ${ref} next -> ${this.next}`);
     this.ref = ref;
     // this.next_presupuesto = true;
     this.next = this.next  === true ? false : true;
@@ -142,7 +143,10 @@ activa_modal(table: string, ref: string, back: string, seleccion: object, editTa
       editTabla -> ${editTabla}`);
       */
 
-      if (this.componentRef) { console.log('Destroy componentRef'); this.componentRef.destroy(); }
+      if (this.componentRef) {
+        // console.log('Destroy componentRef');
+        this.componentRef.destroy();
+     }
 
       const factory = this.resolver.resolveComponentFactory(MyModalComponent);
       this.componentRef = this.entry.createComponent(factory);
