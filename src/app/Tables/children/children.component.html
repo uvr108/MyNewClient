@@ -1,0 +1,78 @@
+<div *ngIf="dic$ | async as dic">
+
+  <form  [formGroup]="listForm">
+
+    <span *ngIf="mod$ | async"></span>
+
+    <table class="table table-borderless">
+      <thead>
+        <tr>
+          <th>
+             Estado Solicitud
+          </th>
+          <td  *ngIf="estadosolicitud$ as es$">
+              <select  *ngIf="es$" formControlName="EstadoSolicitud">
+                <option [ngValue]="null" disabled>Elija su opción</option>
+                <option *ngFor="let s of es$ | async" [ngValue]="s.id">{{s.nombre}}</option>
+              </select>
+          </td>
+        </tr>
+        <tr>
+          <th>Centro Costo</th>
+          <td *ngIf="centrocosto$ as cc$">
+            <select  *ngIf="cc$" formControlName="CentroCosto">
+
+              <option [ngValue]="null" disabled>Elija su opción</option>
+              <option *ngFor="let c of cc$ | async" [ngValue]="c.id">{{c.nombre}}</option>
+
+            </select>
+
+          </td>
+        </tr>
+        <tr>
+          <th>Solicitante</th>
+          <td>
+            <input id="solicitante" formControlName="solicitante"/>
+            <div
+              *ngIf="listForm.controls.solicitante.errors?.required && listForm.controls.solicitante.touched"
+              class="error"
+            >
+              *Required
+            </div>
+          </td>
+        </tr>
+
+        <tr>
+          <th>Fecha</th>
+          <td>
+            <input type="date" id="fecha" formControlName="fecha" />
+            <div
+              *ngIf="listForm.controls.fecha.errors?.required && listForm.controls.fecha.touched"
+              class="error"
+            >
+              *Required
+            </div>
+          </td>
+
+        </tr>
+        <tr>
+          <th>Numero Registro</th>
+          <td>
+            <input id="numero_registro" formControlName="numero_registro" />
+            <div
+              *ngIf="listForm.controls.numero_registro.errors?.required && listForm.controls.numero_registro.touched"
+              class="error"
+            >
+              *Required
+            </div>
+          </td>
+        </tr>
+      </thead>
+      </table>
+  </form>
+
+  <p>
+    <button (click)="triggerAnEvent()">Trigger an event</button>
+  </p>
+
+  </div>

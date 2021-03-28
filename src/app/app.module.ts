@@ -24,6 +24,7 @@ import { PageNotFoundComponent } from './Tables/page-not-found/page-not-found.co
 import { OrdencompraComponent } from './Tables/ordencompra/ordencompra.component';
 import { FacturaComponent } from './Tables/factura/factura.component';
 import { ComprobanteContableComponent } from './Tables/comprobante-contable/comprobante-contable.component';
+import { ChildrenComponent } from './Tables/children/children.component';
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ import { ComprobanteContableComponent } from './Tables/comprobante-contable/comp
     OrdencompraComponent,
     FacturaComponent,
     ComprobanteContableComponent,
+    ChildrenComponent,
 
   ],
   imports: [

@@ -107,9 +107,9 @@ limpiar() {
       }
       // console.log(`valores -> ${JSON.stringify(valores)}`);
 
-    this.crudService.
-    update(this.pad[0].toString(), valores, this.table).
-    subscribe();
+    // this.crudService.
+    // update(this.pad[0].toString(), valores, this.table).
+    // subscribe();
 
   }
 

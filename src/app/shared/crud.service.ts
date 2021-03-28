@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { retry, catchError } from 'rxjs/operators';
 
@@ -9,8 +9,8 @@ import { retry, catchError } from 'rxjs/operators';
 export class CrudService {
 
   // Base url
-  baseurl = 'http://localhost:3000';
 
+  private REST_API_SERVER = 'http://localhost:3000';
  // Http Headers
 
 httpOptions = {
@@ -23,7 +23,7 @@ httpOptions = {
 
   GetByPk(table: string, pk: string = null): Observable<[{}]>  {
 
-    return this.http.get<[{}]>(this.baseurl + '/api/' + table + '/pk/' + pk)
+    return this.http.get<[{}]>(this.REST_API_SERVER + '/api/' + table + '/pk/' + pk)
     .pipe(
       retry(1),
       catchError(this.errorHandl)
@@ -36,7 +36,7 @@ httpOptions = {
 
     if (fk) {
       // console.log('GeByFk crud : ', this.baseurl + '/api/' + table);
-      return this.http.get<[{}]>(this.baseurl + '/api/' + table + '/fk/' + fk)
+      return this.http.get<[{}]>(this.REST_API_SERVER + '/api/' + table + '/fk/' + fk)
       .pipe(
         retry(1),
         catchError(this.errorHandl)
@@ -45,7 +45,7 @@ httpOptions = {
     }
     else {
       // console.log(`xxx -> ${this.baseurl}/api/${table}`);
-      return this.http.get<any>(this.baseurl + '/api/' + table)
+      return this.http.get<any>(this.REST_API_SERVER + '/api/' + table)
       .pipe(
         retry(1),
         catchError(this.errorHandl)
@@ -54,15 +54,28 @@ httpOptions = {
     }
 }
 // PUT
+
+public modificar(sol: object): Observable<any> {
+
+  var url = this.REST_API_SERVER  + '/api/Solicitud/' + sol['id'];
+  // console.log('URL -> ', url);
+  // console.log('SOL -> ', sol);
+  return  this.http.put<any>(url, sol, this.httpOptions);
+
+}
+
+
+/*
 update(id: string, tab: {}, table: string): Observable<{}> {
   // console.log(`crud Update() url -> ${this.baseurl} + '/api/' + ${table} + '/' + ${id}`);
   // console.log(`crud Update() tab -> ${JSON.stringify(tab)}`);
-  return this.http.put<{}>(this.baseurl + '/api/' + table + '/' + id, tab, this.httpOptions);
+  return this.http.put<{}>(this.REST_API_SERVER + '/api/' + table + '/' + id, tab, this.httpOptions);
 }
+*/
 
 // DELETE
 delete(id: string, table: string) {
-  return this.http.delete<{}>(this.baseurl + '/api/'  + table + '/' + id, this.httpOptions)
+  return this.http.delete<{}>(this.REST_API_SERVER + '/api/'  + table + '/' + id, this.httpOptions)
   .pipe(
     retry(1),
     catchError(this.errorHandl)
@@ -70,9 +83,22 @@ delete(id: string, table: string) {
 
 }
 
+public getData(table: string, fk: string = null): Observable<any> {
+
+  let baseurl = '';
+  if (fk === null) {
+    baseurl = this.REST_API_SERVER + '/api/' + table;
+  } else {
+    baseurl = this.REST_API_SERVER + '/api/' + table + '/fk/' + fk;
+  }
+
+  return this.http.get<any>(baseurl)
+  .pipe(retry(3), catchError(this.handleError));
+}
+
 agregar(tabla: {}, table: string, fk: string = null): Observable<{}> {
 
-  let baseurl = this.baseurl + /api/ + table;
+  let baseurl = this.REST_API_SERVER + /api/ + table;
 
   if (fk) { baseurl += '/' + fk; }
 
@@ -93,6 +119,19 @@ errorHandl(error) {
    }
    console.log(errorMessage);
    return throwError(errorMessage);
+}
+
+public handleError(error: HttpErrorResponse) {
+  let errorMessage = 'Unknown error!';
+  if (error.error instanceof ErrorEvent) {
+    // Client-side errors
+    errorMessage = `Error: ${error.error.message}`;
+  } else {
+    // Server-side errors
+    errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
+  }
+  window.alert(errorMessage);
+  return throwError(errorMessage);
 }
 
 }

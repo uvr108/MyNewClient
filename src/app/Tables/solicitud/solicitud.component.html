@@ -1,9 +1,6 @@
-<div class="conteiner">
-  <br>
-<div  *ngIf="solicitud"  style=" background-color: rgb(245, 225, 204); margin-left: '35px';">
-<br>
-<div *ngIf="solicitud" style="margin-left: '25px'">
-<table>
+<div style="margin-left: '25px'">
+
+  <table>
     <tr>
 
       <td class="solicitud">Solicitud</td>
@@ -12,66 +9,55 @@
       <td class="comprobantecontable">Comp. Contable</td>
       <td class="amarillo">Monto</td>
     </tr>
-</table>
+  </table>
 
-<!--
-<p>-{{total}}-</p>
-<p>{{padre}}</p>
--->
 
-<table  *ngIf = "total > 0" class="c">
-  <tr  *ngFor="let pad of padre; index as j">
-    <td class="solicitud" *ngIf="j>0">
-      <button type="button" class="btn btn-link"
-          style="width: 12em; text-align: left;"
-          data-toggle="modal" data-target="#Solicitud"
-          (click) = "activa_modal('Solicitud', backref, null, null, true, pad)">{{pad[1]}}
-      </button>
-    </td>
-    <td><app-ordencompra [backref]="padre[j][0]"></app-ordencompra></td>
+  <span *ngIf="mod$ | async"></span>
+
+  <table  *ngIf = "1 > 0" class="c">
+    <tr  *ngFor="let pad of (solicitud$ | async); index as j">
+      <td class="solicitud">
+        <button type="button" class="btn btn-link"
+            style="width: 12em; text-align: left;"
+            data-toggle="modal" data-target="#Solicitud"
+            (click) = "nextCount(pad)"
+            >
+
+           {{pad['solicitante']}}
+        </button>
+
+      </td>
+    </tr>
+    <tr><td class="solicitud"><button
+      class="btn btn-link" data-toggle="modal" data-target="#Solicitud"
+      (click) = "nextCount({})">+</button></td>
   </tr>
-  <tr><td class="solicitud"><button *ngIf="solicitud"
-    class="btn btn-link" data-toggle="modal" data-target="#Solicitud"
-    (click) = "activa_modal(table, backref, back, seleccion, false, null)">+</button></td></tr>
-</table>
+  </table>
+  <span><template #messagecontainer></template></span>
+  <!-- The Modal -->
+  <div class="modal" id="Solicitud">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
 
-<!--
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">Modal Heading</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
 
-<table *ngIf = "total > 0" class="c">
-  <tr *ngFor="let pad of padre; index as j">
-<td class="solicitud" *ngIf="j>0"><button type="button" class="btn btn-link"
-  style="width: 12em; text-align: left;"
-  data-toggle="modal" data-target="#Solicitud"
-  (click) = "activa_modal('Solicitud', backref, null, null, true, pad)">{{pad[1]}}</button></td>
-<td><app-ordencompra [backref]="padre[j][0]"></app-ordencompra></td>
-<tr><td class="solicitud"><button *ngIf="solicitud"
-  class="btn btn-link" data-toggle="modal" data-target="#Solicitud"
-  (click) = "activa_modal(table, backref, back, seleccion, false, null)">+</button></td></tr>
-</table>
+        <!-- Modal body -->
+        <div class="modal-body">
+          <app-children></app-children>
+        </div>
 
--->
+        <!-- Modal footer -->
+        <div class="modal-footer">
 
-<span><template #messagecontainer></template></span>
-<table>
-  <tr>
-    <td class="amarillo">Total</td>
-    <td class="amarillo">Comprometido</td>
-    <td class="amarillo">Contabilizado</td>
-    <td class="amarillo">Ejecutado</td>
-    <td class="amarillo">Presupuestado</td>
-  </tr>
-  <tr>
-    <td class="amarillo">100</td>
-    <td class="amarillo">101</td>
-    <td class="amarillo">10</td>
-    <td class="amarillo">10000</td>
-    <td class="amarillo">1024</td>
-  </tr>
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+        </div>
 
-</table>
+      </div>
+    </div>
+  </div>
 
-<br>
-</div>
-</div>
-<br>
-</div>
+  </div>
