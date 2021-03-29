@@ -1,5 +1,6 @@
 <div style="margin-left: '25px'">
-
+  <br>
+  <p>{{displayText}}</p>
   <table>
     <tr>
 
@@ -26,7 +27,7 @@
            {{pad['solicitante']}}
         </button>
 
-      </td>
+      </td><td><app-ordencompra [backref]="pad['id']"></app-ordencompra></td>
     </tr>
     <tr><td class="solicitud"><button
       class="btn btn-link" data-toggle="modal" data-target="#Solicitud"

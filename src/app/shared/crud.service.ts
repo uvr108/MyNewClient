@@ -53,6 +53,13 @@ httpOptions = {
       // console.log('GeByFk crud : ', this.baseurl + '/api/' + table + '/fk/' + fk);
     }
 }
+
+public ingresar(sol: object, fk: string): Observable<any> {
+    var url = this.REST_API_SERVER  + '/api/Solicitud/' + fk;
+    console.log(url);
+    return this.http.post<any>(url, sol, this.httpOptions);
+}
+
 // PUT
 
 public modificar(sol: object): Observable<any> {

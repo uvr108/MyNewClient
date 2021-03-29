@@ -61,18 +61,34 @@ export class SolicitudComponent implements OnInit {
 
   }
 
+  editar(param: string) {
+    const parse = JSON.parse(param);
+    this.mod$ = this.crud.modificar(parse)
+    .pipe(takeUntil(this.destroy$));
+
+  }
 
   theTargetMethod(param) {
-    this.displayText = 'Target Method got called with parameter: "' + param + '"';
-    console.log(param);
 
-    this.mod$ = this.crud.modificar(JSON.parse(param))
-    .pipe(takeUntil(this.destroy$));
-    console.log('antes');
-    this.load();
-    console.log('des');
+    this.displayText = 'parameter: ' + param;
 
-    // this._document.defaultView.location.reload();
+    // const parse = JSON.parse(param);
+
+    /*
+    if (parse['id']) {
+
+      console.log('No');
+      this.mod$ = this.crud.modificar(parse)
+      .pipe(takeUntil(this.destroy$));
+
+     }
+     else {
+
+          const fk = this.backref + '/' +  parse['CentroCosto'] + '/' + parse['EstadoSolicitud'];
+          console.log('Si');
+          this.mod$ = this.crud.ingresar(param, fk);
+     }
+    */
   }
 
   ngAfterViewInit() {

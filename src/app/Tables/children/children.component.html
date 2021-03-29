@@ -1,5 +1,5 @@
 <div *ngIf="dic$ | async as dic">
-
+  <p>{{ dic | json }}</p>
   <form  [formGroup]="listForm">
 
     <span *ngIf="mod$ | async"></span>

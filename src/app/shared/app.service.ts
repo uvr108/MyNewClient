@@ -1,15 +1,18 @@
-// import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, throwError } from 'rxjs';
-// import { retry, catchError } from 'rxjs/operators';
+import { BehaviorSubject, Observable, Subject, throwError } from 'rxjs';
+import { retry, catchError, takeUntil } from 'rxjs/operators';
+import { Solicitud } from '../solicitud';
+import { CrudService } from './crud.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AppService {
 
-  /*
+
   private REST_API_SERVER = 'http://localhost:3000';
+  destroy$: Subject<boolean> = new Subject<boolean>();
 
   httpOptions = {
     headers: new HttpHeaders({
@@ -29,39 +32,34 @@ export class AppService {
     window.alert(errorMessage);
     return throwError(errorMessage);
   }
-*/
+
 
   // counter = 0;
   dic: object;
   // count: BehaviorSubject<number>;
   dictio: BehaviorSubject<object>;
+  mod$: Observable<Solicitud>;
 
-  constructor() {
+  constructor(private crud: CrudService,) {
     // this.count  = new BehaviorSubject(this.counter);
     this.dictio = new BehaviorSubject(this.dic);
   }
 
   nextCount(pad: object) {
+
+    console.log(JSON.stringify(pad));
     // this.count.next(this.counter = id);
     // this.dic['uno'] = this.counter;
+
+
+    console.log(Object.keys(pad).length);
+
+
     this.dictio.next(pad);
-  }
-
-  /*
-  public getData(table: string, fk: string = null): Observable<any> {
-
-    let baseurl = '';
-    if (fk === null) {
-      baseurl = this.REST_API_SERVER + '/api/' + table;
-    } else {
-      baseurl = this.REST_API_SERVER + '/api/' + table + '/fk/' + fk;
-    }
-
-    return this.httpClient.get<any>(baseurl)
-    .pipe(retry(3), catchError(this.handleError));
 
   }
-  */
+
+
   private eventSubject = new BehaviorSubject<any>(undefined);
 
   triggerSomeEvent(param: any) {
