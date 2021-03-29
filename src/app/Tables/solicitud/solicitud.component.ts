@@ -126,6 +126,10 @@ get_select() {
   // console.log(`Solicitud seleccion -> ${JSON.stringify(this.seleccion)}`);
 }
 
+limpiar() {
+  this.ngOnInit();
+}
+
 mostra() {
   this.solicitud = this.solicitud === true ? false : true;
   if (this.solicitud) {
