@@ -76,7 +76,7 @@ agregar(tabla: {}, table: string, fk: string = null): Observable<{}> {
 
   if (fk) { baseurl += '/' + fk; }
 
-  // console.log('agregar crud : ', baseurl, tabla);
+  console.log('agregar crud : ', baseurl, tabla);
 
   return this.http.post<any>(baseurl, tabla, this.httpOptions);
 }

@@ -1,6 +1,8 @@
+import { AppService } from './../../shared/app.service';
 import { MyModalComponent } from './../my-modal/my-modal.component';
 import { Component, OnInit, Input, ComponentFactoryResolver, ViewChild, ViewContainerRef } from '@angular/core';
 import { CrudService } from '../../shared/crud.service';
+
 // import { FormBuilder,  FormGroup } from '@angular/forms';
 import { TABLAS } from './../../tablas';
 
@@ -27,6 +29,8 @@ export class SolicitudComponent implements OnInit {
   table = 'Solicitud';
   type = [];
 
+  msg: string;
+
   seleccion: object = {};
   inverse: object = {};
   nuevo = false;
@@ -36,9 +40,12 @@ export class SolicitudComponent implements OnInit {
 
   constructor( private crudService: CrudService,
                private resolver: ComponentFactoryResolver,
+               private appsevice: AppService
 
                ) { }
   ngOnInit(): void {
+
+    this.msg=null;
     this.compon = this.Tablas[this.table].compon;
     // console.log(`backRef -> ${this.backref}`);
     if (this.back) {
@@ -48,6 +55,21 @@ export class SolicitudComponent implements OnInit {
 
       // console.log(`Solicitud init back -> ${JSON.stringify(this.back)}`);
      }
+     this.appsevice.count.subscribe(s => {
+
+
+
+      this.msg = s;
+      console.log(this.msg);
+
+      // if (s !== undefined) {
+      //  console.log(this.msg);
+      // }
+
+      this.load();
+
+    });
+
     this.load();
   }
 

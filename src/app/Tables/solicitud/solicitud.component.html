@@ -1,5 +1,7 @@
 <div class="conteiner">
   <br>
+
+
 <div  *ngIf="solicitud"  style=" background-color: rgb(245, 225, 204); margin-left: '35px';">
 <br>
 <div *ngIf="solicitud" style="margin-left: '25px'">
@@ -34,7 +36,7 @@
     class="btn btn-link" data-toggle="modal" data-target="#Solicitud"
     (click) = "activa_modal(table, backref, back, seleccion, false, null)">+</button></td></tr>
 </table>
-<button (click)="limpiar()">Limpiar</button>
+
 <!--
 
 <table *ngIf = "total > 0" class="c">

@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { FormBuilder,  FormGroup } from '@angular/forms';
+import { AppService } from 'src/app/shared/app.service';
 import { CrudService } from '../../shared/crud.service';
 import { TABLAS } from './../../tablas';
 
@@ -31,13 +32,21 @@ export class MyModalComponent implements OnInit {
   componentRef: any;
   param = '';
 
-  constructor( private crudService: CrudService, private fb: FormBuilder ) { }
+  count = 0;
+
+  constructor( private crudService: CrudService,
+    private fb: FormBuilder,
+    private appsevice: AppService ) { }
 
   get_param() {
     Object.entries(this.back).forEach(([k, v]) => {
       // console.log(`get_param mymodal : k -> ${k}`);
       this.param = this.param + '/' + this.listForm.value[k];
     });
+  }
+
+  nextCount() {
+    this.appsevice.nextCount();
   }
 
   ingresar() {
@@ -109,7 +118,9 @@ limpiar() {
 
     this.crudService.
     update(this.pad[0].toString(), valores, this.table).
-    subscribe();
+    subscribe(
+      () => { this.appsevice.nextCount(); }
+    );
 
   }
 
