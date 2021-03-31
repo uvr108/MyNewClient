@@ -51,19 +51,21 @@ export class MyModalComponent implements OnInit {
 
   ingresar() {
 
-    // console.log(`my-modal : back ${JSON.stringify(this.back)}`);
+    console.log(`ingresar() my-modal : param -> ${this.param} table -> ${this.table}`);
+    console.log(`ingresar() my-modal : listForm -> ${JSON.stringify(this.listForm.value)}`);
+    console.log(`my-modal : back ${JSON.stringify(this.back)}`);
+
     this.param = this.ref;
     if (this.back) {
         this.get_param();
      }
 
-    console.log(`ingresar() my-modal : param -> ${this.param} table -> ${this.table}`);
-    console.log(`ingresar() my-modal : listForm -> ${JSON.stringify(this.listForm.value)}`);
 
     this.crudService.agregar(this.listForm.value, this.table,  this.param).
      subscribe(() => {
                        // this.load();
-                      this.limpiar();
+                       // this.appsevice.nextCount();
+                       this.limpiar();
                           } );
     this.limpiar();
 
@@ -119,8 +121,11 @@ limpiar() {
     this.crudService.
     update(this.pad[0].toString(), valores, this.table).
     subscribe(
-      () => { this.appsevice.nextCount(); }
+      () => {
+        this.appsevice.nextCount();
+      }
     );
+
 
   }
 

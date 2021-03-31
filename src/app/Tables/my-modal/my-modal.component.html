@@ -75,7 +75,7 @@
 
 <!-- Modal footer -->
 <div class="modal-footer">
-  <button *ngIf="!editTabla" class="btn btn-info btn-sm" type="button" (click) = "ingresar()"
+  <button *ngIf="!editTabla" class="btn btn-info btn-sm" type="button" (click)="ingresar()"
        [disabled]="!listForm.valid">Ingresar</button>&nbsp;
   <button *ngIf="editTabla" class="btn btn-info btn-sm" type="button"
        [disabled]="!listForm.valid" (click)="editar()"  data-dismiss="modal">Editar</button>&nbsp;

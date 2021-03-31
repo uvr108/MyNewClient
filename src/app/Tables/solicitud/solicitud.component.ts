@@ -55,22 +55,21 @@ export class SolicitudComponent implements OnInit {
 
       // console.log(`Solicitud init back -> ${JSON.stringify(this.back)}`);
      }
-     this.appsevice.count.subscribe(s => {
 
+     this.load();
 
+     this.appsevice.send.subscribe(s => {
 
       this.msg = s;
-      console.log(this.msg);
 
-      // if (s !== undefined) {
-      //  console.log(this.msg);
-      // }
-
-      this.load();
+       if (s !== undefined) {
+          console.log(this.msg);
+          // this.load();
+       }
 
     });
 
-    this.load();
+
   }
 
   obtiene_nombre(valor: number, table: string)
@@ -83,7 +82,7 @@ export class SolicitudComponent implements OnInit {
 
 
   load() {
-    console.log(`solicitud load() table -> ${this.table} backref -> ${this.backref}`);
+    // console.log(`solicitud load() table -> ${this.table} backref -> ${this.backref}`);
     for ( const [key , value]  of Object.entries(this.compon)) {
 
          this.type.push(value);
@@ -149,7 +148,7 @@ get_select() {
 }
 
 limpiar() {
-  this.ngOnInit();
+  this.load();
 }
 
 mostra() {

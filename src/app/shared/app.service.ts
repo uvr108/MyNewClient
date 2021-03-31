@@ -6,17 +6,17 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class AppService {
 
-    msg:string=null;
+    msg:string='enviado';
 
-    count: BehaviorSubject<string>;
+    send: BehaviorSubject<string>;
 
     constructor() {
 
-        this.count = new BehaviorSubject(this.msg);
+        this.send = new BehaviorSubject(this.msg);
     }
 
     nextCount() {
-        this.count.next(this.msg);
+        this.send.next(this.msg);
 
     }
 
