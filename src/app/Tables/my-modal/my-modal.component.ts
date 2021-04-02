@@ -1,6 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { FormBuilder,  FormGroup } from '@angular/forms';
-import { AppService } from 'src/app/shared/app.service';
 import { CrudService } from '../../shared/crud.service';
 import { TABLAS } from './../../tablas';
 
@@ -15,12 +14,11 @@ export class MyModalComponent implements OnInit {
   @Input() editTabla: boolean;
   @Input() table: string;
   @Input() ref: string;
-  @Input() back: string;
-  @Input() seleccion: object = {};
+  // @Input() back: string;
+  // @Input() seleccion: object = {};
   @Input() pad: object = null;
 
   Tablas = TABLAS;
-
   compon: Array<string>;
   flag = true;
   listForm: FormGroup;
@@ -32,11 +30,13 @@ export class MyModalComponent implements OnInit {
   componentRef: any;
   param = '';
 
-  count = 0;
+  back: object;
+  keyback=[];
 
-  constructor( private crudService: CrudService,
-    private fb: FormBuilder,
-    private appsevice: AppService ) { }
+  seleccion: object = {};
+  inverse: object = {};
+
+  constructor( private crudService: CrudService, private fb: FormBuilder ) { }
 
   get_param() {
     Object.entries(this.back).forEach(([k, v]) => {
@@ -45,27 +45,21 @@ export class MyModalComponent implements OnInit {
     });
   }
 
-  nextCount() {
-    this.appsevice.nextCount();
-  }
-
   ingresar() {
 
-    console.log(`ingresar() my-modal : param -> ${this.param} table -> ${this.table}`);
-    console.log(`ingresar() my-modal : listForm -> ${JSON.stringify(this.listForm.value)}`);
-    console.log(`my-modal : back ${JSON.stringify(this.back)}`);
-
+    // console.log(`my-modal : back ${JSON.stringify(this.back)}`);
     this.param = this.ref;
     if (this.back) {
         this.get_param();
      }
 
+    // console.log(`ingresar() my-modal : param -> ${this.param} table -> ${this.table}`);
+    // console.log(`ingresar() my-modal : listForm -> ${JSON.stringify(this.listForm.value)}`);
 
     this.crudService.agregar(this.listForm.value, this.table,  this.param).
      subscribe(() => {
                        // this.load();
-                       // this.appsevice.nextCount();
-                       this.limpiar();
+                      this.limpiar();
                           } );
     this.limpiar();
 
@@ -86,20 +80,14 @@ limpiar() {
 
   editar() {
 
-    const list = this.listForm.value;
-    // alert(this.pad[0]);
-    // console.log(`editar() my-modal list -> ${JSON.stringify(list)} id -> ${JSON.stringify(this.pad[0])}`);
+    var list = this.listForm.value;
+    list['id'] = this.pad['id'];
 
-    // if (this.back) { this.agrega_back(h); }
-    // console.log('xxxxxx', this.pad[0].toString(), this.listForm.value, this.table);
-    // console.log(`listForm.value -> ${JSON.stringify(this.listForm.value)}`);
+    console.log(list);
+
+   /*
     let valores = {};
     for (const [key, value] of Object.entries(this.listForm.value)) {
-      // if (this.compon[key] === 'text') {
-      // dict[key] = null;
-          // console.log(`[back] -> ${this.back}`);
-
-          // if (1) {
 
             if (this.back !== null && this.back.hasOwnProperty(key)) {
               if (this.compon[this.back[key]] === 'fk') {
@@ -112,20 +100,15 @@ limpiar() {
             valores[key]= value;
             // console.log(key,value)
           }
+    */
 
-        //  }
-
-      }
-      // console.log(`valores -> ${JSON.stringify(valores)}`);
+    /*
 
     this.crudService.
     update(this.pad[0].toString(), valores, this.table).
-    subscribe(
-      () => {
-        this.appsevice.nextCount();
-      }
-    );
+    subscribe();
 
+    */
 
   }
 
@@ -146,80 +129,80 @@ limpiar() {
     // pad = [29, 'xxxs', '2020-08-14', '1000', 1, 2, 32];
     // console.log(`agrega_back() my-modal : pad -> ${JSON.stringify(pad)}`);
 
-    let i = 0;
-    const dict = {};
-
     if (pad) {
       Object.entries(this.lgroup).forEach(([u, w]) => {
-        dict[u] = pad[i];
-        i++;
+        if (this.compon[this.back[u]]=='fk') {
+          console.log('u w ', u, w, this.back[u], this.pad[this.back[u]]);
+          this.lgroup[u] = [this.pad[this.back[u]]];
+        }
+
       });
     }
+    // console.log(`agrega_back() my-modal : lgroup -> ${JSON.stringify(this.lgroup)}`);
+  }
 
-    // console.log('DICT : lgroup', JSON.stringify(this.lgroup));
-    // console.log('DICT : dict', JSON.stringify(dict));
+  get_select() {
+    // console.log(`get_select() back -> ${JSON.stringify(this.back)}`);
+    Object.entries(this.back).forEach(([k, v]) => {
+      // console.log(`k : v -> ${k} ${v}`);
+      this.crudService.GetData(k).subscribe((d) => {
+        // console.log(`k : v -> ${k} ${v}`);
+        this.seleccion[k] = d;
+       // console.log(`get_select() solicitud : [k,v] -> ${k} : ${v} seleccion -> ${JSON.stringify(this.seleccion[k])}`);
+       });
+       } );
+    // console.log(`Solicitud seleccion -> ${JSON.stringify(this.seleccion)}`);
+  }
+
+  obtiene_back() {
+    // console.log(`obtiene_back back -> ${JSON.stringify(this.back)}`);
+    // console.log(`obtiene_back seleccion -> ${JSON.stringify(this.seleccion)}`);
 
     Object.entries(this.back).forEach(([k, v]) => {
-      // console.log(`ngOnInit() xxx agrega_back : [k, v] -> ${k} ${v}`);
-      if (pad == null) {
-          this.lgroup[k] = [''];
-          }
-          else {
-            // console.log(`[k, v] -> ${k} ${v}`);
-            this.lgroup[k] = [dict[k]];
-          }
-    } );
-    // this.lgroup = { id: [''], solicitante: ['', null], fecha: [''],
-    // numero_registro: ['', null], CentroCosto: [1], EstadoSolicitud: [1], SubItem: ['pameli'] };
+      this.keyback.push(k);
+      const   tmp: object = {};
+      tmp[k] = v;
+      this.inverse[tmp[k]] = k;
+      } );
 
-    // console.log(`ngOnInit() agrega_back : lgroup -> ${JSON.stringify(this.lgroup)} pad -> ${pad}`);
-
+    // console.log(`obtiene_back inverse -> ${JSON.stringify(this.inverse)}`);
   }
+
 
 
   ngOnInit(): void {
 
     const js = {};
-    let i = 0;
 
-    /*
-    console.log(`ngOnInit() my-modal : table -> ${this.table}`);
-    console.log(`ngOnInit() my-modal : ref -> ${JSON.stringify(this.ref)}`);
-    console.log(`ngOnInit() my-modal : back -> ${JSON.stringify(this.back)}`);
-    console.log(`ngOnInit() my-modal : seleccion -> ${JSON.stringify(this.seleccion)}`);
-    console.log(`ngOnInit() my-modal : editTabla -> ${this.editTabla}`);
-    */
+    this.back = this.Tablas[this.table].back;
+
+    if (this.back) {
+      this.get_select();
+      this.obtiene_back();
+     }
 
     this.lgroup = this.Tablas[this.table].lgroup;
     this.compon = this.Tablas[this.table].compon;
 
-    /*
-    console.log(`ngOnInit() my-modal : pad : ${JSON.stringify(this.pad)}`);
-    console.log(`ngOnInit() my-modal : lgroup -> ${JSON.stringify(this.lgroup)}`);
-    console.log(`ngOnInit() my-modal : compon -> ${JSON.stringify(this.compon)}`);
-    */
-
     if (this.pad) {
 
         for (const [key, value] of Object.entries(this.compon)) {
-          // console.log(`ngOnInit() my-modal : key -> ${key} value -> ${value}`);
+          // console.log(`key -> ${key} value -> ${value}`);
           if (value === 'text') {
-            js[key] = this.pad[i];
-            // console.log(`ngOnInt() my-modal : key - > ${key}`);
+            js[key] = this.pad[key];
+
             }
             else if (value === 'date') {
-              if ( this.pad[i] === null) {
-                // Fconsole.log(`key : ${this.compon[key]} value : ${value}`);
+              if ( this.pad[key] === null) {
+
                 } else {
-                  js[key] = this.pad[i].substring(0, 10);
+
+                   js[key] = this.pad[key].substring(0, 10);
                 }
             }
-          i++;
+
           }
         }
-    // console.log(`ngOnInit() my-modal : back -> ${JSON.stringify(this.back)}`);
-    // console.log(`ngOnInit() my-modal : lgroup -> ${JSON.stringify(this.lgroup)}`);
-    // console.log(`ngOnInt() my-modal : js - > ${JSON.stringify(js)}`);
 
     if (this.back && this.editTabla) {
         this.agrega_back(this.pad);

@@ -1,6 +1,28 @@
 <div class="conteiner">
   <br>
-<p><button (click)="limpiar()">Limpiar</button></p>
+<!--
+
+<table  *ngIf = "1 > 0" class="c">
+  <tr  *ngFor="let pad of (solicitud$ | async); index as j">
+    <td class="solicitud">
+      <button type="button" class="btn btn-link"
+          style="width: 12em; text-align: left;"
+          data-toggle="modal" data-target="#Solicitud"
+
+          >
+
+         {{pad['solicitante']}}
+      </button>
+
+    </td>
+  </tr>
+  <tr><td class="solicitud"><button
+    class="btn btn-link" data-toggle="modal" data-target="#Solicitud"
+    >+</button></td>
+</tr>
+</table>
+
+-->
 
 <div  *ngIf="solicitud"  style=" background-color: rgb(245, 225, 204); margin-left: '35px';">
 <br>
@@ -21,20 +43,23 @@
 <p>{{padre}}</p>
 -->
 
-<table  *ngIf = "total > 0" class="c">
-  <tr  *ngFor="let pad of padre; index as j">
-    <td class="solicitud" *ngIf="j>0">
+<table  class="c">
+  <tr   *ngFor="let pad of (solicitud$ | async); index as j">
+    <td class="solicitud">
       <button type="button" class="btn btn-link"
           style="width: 12em; text-align: left;"
           data-toggle="modal" data-target="#Solicitud"
-          (click) = "activa_modal('Solicitud', backref, null, null, true, pad)">{{pad[1]}}
+
+          (click) = "activa_modal('Solicitud', backref, true, pad)"
+
+          >{{pad['solicitante']}}
       </button>
     </td>
-    <td><app-ordencompra [backref]="padre[j][0]"></app-ordencompra></td>
+    <td><app-ordencompra [backref]="13"></app-ordencompra></td>
   </tr>
   <tr><td class="solicitud"><button *ngIf="solicitud"
     class="btn btn-link" data-toggle="modal" data-target="#Solicitud"
-    (click) = "activa_modal(table, backref, back, seleccion, false, null)">+</button></td></tr>
+    (click) = "activa_modal(table, backref, false, null)">+</button></td></tr>
 </table>
 
 <!--

@@ -6,18 +6,26 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class AppService {
 
-    msg:string='enviado';
+    // trigger reload data
 
+    msg:string='enviado';
     send: BehaviorSubject<string>;
+
+    // send register
+
+    // dic: object= null;
+    // dictio: BehaviorSubject<object>;
 
     constructor() {
 
         this.send = new BehaviorSubject(this.msg);
+        // this.dictio = new BehaviorSubject(this.dic);
     }
 
-    nextCount() {
+    nextMsg() {
+
         this.send.next(this.msg);
-
     }
+
 
 }

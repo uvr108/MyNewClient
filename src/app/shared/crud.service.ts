@@ -45,7 +45,7 @@ httpOptions = {
     }
     else {
       // console.log(`xxx -> ${this.baseurl}/api/${table}`);
-      return this.http.get<any>(this.baseurl + '/api/' + table)
+      return this.http.get<[{}]>(this.baseurl + '/api/' + table)
       .pipe(
         retry(1),
         catchError(this.errorHandl)
@@ -54,10 +54,10 @@ httpOptions = {
     }
 }
 // PUT
-update(id: string, tab: {}, table: string): Observable<{}> {
+update(id: string, tab: object, table: string): Observable<object> {
   // console.log(`crud Update() url -> ${this.baseurl} + '/api/' + ${table} + '/' + ${id}`);
   // console.log(`crud Update() tab -> ${JSON.stringify(tab)}`);
-  return this.http.put<{}>(this.baseurl + '/api/' + table + '/' + id, tab, this.httpOptions);
+  return this.http.put<object>(this.baseurl + '/api/' + table + '/' + id, tab, this.httpOptions);
 }
 
 // DELETE
@@ -70,13 +70,26 @@ delete(id: string, table: string) {
 
 }
 
+public getData(table: string, fk: string = null): Observable<any> {
+
+  let baseurl = '';
+  if (fk === null) {
+    baseurl = this.baseurl + '/api/' + table;
+  } else {
+    baseurl = this.baseurl + '/api/' + table + '/fk/' + fk;
+  }
+
+  return this.http.get<any>(baseurl);
+
+}
+
 agregar(tabla: {}, table: string, fk: string = null): Observable<{}> {
 
   let baseurl = this.baseurl + /api/ + table;
 
   if (fk) { baseurl += '/' + fk; }
 
-  console.log('agregar crud : ', baseurl, tabla);
+  // console.log('agregar crud : ', baseurl, tabla);
 
   return this.http.post<any>(baseurl, tabla, this.httpOptions);
 }

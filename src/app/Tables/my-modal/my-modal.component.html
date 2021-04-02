@@ -1,6 +1,5 @@
 <!--div><button class="btn btn-light btn-sm" data-toggle="modal" data-target="#myModal">Ingresar</button></div-->
 
-
 <div  class="modal fade" id="{{table}}">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
@@ -14,73 +13,77 @@
 
       <!-- Modal body -->
       <div class="modal-body">
-        <h2>Count in modal =  {{ count }}</h2>
-
-        <!--button (click)='nextCount()'>Next Count from component2</button-->
         <!--
         pad : [{{pad | json}}]<br>
         compon : [{{compon | json}}]
         -->
 <form [formGroup]="listForm" >
-    <!--
-    <p>back : [{{back | json}}]</p>
+  <!--
+
+  <p>{{back | json}}</p>
+  <p>keyback -> {{keyback | json}}</p>
+
+    <p *ngFor="let b of keyback">xxx{{b}}</p>
     <p>seleccion : [{{seleccion | json}}]</p>
-    -->
-    <span *ngIf="back">
-        <span *ngFor="let b of back | keyvalue">
-            <!--p>[{{compon[back[b.key]] | json}}]</p-->
 
-            <p *ngIf="compon[back[b.key]] === 'fk'">&nbsp;{{b.key}}&nbsp;
+  -->
+    <table *ngIf="back">
+        <tr *ngFor="let b of keyback">
 
-                <select formControlName="{{b.key}}">
 
-                    <option [ngValue]="null" disabled>Elija su opción | {{b.key}} </option>
+            <td *ngIf="compon[back[b]] === 'fk'">{{b}}</td>
+                <td  *ngIf="compon[back[b]] === 'fk'">
+                <select formControlName="{{b}}">
 
-                    <option *ngFor="let s of seleccion[b.key]" [ngValue]="s.id">{{s.nombre}}</option>
+                    <option [ngValue]="null" disabled></option>
+
+                    <option *ngFor="let s of seleccion[b]" [ngValue]="s.id">{{s.nombre}}</option>
 
                 </select>
 
-            </p>
+              </td>
 
-        </span>
-    </span>
+        </tr>
+      </table>
 
-      <span *ngIf="compon">
+      <table *ngIf="compon">
 
 
-      <span *ngFor="let c of compon | keyvalue; index as i">
+          <tr *ngFor="let c of compon | keyvalue; index as i">
 
-       <span *ngIf="c['value'] != 'hidden'">
-         <span  *ngIf="c['value'] != 'fk'"><span *ngIf="c['value'] != 'id'">{{c['key']}}</span></span>
-       </span>&nbsp;
+           <td *ngIf="c['value'] != 'hidden'">
+             <span  *ngIf="c['value'] != 'fk'"><span *ngIf="c['value'] != 'id'">{{c['key']}}</span></span>
+           </td>
 
-       <span *ngIf="c['value'] != 'hidden'">
-         <span *ngIf="c['value'] != 'fk'">
-           <span  *ngIf="c['value'] != 'id'">
-            <input type="{{c['value']}}"  formControlName="{{c['key']}}"/>
-           </span>
+           <td *ngIf="c['value'] != 'hidden'">
+             <span *ngIf="c['value'] != 'fk'">
+               <span  *ngIf="c['value'] != 'id'">
+                <input type="{{c['value']}}"  formControlName="{{c['key']}}"/>
+               </span>
 
-         </span>
-       </span>
+             </span>
+           </td>
 
-       <br>
-       <br>
+          </tr>
 
-      </span>
+      </table>
 
-  </span>
+
+
 </form>
 
 </div>
 
 <!-- Modal footer -->
 <div class="modal-footer">
-  <button *ngIf="!editTabla" class="btn btn-info btn-sm" type="button" (click)="ingresar()"
+  <button *ngIf="!editTabla" class="btn btn-info btn-sm" type="button" (click) = "ingresar()"
        [disabled]="!listForm.valid">Ingresar</button>&nbsp;
   <button *ngIf="editTabla" class="btn btn-info btn-sm" type="button"
        [disabled]="!listForm.valid" (click)="editar()"  data-dismiss="modal">Editar</button>&nbsp;
-  <button *ngIf="editTabla" class="btn btn-info btn-sm" type="button"
+  <!--
+       <button *ngIf="editTabla" class="btn btn-info btn-sm" type="button"
        [disabled]="!listForm.valid" (click)="borrar()"  data-dismiss="modal">Borrar</button>&nbsp;
+  -->
   <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal">Close</button>
 </div>
 
