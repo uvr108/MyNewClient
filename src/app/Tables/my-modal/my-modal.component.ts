@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { FormBuilder,  FormGroup } from '@angular/forms';
+import { AppService } from 'src/app/shared/app.service';
 import { CrudService } from '../../shared/crud.service';
 import { TABLAS } from './../../tablas';
 
@@ -14,8 +15,6 @@ export class MyModalComponent implements OnInit {
   @Input() editTabla: boolean;
   @Input() table: string;
   @Input() ref: string;
-  // @Input() back: string;
-  // @Input() seleccion: object = {};
   @Input() pad: object = null;
 
   Tablas = TABLAS;
@@ -30,39 +29,71 @@ export class MyModalComponent implements OnInit {
   componentRef: any;
   param = '';
 
+  send: string;
+
   back: object;
   keyback=[];
 
   seleccion: object = {};
   inverse: object = {};
 
-  constructor( private crudService: CrudService, private fb: FormBuilder ) { }
+  constructor( private crudService: CrudService,
+    private appsevice: AppService,
+    private fb: FormBuilder ) { }
 
-  /*
+    ngOnInit(): void {
 
-  get_param() {
-    Object.entries(this.back).forEach(([k, v]) => {
-      // console.log(`get_param mymodal : k -> ${k}`);
-      this.param = this.param + '/' + this.listForm.value[k];
+      const js = {};
+
+      this.back = this.Tablas[this.table].back;
+
+      if (this.back) {
+        this.get_select();
+        this.obtiene_back();
+       }
+
+      this.lgroup = this.Tablas[this.table].lgroup;
+      this.compon = this.Tablas[this.table].compon;
+
+      if (this.pad) {
+
+          for (const [key, value] of Object.entries(this.compon)) {
+
+            if (value === 'text') {
+
+              js[key] = this.pad[key]; }
+
+              else if (value === 'date') {
+                if ( this.pad[key] === null) {
+
+                  } else {
+
+                     js[key] = this.pad[key].substring(0, 10);
+                  }
+              }
+
+            }
+          }
+
+      if (this.editTabla && this.back) {
+         this.agrega_back(this.pad);
+      }
+
+      this.listForm = this.fb.group(this.lgroup);
+      this.listForm.patchValue(js);
+
+      this.appsevice.send.subscribe(c => {
+        this.send = c;
     });
-  }
-  */
+
+}
+
 
   ingresar() {
 
-    // console.log(`my-modal : back ${JSON.stringify(this.back)}`);
-    /*
-    this.param = this.ref;
-    if (this.back) {
-        this.get_param();
-     }
-     */
-    // console.log(`ingresar() my-modal : param -> ${this.param} table -> ${this.table}`);
-    // console.log(`ingresar() my-modal : listForm -> ${JSON.stringify(this.listForm.value)}`);
 
     this.crudService.agregar(this.listForm.value, this.table,  this.param).
      subscribe(() => {
-                       // this.load();
                       this.limpiar();
                           } );
     this.limpiar();
@@ -121,7 +152,7 @@ limpiar() {
 
     this.crudService.
     update(id, fk, compon, this.table).
-    subscribe();
+    subscribe(() => this.appsevice.nextMsg(this.table) );
 
 
   }
@@ -143,16 +174,14 @@ limpiar() {
     // pad = [29, 'xxxs', '2020-08-14', '1000', 1, 2, 32];
     // console.log(`agrega_data() my-modal : pad -> ${JSON.stringify(pad)}`);
 
-    console.log('pad -> ', pad);
+    // console.log('pad -> ', pad);
 
     if (pad) {
-
-
 
         Object.entries(this.lgroup).forEach(([u, w]) => {
 
           if (this.compon[this.back[u]]=='fk') {
-            console.log('u w ', u, w, this.back[u], this.pad[this.back[u]]);
+            // console.log('u w ', u, w, this.back[u], this.pad[this.back[u]]);
             this.lgroup[u] = [this.pad[this.back[u]]];
           }
 
@@ -192,57 +221,6 @@ limpiar() {
 
 
 
-  ngOnInit(): void {
-
-    const js = {};
-
-    this.back = this.Tablas[this.table].back;
-
-    if (this.back) {
-      this.get_select();
-      this.obtiene_back();
-     }
-
-    this.lgroup = this.Tablas[this.table].lgroup;
-    this.compon = this.Tablas[this.table].compon;
-
-    // console.log('lgroup -> ', this.lgroup);
-    // console.log('compon -> ', this.compon);
-    // console.log('pad -> ', this.pad);
-
-    if (this.pad) {
-
-        for (const [key, value] of Object.entries(this.compon)) {
-          // console.log(`key -> ${key} value -> ${value}`);
-          if (value === 'text') {
-            js[key] = this.pad[key];
-
-            }
-            else if (value === 'date') {
-              if ( this.pad[key] === null) {
-
-                } else {
-
-                   js[key] = this.pad[key].substring(0, 10);
-                }
-            }
-
-          }
-        }
-
-    if (this.editTabla && this.back) {
-       this.agrega_back(this.pad);
-    }
-
-    // console.log(`ngOnInit() my-modal lgroup -> ${JSON.stringify(this.lgroup)}`);
-    // console.log(`ngOnInit() my-modal js -> ${JSON.stringify(js)}`);
-
-    this.listForm = this.fb.group(this.lgroup);
-
-    this.listForm.patchValue(js);
-
-
-  }
 
 
 }

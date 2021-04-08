@@ -1,3 +1,4 @@
+import { AppService } from './../../shared/app.service';
 import { MyModalComponent } from './../my-modal/my-modal.component';
 import { Component, OnInit, Input, ComponentFactoryResolver, ViewChild,
    ViewContainerRef } from '@angular/core';
@@ -27,16 +28,23 @@ export class PresupuestoComponent implements OnInit {
   back = this.Tablas[this.table].back;
   componentRef: any;
 
+  msg: string;
+
   constructor( private crudService: CrudService,
                private resolver: ComponentFactoryResolver,
+               private appservice: AppService
                ) { }
   ngOnInit(): void {
     this.compon = this.Tablas[this.table].compon;
-    this.load();
-  }
-
-  load() {
     this.presupuesto$ = this.crudService.GetData(this.table, this.backref);
+    this.appservice.send.subscribe(s => {
+      this.msg = s;
+      if ( s === this.table) {
+        console.log(this.msg);
+        this.presupuesto$ = this.crudService.GetData(this.table, this.backref);
+      }
+
+  });
   }
 
   sgte(ref: string) {
@@ -56,7 +64,7 @@ mostra() {
 
  activa_modal(table: string, ref: string, editTabla: boolean, pad: object) {
 
-  console.log('xxx -> ', table, ref, editTabla, pad);
+  // console.log('xxx -> ', table, ref, editTabla, pad);
 
   if (table) {
 

@@ -8,23 +8,18 @@ export class AppService {
 
     // trigger reload data
 
-    msg:string='enviado';
+    msg:string='ninguna';
     send: BehaviorSubject<string>;
-
-    // send register
-
-    // dic: object= null;
-    // dictio: BehaviorSubject<object>;
 
     constructor() {
 
         this.send = new BehaviorSubject(this.msg);
-        // this.dictio = new BehaviorSubject(this.dic);
+
     }
 
-    nextMsg() {
+    nextMsg(table:string) {
 
-        this.send.next(this.msg);
+        this.send.next(this.msg = table);
     }
 
 

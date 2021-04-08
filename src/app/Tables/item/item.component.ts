@@ -3,6 +3,7 @@ import { Component, OnInit, Input, ComponentFactoryResolver, ViewChild,
    ViewContainerRef } from '@angular/core';
 import { CrudService } from '../../shared/crud.service';
 import { TABLAS } from './../../tablas';
+import { AppService } from 'src/app/shared/app.service';
 
 @Component({
   selector: 'app-item',
@@ -27,16 +28,22 @@ export class ItemComponent implements OnInit {
   back = this.Tablas[this.table].back;
   componentRef: any;
 
+  msg:string;
+
   constructor( private crudService: CrudService,
                private resolver: ComponentFactoryResolver,
+               private appservice: AppService
                ) { }
   ngOnInit(): void {
     this.compon = this.Tablas[this.table].compon;
-    this.load();
-  }
-
-  load() {
     this.item$ = this.crudService.GetData(this.table, this.backref);
+    this.appservice.send.subscribe(s => {
+      this.msg = s;
+      if ( s === this.table) {
+        console.log(this.msg);
+        this.item$ = this.crudService.GetData(this.table, this.backref);
+      }
+  });
   }
 
   sgte(ref: string) {
@@ -47,7 +54,7 @@ export class ItemComponent implements OnInit {
 
 mostra() {
   this.item = this.item === true ? false : true;
-  console.log(`item -> ${this.item}`);
+  // console.log(`item -> ${this.item}`);
   if (this.item) {
   }
 
@@ -62,7 +69,7 @@ activa_modal(table: string, ref: string, editTabla: boolean, pad: object) {
   if (table) {
 
 
-      console.log(`table -> ${table} ref -> ${ref} editTabla ->  ${editTabla} pad -> ${JSON.stringify(pad)}`);
+      // console.log(`table -> ${table} ref -> ${ref} editTabla ->  ${editTabla} pad -> ${JSON.stringify(pad)}`);
 
       this.entry.clear();
 

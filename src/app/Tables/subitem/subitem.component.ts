@@ -3,6 +3,7 @@ import { Component, OnInit, Input, ComponentFactoryResolver, ViewChild,
    ViewContainerRef } from '@angular/core';
 import { CrudService } from '../../shared/crud.service';
 import { TABLAS } from './../../tablas';
+import { AppService } from 'src/app/shared/app.service';
 
 @Component({
   selector: 'app-subitem',
@@ -27,17 +28,24 @@ export class SubitemComponent implements OnInit {
   back = this.Tablas[this.table].back;
   componentRef: any;
 
+  msg:string;
+
   constructor( private crudService: CrudService,
                private resolver: ComponentFactoryResolver,
+               private appservice: AppService
                ) { }
   ngOnInit(): void {
     this.compon = this.Tablas[this.table].compon;
-    this.load();
+    this.subitem$ = this.crudService.GetData(this.table, this.backref);
+    this.appservice.send.subscribe(s => {
+      this.msg = s;
+      if ( s === this.table) {
+        console.log(this.msg);
+        this.subitem$ = this.crudService.GetData(this.table, this.backref);
+      }
+  });
   }
 
-  load() {
-    this.subitem$ = this.crudService.GetData(this.table, this.backref);
-  }
 
   sgte(ref: string) {
     this.ref = ref;
@@ -56,7 +64,7 @@ mostra() {
 
  activa_modal(table: string, ref: string, editTabla: boolean, pad: object) {
 
-  console.log('xxx -> ', table, ref, editTabla, pad);
+  // console.log('xxx -> ', table, ref, editTabla, pad);
 
   if (table) {
 
