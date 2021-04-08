@@ -38,21 +38,25 @@ export class MyModalComponent implements OnInit {
 
   constructor( private crudService: CrudService, private fb: FormBuilder ) { }
 
+  /*
+
   get_param() {
     Object.entries(this.back).forEach(([k, v]) => {
       // console.log(`get_param mymodal : k -> ${k}`);
       this.param = this.param + '/' + this.listForm.value[k];
     });
   }
+  */
 
   ingresar() {
 
     // console.log(`my-modal : back ${JSON.stringify(this.back)}`);
+    /*
     this.param = this.ref;
     if (this.back) {
         this.get_param();
      }
-
+     */
     // console.log(`ingresar() my-modal : param -> ${this.param} table -> ${this.table}`);
     // console.log(`ingresar() my-modal : listForm -> ${JSON.stringify(this.listForm.value)}`);
 
@@ -80,35 +84,45 @@ limpiar() {
 
   editar() {
 
-    var list = this.listForm.value;
-    list['id'] = this.pad['id'];
+    let compon = {};
+    let fk = {};
+    let id: string;
 
-    console.log(list);
+    // console.log(this.listForm.value);
 
-   /*
-    let valores = {};
     for (const [key, value] of Object.entries(this.listForm.value)) {
+
+            // console.log(key, value);
+
 
             if (this.back !== null && this.back.hasOwnProperty(key)) {
               if (this.compon[this.back[key]] === 'fk') {
-                valores[this.back[key]] = value;
-                // console.log(this.back[key], value);
+                fk[key] = value;
+
               }
 
           }
           else {
-            valores[key]= value;
-            // console.log(key,value)
-          }
-    */
+            if (key === 'id') {
+              id = this.pad['id'];
 
-    /*
+            }
+            else {
+              compon[key]= value;
+
+            }
+
+          }
+
+        }
+
+
+    // console.log(id , fk, compon);
 
     this.crudService.
-    update(this.pad[0].toString(), valores, this.table).
+    update(id, fk, compon, this.table).
     subscribe();
 
-    */
 
   }
 
@@ -127,17 +141,25 @@ limpiar() {
 
   agrega_back(pad: any = null) {
     // pad = [29, 'xxxs', '2020-08-14', '1000', 1, 2, 32];
-    // console.log(`agrega_back() my-modal : pad -> ${JSON.stringify(pad)}`);
+    // console.log(`agrega_data() my-modal : pad -> ${JSON.stringify(pad)}`);
+
+    console.log('pad -> ', pad);
 
     if (pad) {
-      Object.entries(this.lgroup).forEach(([u, w]) => {
-        if (this.compon[this.back[u]]=='fk') {
-          console.log('u w ', u, w, this.back[u], this.pad[this.back[u]]);
-          this.lgroup[u] = [this.pad[this.back[u]]];
-        }
 
-      });
-    }
+
+
+        Object.entries(this.lgroup).forEach(([u, w]) => {
+
+          if (this.compon[this.back[u]]=='fk') {
+            console.log('u w ', u, w, this.back[u], this.pad[this.back[u]]);
+            this.lgroup[u] = [this.pad[this.back[u]]];
+          }
+
+        });
+
+      }
+
     // console.log(`agrega_back() my-modal : lgroup -> ${JSON.stringify(this.lgroup)}`);
   }
 
@@ -184,6 +206,10 @@ limpiar() {
     this.lgroup = this.Tablas[this.table].lgroup;
     this.compon = this.Tablas[this.table].compon;
 
+    // console.log('lgroup -> ', this.lgroup);
+    // console.log('compon -> ', this.compon);
+    // console.log('pad -> ', this.pad);
+
     if (this.pad) {
 
         for (const [key, value] of Object.entries(this.compon)) {
@@ -204,8 +230,8 @@ limpiar() {
           }
         }
 
-    if (this.back && this.editTabla) {
-        this.agrega_back(this.pad);
+    if (this.editTabla && this.back) {
+       this.agrega_back(this.pad);
     }
 
     // console.log(`ngOnInit() my-modal lgroup -> ${JSON.stringify(this.lgroup)}`);

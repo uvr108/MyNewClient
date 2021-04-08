@@ -54,10 +54,10 @@ httpOptions = {
     }
 }
 // PUT
-update(id: string, tab: object, table: string): Observable<object> {
+update(id: string, fk: object, compon: object, table: string): Observable<any> {
   // console.log(`crud Update() url -> ${this.baseurl} + '/api/' + ${table} + '/' + ${id}`);
   // console.log(`crud Update() tab -> ${JSON.stringify(tab)}`);
-  return this.http.put<object>(this.baseurl + '/api/' + table + '/' + id, tab, this.httpOptions);
+  return this.http.put<any>(this.baseurl + '/api/' + table + '/' + id, compon, this.httpOptions);
 }
 
 // DELETE
