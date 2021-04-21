@@ -30,7 +30,7 @@ export const TABLAS: object = {
     CentroCosto: [''], EstadoSolicitud: ['']},
 
     compon: { id: 'hidden', solicitante: 'text', fecha: 'date', numero_registro: 'text',
-    centrocostoId: 'fk', estadosolicitudId: 'fk'}
+    centrocostoId: 'fk', estadosolicitudId: 'fk', subitemId: 'id'}
   }
 
   , OrdenCompra: {

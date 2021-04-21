@@ -35,15 +35,22 @@ export class ItemComponent implements OnInit {
                private appservice: AppService
                ) { }
   ngOnInit(): void {
+
     this.compon = this.Tablas[this.table].compon;
-    this.item$ = this.crudService.GetData(this.table, this.backref);
+
+    this.item$ = this.crudService.GetData(this.table);
+
     this.appservice.send.subscribe(s => {
       this.msg = s;
-      if ( s === this.table) {
-        console.log(this.msg);
-        this.item$ = this.crudService.GetData(this.table, this.backref);
-      }
-  });
+      console.log(this.msg, this.table, s);
+
+      if (  s === this.table) {
+        this.item$ = this.crudService.GetData(this.table);
+
+        }
+
+      });
+
   }
 
   sgte(ref: string) {

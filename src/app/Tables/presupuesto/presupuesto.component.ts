@@ -1,9 +1,11 @@
+import { Observable } from 'rxjs';
 import { AppService } from './../../shared/app.service';
 import { MyModalComponent } from './../my-modal/my-modal.component';
 import { Component, OnInit, Input, ComponentFactoryResolver, ViewChild,
    ViewContainerRef } from '@angular/core';
 import { CrudService } from '../../shared/crud.service';
 import { TABLAS } from './../../tablas';
+
 
 @Component({
   selector: 'app-presupuesto',
@@ -33,18 +35,26 @@ export class PresupuestoComponent implements OnInit {
   constructor( private crudService: CrudService,
                private resolver: ComponentFactoryResolver,
                private appservice: AppService
-               ) { }
+               ) {}
   ngOnInit(): void {
+
     this.compon = this.Tablas[this.table].compon;
-    this.presupuesto$ = this.crudService.GetData(this.table, this.backref);
+
+    this.presupuesto$ = this.crudService.GetData(this.table);
+
     this.appservice.send.subscribe(s => {
       this.msg = s;
-      if ( s === this.table) {
-        console.log(this.msg);
-        this.presupuesto$ = this.crudService.GetData(this.table, this.backref);
-      }
+      console.log(this.msg, this.table, s);
+
+      if (  s === this.table) {
+        this.presupuesto$ = this.crudService.GetData(this.table);
+
+        }
 
   });
+
+
+
   }
 
   sgte(ref: string) {

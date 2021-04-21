@@ -30,13 +30,13 @@ httpOptions = {
     );
   }
 
-  GetData(table: string, fk: string = null): Observable<[{}]> {
+  GetData(table: string, fk: string = null): Observable<any> {
 
     // console.log(`crud.service ${table} ${fk}`);
 
     if (fk) {
-      // console.log('GeByFk crud : ', this.baseurl + '/api/' + table);
-      return this.http.get<[{}]>(this.baseurl + '/api/' + table + '/fk/' + fk)
+      console.log('GeByFk crud : ', this.baseurl + '/api/' + table);
+      return this.http.get<any>(this.baseurl + '/api/' + table + '/fk/' + fk)
       .pipe(
         retry(1),
         catchError(this.errorHandl)
@@ -44,8 +44,8 @@ httpOptions = {
 
     }
     else {
-      // console.log(`xxx -> ${this.baseurl}/api/${table}`);
-      return this.http.get<[{}]>(this.baseurl + '/api/' + table)
+      console.log(`xxx -> ${this.baseurl}/api/${table}`);
+      return this.http.get<any>(this.baseurl + '/api/' + table)
       .pipe(
         retry(1),
         catchError(this.errorHandl)
@@ -53,11 +53,32 @@ httpOptions = {
       // console.log('GeByFk crud : ', this.baseurl + '/api/' + table + '/fk/' + fk);
     }
 }
-// PUT
+// PUT ****
 update(id: string, fk: object, compon: object, table: string): Observable<any> {
-  // console.log(`crud Update() url -> ${this.baseurl} + '/api/' + ${table} + '/' + ${id}`);
-  // console.log(`crud Update() tab -> ${JSON.stringify(tab)}`);
   return this.http.put<any>(this.baseurl + '/api/' + table + '/' + id, compon, this.httpOptions);
+}
+// POST ****
+insert(ref: string, fk: object, compon: object, table: string): Observable<any> {
+
+  var line:string = null;
+  var baseurl:string;
+
+  if (ref) {
+      console.log('ref', ref);
+      line = ref + '/';
+      for (const [key, value] of Object.entries(fk)) {
+      // console.log(key, value);
+      line += value + '/'
+     }
+      line = line.substring(0, line.length - 1);
+      baseurl = this.baseurl + '/api/' + table + '/' + line;
+    } else {
+      baseurl = this.baseurl + '/api/' + table;
+    }
+
+    console.log(baseurl);
+
+    return this.http.post<any>(baseurl, compon, this.httpOptions);
 }
 
 // DELETE
@@ -83,6 +104,7 @@ public getData(table: string, fk: string = null): Observable<any> {
 
 }
 
+/*
 agregar(tabla: {}, table: string, fk: string = null): Observable<{}> {
 
   let baseurl = this.baseurl + /api/ + table;
@@ -93,6 +115,7 @@ agregar(tabla: {}, table: string, fk: string = null): Observable<{}> {
 
   return this.http.post<any>(baseurl, tabla, this.httpOptions);
 }
+*/
 
 // Error handling
 errorHandl(error) {

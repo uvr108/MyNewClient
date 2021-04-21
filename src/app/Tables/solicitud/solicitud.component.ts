@@ -17,7 +17,7 @@ export class SolicitudComponent implements OnInit {
   @ViewChild('messagecontainer', { read: ViewContainerRef }) entry: ViewContainerRef;
 
   solicitud = true;
-  next = false;
+  next = true;
   ref: string = null;
 
   lgroup: Array<string>;
@@ -58,7 +58,7 @@ export class SolicitudComponent implements OnInit {
    sgte(ref: string) {
 
     this.ref = ref;
-    this.next = this.next  === true ? false : true;
+    // this.next = this.next  === true ? false : true;
   }
 
 

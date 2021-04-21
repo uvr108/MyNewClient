@@ -91,13 +91,24 @@ export class MyModalComponent implements OnInit {
 
   ingresar() {
 
+    var data = this.datos_consulta('ingresar');
+    console.log(JSON.stringify(data));
 
+    this.crudService.insert(this.ref, data['fk'], data['compon'], this.table).
+    subscribe(() => {
+
+      this.appsevice.nextMsg(this.table)
+          } );
+
+      this.limpiar();
+
+/*
     this.crudService.agregar(this.listForm.value, this.table,  this.param).
      subscribe(() => {
                       this.limpiar();
                           } );
     this.limpiar();
-
+*/
    }
 
 limpiar() {
@@ -115,44 +126,44 @@ limpiar() {
 
   editar() {
 
+    var data = this.datos_consulta('editar');
+
+    this.crudService.
+    update(data['id'], data['fk'], data['compon'], this.table).
+    subscribe(() => this.appsevice.nextMsg(this.table) );
+
+
+  }
+
+  datos_consulta(tipo: string) {
+
     let compon = {};
     let fk = {};
     let id: string;
 
-    // console.log(this.listForm.value);
-
     for (const [key, value] of Object.entries(this.listForm.value)) {
 
-            // console.log(key, value);
-
-
-            if (this.back !== null && this.back.hasOwnProperty(key)) {
-              if (this.compon[this.back[key]] === 'fk') {
-                fk[key] = value;
-
-              }
-
-          }
-          else {
-            if (key === 'id') {
-              id = this.pad['id'];
-
-            }
-            else {
-              compon[key]= value;
-
-            }
-
-          }
-
+      if (this.back !== null && this.back.hasOwnProperty(key)) {
+        if (this.compon[this.back[key]] === 'fk') {
+          fk[key] = value;
         }
+    }
+    else {
+      if (key === 'id') {
 
+        if (tipo === 'ingresar')
+        { id = ''; }
+        else if (tipo === 'editar')
+        { id = this.pad['id']; }
 
-    // console.log(id , fk, compon);
+      }
+      else {
+        compon[key]= value;
+      }
+    }
+  }
 
-    this.crudService.
-    update(id, fk, compon, this.table).
-    subscribe(() => this.appsevice.nextMsg(this.table) );
+  return {id: id, fk: fk, compon: compon}
 
 
   }

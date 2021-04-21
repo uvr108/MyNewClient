@@ -1,13 +1,26 @@
 
 <div *ngIf="comprobantecontable">
 
-  <table *ngIf = "total > 0" class="c">
-  <tr *ngFor="let pad of padre; index as j">
-  <td class="comprobantecontable" *ngIf="j>0"><button type="button" class="btn btn-link btn-sm"  style="width: 12em; text-align: left;"
-    data-toggle="modal" data-target="#ComprobanteContable" (click) = "activa_modal(table, backref, null, null, true, pad)">{{pad[1]}}</button></td>
- <tr><td class="comprobantecontable"><button *ngIf="comprobantecontable" class="btn btn-link btn-sm" data-toggle="modal"
-  data-target="#ComprobanteContable"
-  (click) = "activa_modal(table, backref, back, seleccion, false, null)">+</button></td></tr>
+  <!--p *ngIf = "total > 0">{{padre | json}}</p-->
+
+  <table  class="c">
+    <tr   *ngFor="let pad of (comprobantecontable$ | async); index as j">
+      <td class="comprobantecontable">
+        <button type="button" class="btn btn-link"
+            style="width: 12em; text-align: left;"
+            data-toggle="modal" data-target="#ComprobanteContable"
+
+            (click) = "activa_modal('ComprobanteContable', backref, true, pad)"
+
+            >{{pad['numero_registro']}}
+        </button>
+      </td>
+    </tr>
+    <tr><td class="comprobantecontable"><button *ngIf="comprobantecontable"
+      class="btn btn-link" data-toggle="modal" data-target="#ComprobanteContable"
+      (click) = "activa_modal(table, backref, false, null)">+</button></td></tr>
   </table>
+
+
   <span><template #messagecontainer></template></span>
 </div>

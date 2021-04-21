@@ -1,7 +1,7 @@
 <div class="conteiner" style="width: '100%'; margin-left: '25px'">
 
   <span><button type="button" class="btn btn-outline-light text-dark"
-    (click) = "mostra()">+</button>SubItem
+    (click) = "mostra()">(+)</button>SubItem
     <button *ngIf="subitem" class="btn btn-light" data-toggle="modal" data-target="#SubItem"
     (click) = "activa_modal(table, backref, false, null)">#</button></span>
 
@@ -13,7 +13,7 @@
 
 
           <button type="button" class="btn btn-outline-light text-dark"
-          (click) = "sgte(pad['id'])">&nbsp;&nbsp;+&nbsp;</button>
+          (click) = "sgte(pad['id'])">&nbsp;&nbsp;[+]&nbsp;</button>
 
            <button type="button" class="btn btn-link"  style="width: 9em; text-align: left;"
            data-toggle="modal" data-target="#SubItem" (click) = "activa_modal(table, backref, true, pad)">
@@ -23,7 +23,11 @@
         <br>
 
         <div *ngIf="ref === pad['id']">
+
+
           <app-solicitud  *ngIf = "next"  [backref] = "pad['id']"></app-solicitud>
+
+
         </div>
 
         </span>
@@ -32,13 +36,3 @@
   </span>
   <br>
   </div>
-
-
-
-
-
-
-
-
-
-

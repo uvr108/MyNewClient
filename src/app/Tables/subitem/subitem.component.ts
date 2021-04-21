@@ -5,12 +5,14 @@ import { CrudService } from '../../shared/crud.service';
 import { TABLAS } from './../../tablas';
 import { AppService } from 'src/app/shared/app.service';
 
+
 @Component({
   selector: 'app-subitem',
   templateUrl: './subitem.component.html',
   styleUrls: ['./subitem.component.css']
 })
 export class SubitemComponent implements OnInit {
+
 
 
   @Input() backref: string = null;
@@ -35,25 +37,34 @@ export class SubitemComponent implements OnInit {
                private appservice: AppService
                ) { }
   ngOnInit(): void {
+
     this.compon = this.Tablas[this.table].compon;
+
     this.subitem$ = this.crudService.GetData(this.table, this.backref);
     this.appservice.send.subscribe(s => {
       this.msg = s;
+      console.log(this.msg, this.table, s);
+
       if ( s === this.table) {
         console.log(this.msg);
         this.subitem$ = this.crudService.GetData(this.table, this.backref);
+
       }
+
   });
+
+
+
   }
 
-
   sgte(ref: string) {
+    console.log(ref);
     this.ref = ref;
     this.next = this.next  === true ? false : true;
   }
 
 
-mostra() {
+  mostra() {
   this.subitem = this.subitem === true ? false : true;
   if (this.subitem) {
   }
