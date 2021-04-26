@@ -42,10 +42,13 @@ export class ItemComponent implements OnInit {
 
     this.appservice.send.subscribe(s => {
       this.msg = s;
-      console.log(this.msg, this.table, s);
+
 
       if (  s === this.table) {
+        // console.log(this.table);
+
         this.item$ = this.crudService.GetData(this.table);
+        this.next = true;
 
         }
 

@@ -43,12 +43,13 @@ export class SubitemComponent implements OnInit {
     this.subitem$ = this.crudService.GetData(this.table, this.backref);
     this.appservice.send.subscribe(s => {
       this.msg = s;
-      console.log(this.msg, this.table, s);
 
       if ( s === this.table) {
-        console.log(this.msg);
-        this.subitem$ = this.crudService.GetData(this.table, this.backref);
 
+        console.log(this.table);
+        this.subitem$ = this.crudService.GetData(this.table, this.backref);
+        this.appservice.nextMsg('Item');
+        this.appservice.nextMsg('Presupuesto');
       }
 
   });

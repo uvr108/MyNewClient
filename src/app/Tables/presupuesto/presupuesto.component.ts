@@ -44,10 +44,11 @@ export class PresupuestoComponent implements OnInit {
 
     this.appservice.send.subscribe(s => {
       this.msg = s;
-      console.log(this.msg, this.table, s);
 
       if (  s === this.table) {
+        // console.log(this.table);
         this.presupuesto$ = this.crudService.GetData(this.table);
+        this.next = true;
 
         }
 

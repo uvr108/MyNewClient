@@ -35,7 +35,7 @@ httpOptions = {
     // console.log(`crud.service ${table} ${fk}`);
 
     if (fk) {
-      console.log('GeByFk crud : ', this.baseurl + '/api/' + table);
+      // console.log('GeByFk crud : ', this.baseurl + '/api/' + table);
       return this.http.get<any>(this.baseurl + '/api/' + table + '/fk/' + fk)
       .pipe(
         retry(1),
@@ -44,7 +44,7 @@ httpOptions = {
 
     }
     else {
-      console.log(`xxx -> ${this.baseurl}/api/${table}`);
+      // console.log(`xxx -> ${this.baseurl}/api/${table}`);
       return this.http.get<any>(this.baseurl + '/api/' + table)
       .pipe(
         retry(1),
@@ -64,7 +64,7 @@ insert(ref: string, fk: object, compon: object, table: string): Observable<any> 
   var baseurl:string;
 
   if (ref) {
-      console.log('ref', ref);
+      // console.log('ref', ref);
       line = ref + '/';
       for (const [key, value] of Object.entries(fk)) {
       // console.log(key, value);
@@ -76,7 +76,7 @@ insert(ref: string, fk: object, compon: object, table: string): Observable<any> 
       baseurl = this.baseurl + '/api/' + table;
     }
 
-    console.log(baseurl);
+    // console.log(baseurl);
 
     return this.http.post<any>(baseurl, compon, this.httpOptions);
 }
